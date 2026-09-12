@@ -1177,8 +1177,9 @@ cite.testimonial-source {
     appearance: none;
     background: none;
     border: none;
-    padding: 0;
-    margin: 0.15rem 0 0;
+    padding: 0.65rem 0.25rem 0.65rem 0; /* >=44px tap height */
+    margin: 0;
+    min-height: 44px;
     font-family: var(--font-body);
     font-size: 0.9375rem;
     font-weight: 600;
@@ -1561,6 +1562,7 @@ cite.testimonial-source {
 .footer-bottom {
     text-align: center;
     padding-top: var(--spacing-lg);
+    padding-right: 4.5rem; /* keep copyright clear of the WhatsApp FAB */
     border-top: 1px solid var(--border);
 }
 
@@ -1576,7 +1578,7 @@ cite.testimonial-source {
 
 .whatsapp-fab {
     position: fixed;
-    bottom: 2rem;
+    bottom: calc(2rem + env(safe-area-inset-bottom, 0px));
     right: 2rem;
     width: 60px;
     height: 60px;
@@ -1589,6 +1591,11 @@ cite.testimonial-source {
     box-shadow: var(--shadow-lg);
     transition: all var(--transition-base);
     z-index: 1000;
+}
+
+/* Keep page end scrollable clear of the FAB */
+body {
+    padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px));
 }
 
 .whatsapp-fab:hover,
@@ -1625,10 +1632,24 @@ cite.testimonial-source {
     }
     
     .whatsapp-fab {
-        bottom: 1rem;
+        bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
         right: 1rem;
         width: 56px;
         height: 56px;
+    }
+
+    /* Full-width CTAs leave room so labels aren't covered by the FAB */
+    .hero-cta-group .btn,
+    .final-cta-buttons .btn,
+    .free-seekers-cta-group .btn,
+    .pricing-card > .btn {
+        max-width: calc(100% - 4.25rem);
+        align-self: flex-start;
+    }
+
+    .footer-bottom {
+        padding-right: 4.75rem;
+        padding-bottom: 0.25rem;
     }
 }
 
