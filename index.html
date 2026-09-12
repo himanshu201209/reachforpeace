@@ -52,8 +52,11 @@
             "@type": "ProfessionalService",
             "@id": "https://reachforpeace.in/#organization",
             "name": "Reach for Peace",
-            "alternateName": "RFP",
-            "description": "Professional online therapy and counselling with psychologist Dr. Lisha Jindal — available to clients worldwide by appointment.",
+            "alternateName": [
+                "RFP",
+                "Reach for Peace Mind Therapy Clinic"
+            ],
+            "description": "Online therapy and counselling with psychologist Dr. Lisha Jindal for clients in Delhi, Gurugram, across India, and abroad. Anxiety, stress, career pressure, burnout, and relationship counselling with transparent session packages.",
             "url": "https://reachforpeace.in/",
             "image": "https://reachforpeace.in/assets/og-reach-for-peace.png",
             "logo": "https://reachforpeace.in/assets/logo-reach-for-peace.png",
@@ -62,7 +65,21 @@
                 "https://www.instagram.com/reach.for.peace/",
                 "https://www.linkedin.com/company/reachforpeace"
             ],
-            "areaServed": "Worldwide",
+            "areaServed": [
+                {
+                    "@type": "City",
+                    "name": "Delhi"
+                },
+                {
+                    "@type": "City",
+                    "name": "Gurugram"
+                },
+                {
+                    "@type": "Country",
+                    "name": "India"
+                },
+                "Worldwide"
+            ],
             "availableChannel": {
                 "@type": "ServiceChannel",
                 "serviceType": "Online therapy",
@@ -71,7 +88,7 @@
                     "hi-IN"
                 ]
             },
-            "priceRange": "₹₹",
+            "priceRange": "₹1,200-₹1,500",
             "openingHoursSpecification": {
                 "@type": "OpeningHoursSpecification",
                 "dayOfWeek": [
@@ -88,6 +105,39 @@
             },
             "founder": {
                 "@id": "https://reachforpeace.in/#founder"
+            },
+            "employee": {
+                "@id": "https://reachforpeace.in/#founder"
+            },
+            "hasOfferCatalog": {
+                "@type": "OfferCatalog",
+                "name": "Online therapy session packages",
+                "itemListElement": [
+                    {
+                        "@type": "Offer",
+                        "name": "One session",
+                        "description": "Single 50-minute online therapy session",
+                        "price": "1500",
+                        "priceCurrency": "INR",
+                        "availability": "https://schema.org/InStock"
+                    },
+                    {
+                        "@type": "Offer",
+                        "name": "3-session package",
+                        "description": "Three 50-minute online therapy sessions at ₹1,400 per session (₹4,200 total)",
+                        "price": "4200",
+                        "priceCurrency": "INR",
+                        "availability": "https://schema.org/InStock"
+                    },
+                    {
+                        "@type": "Offer",
+                        "name": "6-session package",
+                        "description": "Six 50-minute online therapy sessions at ₹1,200 per session (₹7,200 total)",
+                        "price": "7200",
+                        "priceCurrency": "INR",
+                        "availability": "https://schema.org/InStock"
+                    }
+                ]
             }
         },
         {
@@ -95,15 +145,19 @@
             "@id": "https://reachforpeace.in/#founder",
             "name": "Dr. Lisha Jindal",
             "jobTitle": "Psychologist",
+            "url": "https://reachforpeace.in/#about",
             "worksFor": {
                 "@id": "https://reachforpeace.in/#organization"
             },
             "knowsAbout": [
                 "Anxiety",
                 "Stress",
+                "Career pressure",
+                "Burnout",
                 "Relationship counselling",
-                "Family therapy",
-                "Life coaching"
+                "Family concerns",
+                "Low mood",
+                "Online therapy"
             ]
         },
         {
@@ -118,6 +172,23 @@
             "inLanguage": "en-IN"
         },
         {
+            "@type": "WebPage",
+            "@id": "https://reachforpeace.in/#webpage",
+            "url": "https://reachforpeace.in/",
+            "name": "Online Therapy & Counselling | Psychologist Dr. Lisha Jindal | Reach for Peace",
+            "description": "Online therapy with psychologist Dr. Lisha Jindal for clients in Delhi, Gurugram, across India, and abroad. Anxiety, stress, career pressure & relationship counselling — transparent packages.",
+            "isPartOf": {
+                "@id": "https://reachforpeace.in/#website"
+            },
+            "about": {
+                "@id": "https://reachforpeace.in/#organization"
+            },
+            "mainEntity": {
+                "@id": "https://reachforpeace.in/#organization"
+            },
+            "inLanguage": "en-IN"
+        },
+        {
             "@type": "FAQPage",
             "@id": "https://reachforpeace.in/#faq",
             "mainEntity": [
@@ -126,7 +197,7 @@
                     "name": "Do you offer online therapy worldwide?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "Yes. All sessions are online via secure video or audio calls and available to clients worldwide by appointment."
+                        "text": "Yes. All sessions are online via secure video or audio calls for clients in Delhi, Gurugram, across India, and abroad, by appointment only."
                     }
                 },
                 {
@@ -134,7 +205,7 @@
                     "name": "How much does a therapy session cost?",
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "One session is ₹1,500. A 3-session package is ₹1,400 per session (₹4,200 total). A 6-session package is ₹1,200 per session (₹7,200 total). Message us on WhatsApp to book."
+                        "text": "One session is ₹1,500. A 3-session package is ₹1,400 per session (₹4,200 total). A 6-session package is ₹1,200 per session (₹7,200 total). Student discounts are available — message us on WhatsApp with a valid student ID to ask about the current rate."
                     }
                 },
                 {
@@ -220,6 +291,8 @@
               
               
                 </div>
+
+                <p class="hero-price-note">From ₹1,500 per session · Packages available · Student rates on request</p>
                 
                 <p class="hero-availability"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2v20M2 12h20"/></svg> Online therapy across the world • Mon–Sun, by appointment</p>
             </div>
@@ -409,9 +482,9 @@
         <!-- Pricing -->
         <section class="pricing" id="pricing" aria-labelledby="pricing-heading">
             <div class="container">
-                <h2 id="pricing-heading">Pricing</h2>
+                <h2 id="pricing-heading">Clear, affordable session pricing</h2>
                 
-                <p class="section-intro">All sessions are 50 minutes, online, by appointment. Packages are billed per session at the package rate.</p>
+                <p class="section-intro">All sessions are 50 minutes, online, by appointment. Transparent fees — one session or packages that lower the per-session rate.</p>
 
                 <div class="pricing-grid">
                     <article class="pricing-card">
@@ -693,7 +766,7 @@
                             </svg>
                         </summary>
                         <div class="faq-answer">
-                            <p>One session is ₹1,500. A 3-session package is ₹1,400 per session (₹4,200 total). A 6-session package is ₹1,200 per session (₹7,200 total). Message us on WhatsApp to book.</p>
+                            <p>One session is ₹1,500. A 3-session package is ₹1,400 per session (₹4,200 total). A 6-session package is ₹1,200 per session (₹7,200 total). Student discounts are available — message us on WhatsApp with a valid student ID to ask about the current rate.</p>
                         </div>
                     </details>
                     
