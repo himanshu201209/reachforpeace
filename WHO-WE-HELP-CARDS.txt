@@ -1,0 +1,11 @@
+PROOF — disk index.html already contains these cards (lines ~197–222):
+
+1. Career stress & workplace pressure
+2. Life goals & clarity
+
+If Cursor editor does NOT show them:
+- Your tab is stale. Do NOT Save.
+- Command Palette → “Revert File” (or close tab without saving, reopen index.html)
+- Or open http://127.0.0.1:8765/index.html
+
+File: /Users/himanshuchawla/reach-for-peace-site/site/index.html

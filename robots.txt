@@ -1,0 +1,16 @@
+# Reach for Peace — robots.txt
+# Preferred host (canonical): https://reachforpeace.in/
+# www.reachforpeace.in permanently redirects to the apex host.
+# Cloudflare *.pages.dev hosts send X-Robots-Tag: noindex, nofollow.
+
+User-agent: *
+Allow: /
+
+Allow: /index.html
+Allow: /assets/
+Allow: /css/
+Allow: /js/
+Allow: /privacy.html
+Allow: /terms.html
+
+Sitemap: https://reachforpeace.in/sitemap.xml
