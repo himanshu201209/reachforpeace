@@ -10,7 +10,9 @@ Allow: /index.html
 Allow: /assets/
 Allow: /css/
 Allow: /js/
+Allow: /privacy
 Allow: /privacy.html
+Allow: /terms
 Allow: /terms.html
 Allow: /llms.txt
 

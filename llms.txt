@@ -23,8 +23,8 @@ Reach for Peace (also “RFP”, Reach for Peace Mind Therapy Clinic) is an **on
 
 - [Home — online therapy](https://reachforpeace.in/): Full one-pager — about Dr. Lisha Jindal, who we help, pricing, testimonials, Instagram, FAQs, booking CTAs
 - [Home (index.html)](https://reachforpeace.in/index.html): Same homepage via explicit filename
-- [Privacy Policy](https://reachforpeace.in/privacy.html): How personal data is handled; contact admin@reachforpeace.in
-- [Terms of Service](https://reachforpeace.in/terms.html): Terms for using the site and booking sessions
+- [Privacy Policy](https://reachforpeace.in/privacy): How personal data is handled; contact admin@reachforpeace.in
+- [Terms of Service](https://reachforpeace.in/terms): Terms for using the site and booking sessions
 
 ## Key homepage sections
 
