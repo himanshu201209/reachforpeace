@@ -2029,3 +2029,10 @@ h2::after {
         max-width: calc(100% - 4.25rem);
     }
 }
+
+
+/* Picture wrappers around logos */
+.wordmark picture,
+.footer-logo-link picture {
+    display: contents;
+}

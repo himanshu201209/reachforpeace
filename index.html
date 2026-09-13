@@ -250,7 +250,10 @@
         <div class="container">
             <div class="header-content">
                 <a href="index.html" class="wordmark" aria-label="Reach for Peace — Mind Therapy Clinic">
-                    <img src="assets/logo-reach-for-peace.png" alt="Reach for Peace Mind Therapy Clinic" class="site-logo site-logo--nav" width="270" height="208" decoding="async">
+                    <picture>
+                        <source type="image/webp" srcset="assets/logo-nav.webp">
+                        <img src="assets/logo-nav.png" alt="Reach for Peace Mind Therapy Clinic" class="site-logo site-logo--nav" width="270" height="208" decoding="async" fetchpriority="high">
+                    </picture>
                 </a>
                 <button class="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
                     <span class="hamburger"></span>
@@ -410,13 +413,22 @@
                     </div>
                     
                     <div class="about-avatar">
-                        <img
-                            class="avatar-photo"
-                            src="assets/Snapchat-2008233090.jpg"
-                            alt="Dr. Lisha Jindal, Psychologist"
-                            width="400"
-                            height="400"
-                        >
+                        <picture>
+                            <source
+                                type="image/webp"
+                                srcset="assets/lisha-avatar-400.webp 400w, assets/lisha-avatar-800.webp 800w"
+                                sizes="(max-width: 640px) 70vw, 400px">
+                            <img
+                                class="avatar-photo"
+                                src="assets/lisha-avatar-800.jpg"
+                                srcset="assets/lisha-avatar-400.jpg 400w, assets/lisha-avatar-800.jpg 800w"
+                                sizes="(max-width: 640px) 70vw, 400px"
+                                alt="Dr. Lisha Jindal, Psychologist"
+                                width="400"
+                                height="400"
+                                loading="lazy"
+                                decoding="async">
+                        </picture>
                         <p class="avatar-caption">Dr. Lisha Jindal<br>Psychologist</p>
                     </div>
                 </div>
@@ -929,7 +941,10 @@
             <div class="footer-content">
                 <div class="footer-section footer-brand">
                     <a href="index.html" class="footer-logo-link" aria-label="Reach for Peace — Mind Therapy Clinic">
-                        <img src="assets/logo-reach-for-peace.png" alt="Reach for Peace Mind Therapy Clinic" class="site-logo site-logo--footer" width="240" height="185" decoding="async">
+                        <picture>
+                            <source type="image/webp" srcset="assets/logo-footer.webp">
+                            <img src="assets/logo-footer.png" alt="Reach for Peace Mind Therapy Clinic" class="site-logo site-logo--footer" width="240" height="185" loading="lazy" decoding="async">
+                        </picture>
                     </a>
                     <p>Online therapy worldwide</p>
                 </div>
@@ -982,6 +997,6 @@
     
     <!-- JavaScript -->
     <script src="js/main.js"></script>
-    <script async src="https://www.instagram.com/embed.js"></script>
+    <!-- Instagram embed.js loaded lazily from js/main.js when #instagram is near viewport -->
 </body>
 </html>

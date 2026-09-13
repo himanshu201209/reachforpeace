@@ -468,3 +468,39 @@ function initializePhoneLinks() {
         el.textContent = display;
     });
 }
+
+
+/* Lazy-load Instagram embed.js when the Instagram section nears the viewport */
+(function () {
+  var section = document.getElementById('instagram');
+  if (!section) return;
+
+  function loadEmbed() {
+    if (document.querySelector('script[data-ig-embed]')) return;
+    var s = document.createElement('script');
+    s.src = 'https://www.instagram.com/embed.js';
+    s.async = true;
+    s.dataset.igEmbed = '1';
+    s.onload = function () {
+      if (window.instgrm && window.instgrm.Embeds && typeof window.instgrm.Embeds.process === 'function') {
+        window.instgrm.Embeds.process();
+      }
+    };
+    document.body.appendChild(s);
+  }
+
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(
+      function (entries) {
+        if (entries.some(function (e) { return e.isIntersecting; })) {
+          loadEmbed();
+          io.disconnect();
+        }
+      },
+      { rootMargin: '400px 0px' }
+    );
+    io.observe(section);
+  } else {
+    loadEmbed();
+  }
+})();
