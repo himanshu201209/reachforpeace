@@ -509,7 +509,7 @@ function initializePhoneLinks() {
 
 /* Lazy-load Instagram embed.js when the Instagram section nears the viewport */
 (function () {
-  var section = document.getElementById('instagram');
+  var section = document.getElementById('instagram') || document.querySelector('section.instagram');
   if (!section) return;
 
   function loadEmbed() {
