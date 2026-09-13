@@ -217,6 +217,16 @@ function initializeMobileNav() {
    WhatsApp Links
    ======================================== */
 
+function trackClarityEvent(name) {
+    try {
+        if (typeof window.clarity === 'function') {
+            window.clarity('event', name);
+        }
+    } catch (e) {
+        /* Clarity optional */
+    }
+}
+
 function initializeWhatsAppLinks() {
     // Generate WhatsApp URL with pre-filled message
     function generateWhatsAppURL(messageType) {
@@ -224,8 +234,23 @@ function initializeWhatsAppLinks() {
         const encodedMessage = encodeURIComponent(message);
         return `https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=${encodedMessage}`;
     }
+
+    function bindWhatsAppClick(el, eventName, href) {
+        if (!el) return;
+        if (href) el.href = href;
+        el.setAttribute('data-clarity-event', eventName);
+        el.addEventListener('click', function () {
+            trackClarityEvent(eventName);
+            // Specific CTA location when available
+            if (el.id) {
+                trackClarityEvent(eventName + '_' + el.id);
+            } else if (el.getAttribute('data-whatsapp-package')) {
+                trackClarityEvent(eventName + '_' + el.getAttribute('data-whatsapp-package'));
+            }
+        });
+    }
     
-    // Book session links
+    // Book session links (hero, free-seekers, final, FAB)
     const bookLinks = [
         '#hero-book-whatsapp',
         '#pricing-book-whatsapp',
@@ -233,29 +258,41 @@ function initializeWhatsAppLinks() {
         '#final-book-whatsapp',
         '#whatsapp-fab'
     ];
+    const bookUrl = generateWhatsAppURL('bookSession');
     
     bookLinks.forEach(selector => {
-        const link = document.querySelector(selector);
-        if (link) {
-            link.href = generateWhatsAppURL('bookSession');
-        }
+        bindWhatsAppClick(document.querySelector(selector), 'book_whatsapp_cta', bookUrl);
+    });
+
+    // Pricing package Book buttons
+    document.querySelectorAll('[data-whatsapp-package]').forEach((el) => {
+        bindWhatsAppClick(el, 'book_whatsapp_cta', null);
     });
     
     // Fit call links
     const fitCallLinks = ['#final-fit-call'];
     
     fitCallLinks.forEach(selector => {
-        const link = document.querySelector(selector);
-        if (link) {
-            link.href = generateWhatsAppURL('fitCall');
-        }
+        bindWhatsAppClick(
+            document.querySelector(selector),
+            'fit_call_whatsapp_cta',
+            generateWhatsAppURL('fitCall')
+        );
     });
     
     // Footer WhatsApp link
-    const footerWhatsApp = document.querySelector('#footer-whatsapp');
-    if (footerWhatsApp) {
-        footerWhatsApp.href = generateWhatsAppURL('bookSession');
-    }
+    bindWhatsAppClick(
+        document.querySelector('#footer-whatsapp'),
+        'book_whatsapp_cta',
+        bookUrl
+    );
+
+    // Nav "Book now" scrolls to #book — track intent separately
+    document.querySelectorAll('a.nav-cta[href="#book"]').forEach((el) => {
+        el.addEventListener('click', function () {
+            trackClarityEvent('nav_book_now_click');
+        });
+    });
 }
 
 /* ========================================
