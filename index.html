@@ -81,14 +81,6 @@
                 },
                 "Worldwide"
             ],
-            "availableChannel": {
-                "@type": "ServiceChannel",
-                "serviceType": "Online therapy",
-                "availableLanguage": [
-                    "en-IN",
-                    "hi-IN"
-                ]
-            },
             "priceRange": "₹1,200-₹1,500",
             "openingHoursSpecification": {
                 "@type": "OpeningHoursSpecification",
@@ -116,6 +108,12 @@
                 "itemListElement": [
                     {
                         "@type": "Offer",
+                        "itemOffered": {
+                            "@type": "Service",
+                            "name": "One session",
+                            "description": "Single 50-minute online therapy session",
+                            "serviceType": "Online therapy"
+                        },
                         "name": "One session",
                         "description": "Single 50-minute online therapy session",
                         "price": "1500",
@@ -124,6 +122,12 @@
                     },
                     {
                         "@type": "Offer",
+                        "itemOffered": {
+                            "@type": "Service",
+                            "name": "3-session package",
+                            "description": "Three 50-minute online therapy sessions at ₹1,400 per session (₹4,200 total)",
+                            "serviceType": "Online therapy"
+                        },
                         "name": "3-session package",
                         "description": "Three 50-minute online therapy sessions at ₹1,400 per session (₹4,200 total)",
                         "price": "4200",
@@ -132,6 +136,12 @@
                     },
                     {
                         "@type": "Offer",
+                        "itemOffered": {
+                            "@type": "Service",
+                            "name": "6-session package",
+                            "description": "Six 50-minute online therapy sessions at ₹1,200 per session (₹7,200 total)",
+                            "serviceType": "Online therapy"
+                        },
                         "name": "6-session package",
                         "description": "Six 50-minute online therapy sessions at ₹1,200 per session (₹7,200 total)",
                         "price": "7200",
@@ -139,7 +149,15 @@
                         "availability": "https://schema.org/InStock"
                     }
                 ]
-            }
+            },
+            "knowsLanguage": [
+                "en-IN",
+                "hi-IN"
+            ],
+            "availableLanguage": [
+                "en-IN",
+                "hi-IN"
+            ]
         },
         {
             "@type": "Person",
