@@ -12,5 +12,9 @@ Allow: /css/
 Allow: /js/
 Allow: /privacy.html
 Allow: /terms.html
+Allow: /llms.txt
 
 Sitemap: https://reachforpeace.in/sitemap.xml
+
+# AI / agent discovery
+# https://reachforpeace.in/llms.txt
