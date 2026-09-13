@@ -1026,7 +1026,7 @@ em {
     height: 200px;
     border-radius: 50%;
     object-fit: cover;
-    object-position: center top;
+    object-position: top center;
     margin: 0 auto var(--spacing-md);
     border: 4px solid var(--border);
     display: block;
@@ -1055,6 +1055,12 @@ em {
     
     .about-avatar {
         order: -1;
+    }
+
+    .avatar-photo {
+        width: 220px;
+        height: 220px;
+        object-position: top center;
     }
 }
 
