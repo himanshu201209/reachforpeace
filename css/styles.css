@@ -1622,6 +1622,7 @@ body {
     .final-cta-buttons,
     .free-seekers-cta-group {
         flex-direction: column;
+        align-items: center;
         width: 100%;
     }
     
@@ -1638,13 +1639,13 @@ body {
         height: 56px;
     }
 
-    /* Full-width CTAs leave room so labels aren't covered by the FAB */
+    /* Full-width CTAs leave room so labels aren't covered by the FAB; keep centered */
     .hero-cta-group .btn,
     .final-cta-buttons .btn,
     .free-seekers-cta-group .btn,
     .pricing-card > .btn {
         max-width: calc(100% - 4.25rem);
-        align-self: flex-start;
+        align-self: center;
     }
 
     .footer-bottom {
@@ -1986,4 +1987,34 @@ h2::after {
 .footer-contact li a:hover,
 .footer-contact li a:focus {
     text-decoration: underline;
+}
+
+
+/* Mobile: center all primary CTAs (wins over later pricing margins) */
+@media (max-width: 640px) {
+    .hero-cta-group,
+    .final-cta-buttons,
+    .free-seekers-cta-group {
+        align-items: center;
+    }
+
+    .hero-cta-group .btn,
+    .final-cta-buttons .btn,
+    .free-seekers-cta-group .btn,
+    .pricing-card > .btn,
+    .testimonials-cta,
+    .instagram-cta,
+    .main-nav .nav-actions .nav-call,
+    .main-nav .nav-actions .nav-cta {
+        margin-left: auto !important;
+        margin-right: auto !important;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .pricing-card > .btn {
+        display: flex;
+        width: calc(100% - 4.25rem);
+        max-width: calc(100% - 4.25rem);
+    }
 }
