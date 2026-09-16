@@ -1,6 +1,6 @@
 ---
-title: "Online Therapy & Counselling | Psychologist Dr. Lisha Jindal | Reach for Peace"
-description: "Online therapy with psychologist Dr. Lisha Jindal for clients in Delhi, Gurugram, across India, and abroad. Anxiety, stress, career pressure & relationship counselling — transparent packages."
+title: "Online Therapy & Counselling | Dr. Lisha Jindal"
+description: "Online therapy with psychologist Dr. Lisha Jindal for Delhi, Gurugram, India & abroad. Support for anxiety, stress, career pressure & relationships — transparent packages."
 image: https://reachforpeace.in/assets/og-reach-for-peace.png
 ---
 
