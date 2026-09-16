@@ -2,8 +2,12 @@
 # Preferred host (canonical): https://reachforpeace.in/
 # www.reachforpeace.in permanently redirects to the apex host.
 # Cloudflare *.pages.dev hosts send X-Robots-Tag: noindex, nofollow.
+#
+# Content Signals (https://contentsignals.org/) — AI usage preferences
+# ai-train: model training | search: search/index | ai-input: agentic / RAG use
 
 User-agent: *
+Content-Signal: ai-train=yes, search=yes, ai-input=yes
 Allow: /
 
 Allow: /index.html
