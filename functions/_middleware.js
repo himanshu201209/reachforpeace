@@ -1,7 +1,50 @@
 /**
  * - Redirect www → apex (https://reachforpeace.in) as the global canonical host
  * - Noindex Cloudflare Pages preview/project hosts (*.pages.dev)
+ * - Content negotiation: Accept: text/markdown → markdown body for agents
  */
+
+function prefersMarkdown(acceptHeader) {
+  if (!acceptHeader) return false;
+  let mdQ = null;
+  let htmlQ = null;
+  for (const part of acceptHeader.split(",")) {
+    const bits = part.trim().split(";").map((s) => s.trim());
+    const type = (bits[0] || "").toLowerCase();
+    let q = 1;
+    for (const bit of bits.slice(1)) {
+      if (bit.startsWith("q=")) {
+        const parsed = Number.parseFloat(bit.slice(2));
+        q = Number.isFinite(parsed) ? parsed : 0;
+      }
+    }
+    if (type === "text/markdown") mdQ = q;
+    if (type === "text/html") htmlQ = q;
+  }
+  if (mdQ === null || mdQ <= 0) return false;
+  if (htmlQ === null) return true;
+  return mdQ >= htmlQ;
+}
+
+function markdownAssetPath(pathname) {
+  const path = pathname.replace(/\/+$/, "") || "/";
+  const map = {
+    "/": "/content/index.md",
+    "/index": "/content/index.md",
+    "/index.html": "/content/index.md",
+    "/privacy": "/content/privacy.md",
+    "/privacy.html": "/content/privacy.md",
+    "/terms": "/content/terms.md",
+    "/terms.html": "/content/terms.md",
+  };
+  return map[path] || null;
+}
+
+function estimateTokens(text) {
+  // Rough token estimate (~4 chars / token), matches common agent heuristics
+  return Math.max(1, Math.round(text.length / 4));
+}
+
 export async function onRequest(context) {
   const request = context.request;
   const url = new URL(request.url);
@@ -12,6 +55,43 @@ export async function onRequest(context) {
     url.protocol = "https:";
     url.hostname = "reachforpeace.in";
     return Response.redirect(url.toString(), 301);
+  }
+
+  // Markdown for Agents — content negotiation
+  if (
+    request.method === "GET" ||
+    request.method === "HEAD"
+  ) {
+    const accept = request.headers.get("accept") || "";
+    const mdPath = markdownAssetPath(url.pathname);
+    if (mdPath && prefersMarkdown(accept) && context.env && context.env.ASSETS) {
+      const assetUrl = new URL(mdPath, url.origin);
+      const mdRes = await context.env.ASSETS.fetch(assetUrl);
+      if (mdRes.ok) {
+        const markdown = await mdRes.text();
+        const headers = new Headers();
+        headers.set("Content-Type", "text/markdown; charset=utf-8");
+        headers.set("Vary", "Accept");
+        headers.set("Cache-Control", "public, max-age=300, must-revalidate");
+        headers.set("x-markdown-tokens", String(estimateTokens(markdown)));
+        headers.set(
+          "content-signal",
+          "ai-train=yes, search=yes, ai-input=yes"
+        );
+        if (host === "reachforpeace.in") {
+          const canonicalPath =
+            url.pathname === "/index.html" ? "/" : url.pathname;
+          const canonical = `https://reachforpeace.in${
+            canonicalPath === "/" ? "/" : canonicalPath.replace(/\.html$/, "")
+          }`;
+          headers.set("Link", `<${canonical}>; rel="canonical"`);
+        }
+        if (request.method === "HEAD") {
+          return new Response(null, { status: 200, headers });
+        }
+        return new Response(markdown, { status: 200, headers });
+      }
+    }
   }
 
   const response = await context.next();
@@ -32,8 +112,14 @@ export async function onRequest(context) {
     if (contentType.includes("text/html")) {
       const headers = new Headers(response.headers);
       const path = url.pathname === "/" ? "/" : url.pathname;
-      const canonical = `https://reachforpeace.in${path === "/index.html" ? "/" : path}`;
+      const canonical = `https://reachforpeace.in${
+        path === "/index.html" ? "/" : path
+      }`;
       headers.set("Link", `<${canonical}>; rel="canonical"`);
+      // Help caches distinguish HTML vs markdown variants if CF edge converts later
+      const vary = headers.get("Vary");
+      if (!vary) headers.set("Vary", "Accept");
+      else if (!/\bAccept\b/i.test(vary)) headers.set("Vary", `${vary}, Accept`);
       return new Response(response.body, {
         status: response.status,
         statusText: response.statusText,

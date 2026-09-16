@@ -15,6 +15,7 @@ Allow: /privacy.html
 Allow: /terms
 Allow: /terms.html
 Allow: /llms.txt
+Allow: /content/
 
 Sitemap: https://reachforpeace.in/sitemap.xml
 
