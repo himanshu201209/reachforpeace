@@ -283,6 +283,9 @@ Before going live, test:
 - [ ] Focus indicators are visible
 - [ ] Screen reader announces content correctly
 - [ ] No console errors in browser DevTools
+- [ ] **Markdown for Agents:** `curl -sI https://YOUR-DOMAIN/ -H "Accept: text/markdown"` returns `content-type: text/markdown` (HTML still default without that header)
+- [ ] **Content-Signal** present in `/robots.txt` (`ai-train` / `search` / `ai-input`)
+- [ ] Optional: pass [isitagentready.com](https://isitagentready.com) markdown + content-signals checks
 
 ## 📝 Content Notes
 
@@ -330,8 +333,10 @@ This website is proprietary to Reach for Peace and Dr. Lisha Jindal.
 8. [ ] Run full testing checklist above
 9. [ ] Deploy to hosting platform
 10. [ ] Test live site thoroughly
-11. [ ] Submit to Google Search Console
-12. [ ] Share on social media / Instagram
+11. [ ] Enable **Markdown for Agents** (Cloudflare Pro+: AI Crawl Control → Markdown for Agents; or Free: Pages middleware + `content/*.md` like this repo) and verify with `Accept: text/markdown`
+12. [ ] Confirm **Content-Signal** in `robots.txt`
+13. [ ] Submit to Google Search Console (+ Bing Webmaster / IndexNow or Cloudflare Crawler Hints)
+14. [ ] Share on social media / Instagram
 
 ---
 
