@@ -106,8 +106,8 @@ export async function onRequest(context) {
     });
   }
 
-  // Hint preferred host for HTML on the apex domain
-  if (host === "reachforpeace.in") {
+  // Hint preferred host for HTML on the apex domain (skip errors / 404)
+  if (host === "reachforpeace.in" && response.ok) {
     const contentType = response.headers.get("content-type") || "";
     if (contentType.includes("text/html")) {
       const headers = new Headers(response.headers);
