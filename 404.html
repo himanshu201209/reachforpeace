@@ -18,9 +18,23 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <style>
+        html, body {
+            min-height: 100vh;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+        }
         .error-page {
-            padding: 4.5rem 0 5rem;
+            flex: 1;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
+            padding: 2rem 1.25rem;
+            box-sizing: border-box;
         }
         .error-page .error-code {
             font-family: Lora, Georgia, serif;
@@ -46,24 +60,9 @@
             flex-wrap: wrap;
             gap: 0.75rem 1rem;
             justify-content: center;
-            margin-bottom: 2rem;
-        }
-        .error-page .helpful-links {
-            list-style: none;
-            padding: 0;
-            margin: 0 auto;
-            max-width: 28rem;
-            text-align: left;
-        }
-        .error-page .helpful-links li {
-            margin: 0.5rem 0;
-        }
-        .error-page .helpful-links a {
-            color: #164886;
-            font-weight: 600;
         }
         .error-page .crisis-note {
-            margin-top: 2.5rem;
+            margin-top: 2rem;
             font-size: 0.95rem;
             color: #64748b;
         }
@@ -71,50 +70,17 @@
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
-    <header class="site-header" role="banner">
+    <main id="main-content" class="error-page" aria-labelledby="error-heading">
         <div class="container">
-            <div class="header-content">
-                <a href="/" class="wordmark">Reach for Peace</a>
-                <nav class="main-nav" role="navigation" aria-label="Main navigation">
-                    <ul>
-                        <li><a href="/">Home</a></li>
-                        <li><a href="/#about">About</a></li>
-                        <li><a href="/#pricing">Pricing</a></li>
-                        <li><a href="/#faq">FAQs</a></li>
-                    </ul>
-                </nav>
+            <p class="error-code" aria-hidden="true">404</p>
+            <h1 id="error-heading">Page not found</h1>
+            <p class="lead">That link doesn’t go anywhere on this site. You can head home or book a session.</p>
+            <div class="error-actions">
+                <a class="btn btn-primary" href="/">Back to home</a>
+                <a class="btn btn-secondary" href="/#book">Book a session</a>
             </div>
+            <p class="crisis-note">In crisis? This clinic is not a 24×7 emergency service. Contact Tele-MANAS at <a href="tel:14416">14416</a>.</p>
         </div>
-    </header>
-
-    <main id="main-content">
-        <section class="error-page" aria-labelledby="error-heading">
-            <div class="container">
-                <p class="error-code" aria-hidden="true">404</p>
-                <h1 id="error-heading">Page not found</h1>
-                <p class="lead">That link doesn’t go anywhere on this site. You can head home, book a session, or jump to a section below.</p>
-                <div class="error-actions">
-                    <a class="btn btn-primary" href="/">Back to home</a>
-                    <a class="btn btn-secondary" href="/#book">Book a session</a>
-                </div>
-                <ul class="helpful-links">
-                    <li><a href="/#about">About Dr. Lisha Jindal</a></li>
-                    <li><a href="/#pricing">Session pricing</a></li>
-                    <li><a href="/#faq">FAQs</a></li>
-                    <li><a href="/privacy">Privacy policy</a></li>
-                    <li><a href="/terms">Terms of service</a></li>
-                </ul>
-                <p class="crisis-note">In crisis? This clinic is not a 24×7 emergency service. Contact Tele-MANAS at <a href="tel:14416">14416</a>.</p>
-            </div>
-        </section>
     </main>
-
-    <footer class="site-footer" role="contentinfo">
-        <div class="container">
-            <p style="text-align:center;margin:0;padding:2rem 0;color:#64748b;font-size:0.9rem;">
-                © Reach for Peace · <a href="mailto:admin@reachforpeace.in">admin@reachforpeace.in</a>
-            </p>
-        </div>
-    </footer>
 </body>
 </html>
