@@ -3,7 +3,7 @@
    ======================================== */
 
 /* ========================================
-   CONFIGURATION - REPLACE BEFORE PUBLISHING
+   CONFIGURATION
    ======================================== */
 
 const CONFIG = {
@@ -12,8 +12,8 @@ const CONFIG = {
     // Phone for tel: links (same digits as WhatsApp unless you set a different line)
     PHONE_NUMBER: '919999920290',
     
-    // REPLACE WITH YOUR ACTUAL SESSION FEE (just the number, e.g. "2000")
-    SESSION_FEE: '1500', // single session; packages shown on page
+    // Session fee (single session; packages shown on page)
+    SESSION_FEE: '1500',
     
     // Email
     EMAIL: 'admin@reachforpeace.in',
