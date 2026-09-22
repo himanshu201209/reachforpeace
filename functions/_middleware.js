@@ -45,6 +45,36 @@ function estimateTokens(text) {
   return Math.max(1, Math.round(text.length / 4));
 }
 
+
+function withSecurityHeaders(headers) {
+  const h = headers instanceof Headers ? headers : new Headers(headers);
+  h.set(
+    "Strict-Transport-Security",
+    "max-age=31536000; includeSubDomains"
+  );
+  h.set("X-Frame-Options", "SAMEORIGIN");
+  h.set("X-Content-Type-Options", "nosniff");
+  h.set("Referrer-Policy", "strict-origin-when-cross-origin");
+  // Allow Clarity, Google Fonts, Instagram embeds; block framing by others via frame-ancestors
+  h.set(
+    "Content-Security-Policy",
+    [
+      "default-src 'self'",
+      "base-uri 'self'",
+      "object-src 'none'",
+      "frame-ancestors 'self'",
+      "form-action 'self'",
+      "script-src 'self' 'unsafe-inline' https://www.clarity.ms https://scripts.clarity.ms https://www.instagram.com",
+      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+      "font-src 'self' https://fonts.gstatic.com data:",
+      "img-src 'self' data: blob: https:",
+      "connect-src 'self' https://www.clarity.ms https://*.clarity.ms https://c.bing.com https://c.clarity.ms",
+      "frame-src https://www.instagram.com https://instagram.com",
+    ].join("; ")
+  );
+  return h;
+}
+
 export async function onRequest(context) {
   const request = context.request;
   const url = new URL(request.url);
@@ -69,7 +99,7 @@ export async function onRequest(context) {
       const mdRes = await context.env.ASSETS.fetch(assetUrl);
       if (mdRes.ok) {
         const markdown = await mdRes.text();
-        const headers = new Headers();
+        const headers = withSecurityHeaders(new Headers());
         headers.set("Content-Type", "text/markdown; charset=utf-8");
         headers.set("Vary", "Accept");
         headers.set("Cache-Control", "public, max-age=300, must-revalidate");
@@ -97,7 +127,7 @@ export async function onRequest(context) {
   const response = await context.next();
 
   if (host.endsWith(".pages.dev")) {
-    const headers = new Headers(response.headers);
+    const headers = withSecurityHeaders(new Headers(response.headers));
     headers.set("X-Robots-Tag", "noindex, nofollow");
     return new Response(response.body, {
       status: response.status,
@@ -110,11 +140,17 @@ export async function onRequest(context) {
   if (host === "reachforpeace.in" && response.ok) {
     const contentType = response.headers.get("content-type") || "";
     if (contentType.includes("text/html")) {
-      const headers = new Headers(response.headers);
+      const headers = withSecurityHeaders(new Headers(response.headers));
       const path = url.pathname === "/" ? "/" : url.pathname;
-      const canonical = `https://reachforpeace.in${
-        path === "/index.html" ? "/" : path
-      }`;
+      const clean =
+        path === "/index.html"
+          ? "/"
+          : path === "/privacy.html"
+            ? "/privacy"
+            : path === "/terms.html"
+              ? "/terms"
+              : path;
+      const canonical = `https://reachforpeace.in${clean}`;
       headers.set("Link", `<${canonical}>; rel="canonical"`);
       // Help caches distinguish HTML vs markdown variants if CF edge converts later
       const vary = headers.get("Vary");
@@ -126,6 +162,15 @@ export async function onRequest(context) {
         headers,
       });
     }
+  }
+
+  // Security headers on other apex responses (404, assets passthrough HTML, etc.)
+  if (host === "reachforpeace.in") {
+    return new Response(response.body, {
+      status: response.status,
+      statusText: response.statusText,
+      headers: withSecurityHeaders(new Headers(response.headers)),
+    });
   }
 
   return response;

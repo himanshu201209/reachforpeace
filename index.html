@@ -48,193 +48,273 @@
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
 {
-    "@context": "https://schema.org",
-    "@graph": [
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ProfessionalService",
+      "@id": "https://reachforpeace.in/#organization",
+      "name": "Reach for Peace",
+      "alternateName": [
+        "RFP",
+        "Reach for Peace Mind Therapy Clinic"
+      ],
+      "description": "Online therapy and counselling with psychologist Dr. Lisha Jindal for clients in Delhi, Gurugram, across India, and abroad. Anxiety, stress, career pressure, burnout, and relationship counselling with transparent session packages.",
+      "url": "https://reachforpeace.in/",
+      "image": "https://reachforpeace.in/assets/og-reach-for-peace.png",
+      "logo": "https://reachforpeace.in/assets/logo-reach-for-peace.png",
+      "email": "admin@reachforpeace.in",
+      "sameAs": [
+        "https://www.instagram.com/reach.for.peace/",
+        "https://www.linkedin.com/company/reachforpeace"
+      ],
+      "areaServed": [
         {
-            "@type": "ProfessionalService",
-            "@id": "https://reachforpeace.in/#organization",
-            "name": "Reach for Peace",
-            "alternateName": [
-                "RFP",
-                "Reach for Peace Mind Therapy Clinic"
-            ],
-            "description": "Online therapy and counselling with psychologist Dr. Lisha Jindal for clients in Delhi, Gurugram, across India, and abroad. Anxiety, stress, career pressure, burnout, and relationship counselling with transparent session packages.",
-            "url": "https://reachforpeace.in/",
-            "image": "https://reachforpeace.in/assets/og-reach-for-peace.png",
-            "logo": "https://reachforpeace.in/assets/logo-reach-for-peace.png",
-            "email": "admin@reachforpeace.in",
-            "sameAs": [
-                "https://www.instagram.com/reach.for.peace/",
-                "https://www.linkedin.com/company/reachforpeace"
-            ],
-            "areaServed": [
-                {
-                    "@type": "City",
-                    "name": "Delhi"
-                },
-                {
-                    "@type": "City",
-                    "name": "Gurugram"
-                },
-                {
-                    "@type": "Country",
-                    "name": "India"
-                },
-                "Worldwide"
-            ],
-            "priceRange": "₹1,200-₹1,500",
-            "openingHoursSpecification": {
-                "@type": "OpeningHoursSpecification",
-                "dayOfWeek": [
-                    "Monday",
-                    "Tuesday",
-                    "Wednesday",
-                    "Thursday",
-                    "Friday",
-                    "Saturday",
-                    "Sunday"
-                ],
-                "opens": "09:00",
-                "closes": "20:00"
-            },
-            "founder": {
-                "@id": "https://reachforpeace.in/#founder"
-            },
-            "employee": {
-                "@id": "https://reachforpeace.in/#founder"
-            },
-            "hasOfferCatalog": {
-                "@type": "OfferCatalog",
-                "name": "Online therapy session packages",
-                "itemListElement": [
-                    {
-                        "@type": "Offer",
-                        "itemOffered": {
-                            "@type": "Service",
-                            "name": "One session",
-                            "description": "Single 50-minute online therapy session",
-                            "serviceType": "Online therapy"
-                        },
-                        "name": "One session",
-                        "description": "Single 50-minute online therapy session",
-                        "price": "1500",
-                        "priceCurrency": "INR",
-                        "availability": "https://schema.org/InStock"
-                    },
-                    {
-                        "@type": "Offer",
-                        "itemOffered": {
-                            "@type": "Service",
-                            "name": "3-session package",
-                            "description": "Three 50-minute online therapy sessions at ₹1,400 per session (₹4,200 total)",
-                            "serviceType": "Online therapy"
-                        },
-                        "name": "3-session package",
-                        "description": "Three 50-minute online therapy sessions at ₹1,400 per session (₹4,200 total)",
-                        "price": "4200",
-                        "priceCurrency": "INR",
-                        "availability": "https://schema.org/InStock"
-                    },
-                    {
-                        "@type": "Offer",
-                        "itemOffered": {
-                            "@type": "Service",
-                            "name": "6-session package",
-                            "description": "Six 50-minute online therapy sessions at ₹1,200 per session (₹7,200 total)",
-                            "serviceType": "Online therapy"
-                        },
-                        "name": "6-session package",
-                        "description": "Six 50-minute online therapy sessions at ₹1,200 per session (₹7,200 total)",
-                        "price": "7200",
-                        "priceCurrency": "INR",
-                        "availability": "https://schema.org/InStock"
-                    }
-                ]
-            },
-            "knowsLanguage": [
-                "en-IN",
-                "hi-IN"
-            ]
+          "@type": "City",
+          "name": "Delhi"
         },
         {
-            "@type": "Person",
-            "@id": "https://reachforpeace.in/#founder",
-            "name": "Dr. Lisha Jindal",
-            "jobTitle": "Psychologist",
-            "url": "https://reachforpeace.in/#about",
-            "worksFor": {
-                "@id": "https://reachforpeace.in/#organization"
-            },
-            "knowsAbout": [
-                "Anxiety",
-                "Stress",
-                "Career pressure",
-                "Burnout",
-                "Relationship counselling",
-                "Family concerns",
-                "Low mood",
-                "Online therapy"
-            ]
+          "@type": "City",
+          "name": "Gurugram"
         },
         {
-            "@type": "WebSite",
-            "@id": "https://reachforpeace.in/#website",
-            "url": "https://reachforpeace.in/",
-            "name": "Reach for Peace",
-            "description": "Online therapy with psychologist Dr. Lisha Jindal for clients in Delhi, Gurugram, across India, and abroad. Anxiety, stress, career pressure & relationship counselling — transparent packages.",
-            "publisher": {
-                "@id": "https://reachforpeace.in/#organization"
+          "@type": "Country",
+          "name": "India"
+        },
+        "Worldwide"
+      ],
+      "priceRange": "₹1,200-₹1,500",
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday"
+        ],
+        "opens": "09:00",
+        "closes": "20:00"
+      },
+      "founder": {
+        "@id": "https://reachforpeace.in/#founder"
+      },
+      "employee": {
+        "@id": "https://reachforpeace.in/#founder"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Online therapy session packages",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "One session",
+              "description": "Single 50-minute online therapy session",
+              "serviceType": "Online therapy"
             },
-            "inLanguage": "en-IN"
+            "name": "One session",
+            "description": "Single 50-minute online therapy session",
+            "price": "1500",
+            "priceCurrency": "INR",
+            "availability": "https://schema.org/InStock"
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "3-session package",
+              "description": "Three 50-minute online therapy sessions at ₹1,400 per session (₹4,200 total)",
+              "serviceType": "Online therapy"
+            },
+            "name": "3-session package",
+            "description": "Three 50-minute online therapy sessions at ₹1,400 per session (₹4,200 total)",
+            "price": "4200",
+            "priceCurrency": "INR",
+            "availability": "https://schema.org/InStock"
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "6-session package",
+              "description": "Six 50-minute online therapy sessions at ₹1,200 per session (₹7,200 total)",
+              "serviceType": "Online therapy"
+            },
+            "name": "6-session package",
+            "description": "Six 50-minute online therapy sessions at ₹1,200 per session (₹7,200 total)",
+            "price": "7200",
+            "priceCurrency": "INR",
+            "availability": "https://schema.org/InStock"
+          }
+        ]
+      },
+      "knowsLanguage": [
+        "en-IN",
+        "hi-IN"
+      ]
+    },
+    {
+      "@type": "Person",
+      "@id": "https://reachforpeace.in/#founder",
+      "name": "Dr. Lisha Jindal",
+      "jobTitle": "Psychologist",
+      "url": "https://reachforpeace.in/#about",
+      "worksFor": {
+        "@id": "https://reachforpeace.in/#organization"
+      },
+      "knowsAbout": [
+        "Anxiety",
+        "Stress",
+        "Career pressure",
+        "Burnout",
+        "Relationship counselling",
+        "Family concerns",
+        "Low mood",
+        "Online therapy"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://reachforpeace.in/#website",
+      "url": "https://reachforpeace.in/",
+      "name": "Reach for Peace",
+      "description": "Online therapy with psychologist Dr. Lisha Jindal for clients in Delhi, Gurugram, across India, and abroad. Anxiety, stress, career pressure & relationship counselling — transparent packages.",
+      "publisher": {
+        "@id": "https://reachforpeace.in/#organization"
+      },
+      "inLanguage": "en-IN"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://reachforpeace.in/#webpage",
+      "url": "https://reachforpeace.in/",
+      "name": "Online Therapy & Counselling | Psychologist Dr. Lisha Jindal | Reach for Peace",
+      "description": "Online therapy with psychologist Dr. Lisha Jindal for clients in Delhi, Gurugram, across India, and abroad. Anxiety, stress, career pressure & relationship counselling — transparent packages.",
+      "isPartOf": {
+        "@id": "https://reachforpeace.in/#website"
+      },
+      "about": {
+        "@id": "https://reachforpeace.in/#organization"
+      },
+      "mainEntity": {
+        "@id": "https://reachforpeace.in/#organization"
+      },
+      "inLanguage": "en-IN"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://reachforpeace.in/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Do you offer online therapy across India?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. All sessions are online via secure video or audio calls for clients in Delhi, Gurugram, across India, and abroad, by appointment only."
+          }
         },
         {
-            "@type": "WebPage",
-            "@id": "https://reachforpeace.in/#webpage",
-            "url": "https://reachforpeace.in/",
-            "name": "Online Therapy & Counselling | Psychologist Dr. Lisha Jindal | Reach for Peace",
-            "description": "Online therapy with psychologist Dr. Lisha Jindal for clients in Delhi, Gurugram, across India, and abroad. Anxiety, stress, career pressure & relationship counselling — transparent packages.",
-            "isPartOf": {
-                "@id": "https://reachforpeace.in/#website"
-            },
-            "about": {
-                "@id": "https://reachforpeace.in/#organization"
-            },
-            "mainEntity": {
-                "@id": "https://reachforpeace.in/#organization"
-            },
-            "inLanguage": "en-IN"
+          "@type": "Question",
+          "name": "How much does a therapy session cost?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "One session is ₹1,500. A 3-session package is ₹1,400 per session (₹4,200 total). A 6-session package is ₹1,200 per session (₹7,200 total). Student discounts are available — message us on WhatsApp with a valid student ID to ask about the current rate."
+          }
         },
         {
-            "@type": "FAQPage",
-            "@id": "https://reachforpeace.in/#faq",
-            "mainEntity": [
-                {
-                    "@type": "Question",
-                    "name": "Do you offer online therapy worldwide?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "Yes. All sessions are online via secure video or audio calls for clients in Delhi, Gurugram, across India, and abroad, by appointment only."
-                    }
-                },
-                {
-                    "@type": "Question",
-                    "name": "How much does a therapy session cost?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "One session is ₹1,500. A 3-session package is ₹1,400 per session (₹4,200 total). A 6-session package is ₹1,200 per session (₹7,200 total). Student discounts are available — message us on WhatsApp with a valid student ID to ask about the current rate."
-                    }
-                },
-                {
-                    "@type": "Question",
-                    "name": "Is Reach for Peace a 24×7 service?",
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "No. We operate by appointment only, Monday to Sunday. For 24×7 crisis support in India, contact Tele-MANAS at 14416."
-                    }
-                }
-            ]
+          "@type": "Question",
+          "name": "What happens in a therapy session?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sessions are a confidential space to talk through what's on your mind. Dr. Jindal will listen, help you identify patterns, and work with you to develop practical coping strategies and insights. Each 50-minute session is tailored to your specific concerns."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I prepare for my first session?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No special preparation needed. Find a quiet, private space where you feel comfortable. Think about what brings you to therapy, but you don't need to have everything organised — we'll explore together."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my information confidential?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, completely. All sessions are private and confidential, following professional ethical guidelines for psychologists in India. Information is only shared with your explicit consent or in rare legally required circumstances (such as risk of harm)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you offer free therapy?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Reach for Peace is a paid professional service. If you need free support, please contact Tele-MANAS at 14416 — a 24×7 government mental health helpline available across India."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Reach for Peace a 24×7 service?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No, we operate by appointment only, Monday to Sunday. This is not an emergency or crisis service. For 24×7 crisis support, please contact Tele-MANAS at 14416."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What concerns can you help with?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We support you navigating anxiety, stress, burnout, overthinking, relationship challenges, family dynamics, low mood, and life transitions. If you're unsure whether therapy is right for your situation, book a fit call to discuss."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Who is the therapist?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Dr. Lisha Jindal is a psychologist and founder of RFP, with an M.A. & Psy.D (HC) in clinical psychology, along with specialised training in relationship & family therapy & Life coaching. She brings a warm, individualised approach to counselling for anxiety, stress, relationship challenges, attachment issues, overthinking and life transitions."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What languages do you offer therapy in?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sessions are available in English and Hindi."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I book a session?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Send a message via WhatsApp or email with a brief note about what brings you here. We'll arrange a 15-minute fit call, and if it's a good match, we'll schedule your first paid session."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can you prescribe medication?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. As a psychologist, Dr. Jindal provides therapy and counselling but does not prescribe medication. If medication is needed, we can coordinate with a psychiatrist."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you work with NRIs or clients in different time zones?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Case-by-case basis. Sessions are scheduled during Indian Standard Time (IST) working hours, Monday to Sunday. Please inquire if you're in a different time zone."
+          }
         }
-    ]
+      ]
+    }
+  ]
 }
     </script>
 
@@ -300,7 +380,7 @@
                 <p class="hero-subcopy">Online therapy and counselling for clients worldwide. Reach for Peace provides professional therapy for anxiety, stress, burnout, relationship counselling, family concerns, and low mood with psychologist Dr. Lisha Jindal.</p>
                 
                 <div class="hero-cta-group">
-                    <a href="#" class="btn btn-primary btn-whatsapp" id="hero-book-whatsapp" aria-label="Book session now on WhatsApp">
+                    <a href="https://wa.me/919999920290?text=Hi%2C%20I%20would%20like%20to%20book%20a%20therapy%20session%20with%20Reach%20for%20Peace." class="btn btn-primary btn-whatsapp" id="hero-book-whatsapp" aria-label="Book session now on WhatsApp">
                         <svg class="whatsapp-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
                         </svg>
@@ -530,7 +610,7 @@
                                 <li>Flexible scheduling by appointment</li>
                             </ul>
                         </div>
-                        <a href="#" class="btn btn-primary btn-whatsapp" data-whatsapp-package="one-session" aria-label="Book one session on WhatsApp">
+                        <a href="https://wa.me/919999920290?text=Hi%2C%20I%20would%20like%20to%20book%201%20session%20%28%E2%82%B91%2C500%29%20with%20Reach%20for%20Peace." class="btn btn-primary btn-whatsapp" data-whatsapp-package="one-session" aria-label="Book one session on WhatsApp">
                             <svg class="whatsapp-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
                         </svg>
@@ -559,7 +639,7 @@
                                 <li>Continuity with the same therapist</li>
                             </ul>
                         </div>
-                        <a href="#" class="btn btn-primary btn-whatsapp" data-whatsapp-package="three-session" aria-label="Book 3 sessions on WhatsApp">
+                        <a href="https://wa.me/919999920290?text=Hi%2C%20I%20would%20like%20to%20book%20the%203-session%20package%20%28%E2%82%B91%2C400/session%29%20with%20Reach%20for%20Peace." class="btn btn-primary btn-whatsapp" data-whatsapp-package="three-session" aria-label="Book 3 sessions on WhatsApp">
                             <svg class="whatsapp-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
                         </svg>
@@ -587,7 +667,7 @@
                                 <li>Best rate for ongoing therapy</li>
                             </ul>
                         </div>
-                        <a href="#" class="btn btn-primary btn-whatsapp" data-whatsapp-package="six-session" aria-label="Book 6 sessions on WhatsApp">
+                        <a href="https://wa.me/919999920290?text=Hi%2C%20I%20would%20like%20to%20book%20the%206-session%20package%20%28%E2%82%B91%2C200/session%29%20with%20Reach%20for%20Peace." class="btn btn-primary btn-whatsapp" data-whatsapp-package="six-session" aria-label="Book 6 sessions on WhatsApp">
                             <svg class="whatsapp-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
                         </svg>
@@ -760,7 +840,7 @@
                     
                     <div class="free-seekers-cta-group">
                         <a href="tel:14416" class="btn btn-secondary">Call Tele-MANAS 14416</a>
-                        <a href="#" class="btn btn-primary btn-whatsapp" id="free-seekers-book-whatsapp" aria-label="Book paid session on WhatsApp">Book paid session</a>
+                        <a href="https://wa.me/919999920290?text=Hi%2C%20I%20would%20like%20to%20book%20a%20therapy%20session%20with%20Reach%20for%20Peace." class="btn btn-primary btn-whatsapp" id="free-seekers-book-whatsapp" aria-label="Book paid session on WhatsApp">Book paid session</a>
                     </div>
                 </div>
             </div>
@@ -938,13 +1018,13 @@
                 <p class="final-cta-text">You don't have to go through it alone. Book a session or start with a 15-minute fit call.</p>
                 
                 <div class="final-cta-buttons">
-                    <a href="#" class="btn btn-primary btn-whatsapp btn-large" id="final-book-whatsapp" aria-label="Book paid session on WhatsApp">
+                    <a href="https://wa.me/919999920290?text=Hi%2C%20I%20would%20like%20to%20book%20a%20therapy%20session%20with%20Reach%20for%20Peace." class="btn btn-primary btn-whatsapp btn-large" id="final-book-whatsapp" aria-label="Book paid session on WhatsApp">
                         <svg class="whatsapp-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
                         </svg>
                         Book via WhatsApp
                     </a>
-                    <a href="#" class="btn btn-secondary btn-large" id="final-fit-call" aria-label="Book 15-minute fit call">15-min fit call</a>
+                    <a href="https://wa.me/919999920290?text=Hi%2C%20I%20would%20like%20to%20schedule%20a%2015-minute%20fit%20call%20to%20learn%20more%20about%20therapy%20at%20Reach%20for%20Peace." class="btn btn-secondary btn-large" id="final-fit-call" aria-label="Book 15-minute fit call">15-min fit call</a>
                 </div>
             </div>
         </section>
@@ -968,7 +1048,7 @@
                     <h4>Contact</h4>
                     <ul>
                         <li><a href="tel:+919999920290" id="footer-phone" class="footer-phone"><span class="footer-phone-label">Call:</span> <span id="phone-display">+91 99999 20290</span></a></li>
-                        <li><a href="#" id="footer-whatsapp">WhatsApp: <span id="whatsapp-display">+91 99999 20290</span></a></li>
+                        <li><a href="https://wa.me/919999920290?text=Hi%2C%20I%20would%20like%20to%20book%20a%20therapy%20session%20with%20Reach%20for%20Peace." id="footer-whatsapp">WhatsApp: <span id="whatsapp-display">+91 99999 20290</span></a></li>
                         <li><a href="mailto:admin@reachforpeace.in" id="footer-email">admin@reachforpeace.in</a></li>
                         <li>
                             <a href="https://www.instagram.com/reach.for.peace/" class="footer-instagram" target="_blank" rel="noopener noreferrer" aria-label="Reach for Peace on Instagram">
@@ -1004,7 +1084,7 @@
     </footer>
     
     <!-- WhatsApp Floating Action Button -->
-    <a href="#" class="whatsapp-fab" id="whatsapp-fab" aria-label="Message us on WhatsApp">
+    <a href="https://wa.me/919999920290?text=Hi%2C%20I%20would%20like%20to%20book%20a%20therapy%20session%20with%20Reach%20for%20Peace." class="whatsapp-fab" id="whatsapp-fab" aria-label="Message us on WhatsApp">
         <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
         </svg>
