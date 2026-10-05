@@ -2150,7 +2150,6 @@ h2::after {
 
 /* Approach Section */
 .approach {
-    background-color: var(--surface);
     padding: var(--spacing-3xl) 0;
 }
 
@@ -2198,7 +2197,6 @@ h2::after {
 
 /* Related Services */
 .related-services {
-    background-color: var(--surface);
     padding: var(--spacing-3xl) 0;
 }
 
@@ -2249,7 +2247,13 @@ h2::after {
 
 /* About - Compact Version */
 .about--compact {
+    background-color: var(--surface);
     padding: var(--spacing-3xl) 0;
+}
+
+/* Utility: Override section background to white (for service page alternation) */
+.section--white-bg {
+    background-color: white !important;
 }
 
 .about--compact .about-content {
