@@ -51,6 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeGoogleReviewsLink();
     initializeTestimonialDialog();
     initializeInstagramEmbeds();
+    initializeMobileSliders();
 });
 
 /* ========================================
@@ -507,6 +508,232 @@ function initializePhoneLinks() {
 }
 
 
+
+
+/* ========================================
+   Mobile Swiper sliders (Testimonials + Instagram)
+   Active only at max-width 768px; destroyed on desktop.
+   ======================================== */
+
+function processInstagramEmbeds() {
+    if (window.instgrm && window.instgrm.Embeds && typeof window.instgrm.Embeds.process === 'function') {
+        window.instgrm.Embeds.process();
+    }
+}
+
+function initializeMobileSliders() {
+    if (typeof Swiper === 'undefined') return;
+
+    const mq = window.matchMedia('(max-width: 768px)');
+    let testimonialsSwiper = null;
+    let instagramSwiper = null;
+
+    function destroySwiper(instance) {
+        if (!instance) return null;
+        try {
+            instance.destroy(true, true);
+        } catch (e) {
+            /* ignore */
+        }
+        return null;
+    }
+
+    function initTestimonials() {
+        const el = document.getElementById('testimonials-swiper');
+        if (!el || testimonialsSwiper) return;
+
+        testimonialsSwiper = new Swiper(el, {
+            slidesPerView: 1.08,
+            spaceBetween: 16,
+            centeredSlides: false,
+            allowTouchMove: true,
+            watchOverflow: true,
+            autoHeight: true,
+            navigation: {
+                nextEl: el.querySelector('.swiper-button-next'),
+                prevEl: el.querySelector('.swiper-button-prev'),
+            },
+            a11y: {
+                prevSlideMessage: 'Previous testimonial',
+                nextSlideMessage: 'Next testimonial',
+            },
+            on: {
+                // Re-check "Read more" clamp after height settles
+                slideChangeTransitionEnd() {
+                    window.dispatchEvent(new Event('resize'));
+                },
+            },
+        });
+    }
+
+    function setupInstagramTapOverlays(root) {
+        if (!root || root.dataset.igTapBound === '1') return;
+        root.dataset.igTapBound = '1';
+
+        const TAP_MOVE_PX = 10;
+        let startX = 0;
+        let startY = 0;
+        let wasDrag = false;
+        let activeOverlay = null;
+
+        root.addEventListener('pointerdown', (e) => {
+            const overlay = e.target.closest('.instagram-drag-overlay');
+            if (!overlay || !root.contains(overlay)) return;
+            activeOverlay = overlay;
+            startX = e.clientX;
+            startY = e.clientY;
+            wasDrag = false;
+        }, { passive: true });
+
+        root.addEventListener('pointermove', (e) => {
+            if (!activeOverlay) return;
+            const dx = Math.abs(e.clientX - startX);
+            const dy = Math.abs(e.clientY - startY);
+            if (dx > TAP_MOVE_PX || dy > TAP_MOVE_PX) {
+                wasDrag = true;
+            }
+        }, { passive: true });
+
+        const clearPointer = () => {
+            activeOverlay = null;
+        };
+
+        root.addEventListener('pointerup', clearPointer, { passive: true });
+        root.addEventListener('pointercancel', () => {
+            wasDrag = true;
+            clearPointer();
+        }, { passive: true });
+
+        root.addEventListener('click', (e) => {
+            const overlay = e.target.closest('.instagram-drag-overlay');
+            if (!overlay || !root.contains(overlay)) return;
+
+            // After a swipe, ignore the synthetic click some browsers fire
+            if (wasDrag) {
+                e.preventDefault();
+                wasDrag = false;
+                return;
+            }
+
+            const url = overlay.getAttribute('data-instagram-url');
+            if (!url) return;
+            e.preventDefault();
+            window.open(url, '_blank', 'noopener,noreferrer');
+        });
+    }
+
+    function initInstagram() {
+        const el = document.getElementById('instagram-swiper');
+        if (!el || instagramSwiper) return;
+
+        setupInstagramTapOverlays(el);
+
+        function refreshInstagramSwiper() {
+            if (!instagramSwiper) return;
+            try {
+                // Clear any stale fixed heights left from earlier autoHeight experiments
+                const wrapper = el.querySelector('.swiper-wrapper');
+                if (wrapper) {
+                    wrapper.style.height = '';
+                    wrapper.style.minHeight = '';
+                }
+                el.style.height = '';
+                instagramSwiper.update();
+                instagramSwiper.updateSize();
+                instagramSwiper.updateSlides();
+            } catch (e) {
+                /* ignore */
+            }
+        }
+
+        function watchInstagramIframeHeights() {
+            const iframes = el.querySelectorAll('iframe');
+            iframes.forEach((iframe) => {
+                if (iframe.dataset.heightWatch === '1') return;
+                iframe.dataset.heightWatch = '1';
+                iframe.addEventListener('load', () => {
+                    refreshInstagramSwiper();
+                    setTimeout(refreshInstagramSwiper, 300);
+                });
+            });
+            // ResizeObserver: Instagram often mutates iframe height after load
+            if (typeof ResizeObserver === 'function') {
+                if (!el._igResizeObserver) {
+                    el._igResizeObserver = new ResizeObserver(() => {
+                        refreshInstagramSwiper();
+                    });
+                }
+                el.querySelectorAll('.instagram-embed-stage, iframe').forEach((node) => {
+                    try { el._igResizeObserver.observe(node); } catch (e) { /* ignore */ }
+                });
+            }
+        }
+
+        instagramSwiper = new Swiper(el, {
+            slidesPerView: 'auto',
+            spaceBetween: 16,
+            centeredSlides: false,
+            allowTouchMove: true,
+            simulateTouch: true,
+            touchStartPreventDefault: false,
+            watchOverflow: true,
+            // autoHeight measures pre-embed (~88px) and clips tall iframes — off
+            autoHeight: false,
+            observer: true,
+            observeParents: true,
+            observeSlideChildren: true,
+            navigation: {
+                nextEl: el.querySelector('.swiper-button-next'),
+                prevEl: el.querySelector('.swiper-button-prev'),
+            },
+            a11y: {
+                prevSlideMessage: 'Previous Instagram post',
+                nextSlideMessage: 'Next Instagram post',
+            },
+            on: {
+                init() {
+                    processInstagramEmbeds();
+                    watchInstagramIframeHeights();
+                    [300, 800, 1500, 3000].forEach((ms) => {
+                        setTimeout(() => {
+                            processInstagramEmbeds();
+                            watchInstagramIframeHeights();
+                            refreshInstagramSwiper();
+                        }, ms);
+                    });
+                },
+                slideChange() {
+                    processInstagramEmbeds();
+                    watchInstagramIframeHeights();
+                },
+                slideChangeTransitionEnd() {
+                    processInstagramEmbeds();
+                    refreshInstagramSwiper();
+                },
+            },
+        });
+    }
+
+    function sync() {
+        if (mq.matches) {
+            initTestimonials();
+            initInstagram();
+            processInstagramEmbeds();
+        } else {
+            testimonialsSwiper = destroySwiper(testimonialsSwiper);
+            instagramSwiper = destroySwiper(instagramSwiper);
+        }
+    }
+
+    sync();
+
+    if (typeof mq.addEventListener === 'function') {
+        mq.addEventListener('change', sync);
+    } else if (typeof mq.addListener === 'function') {
+        mq.addListener(sync);
+    }
+}
+
 /* Lazy-load Instagram embed.js when the Instagram section nears the viewport */
 (function () {
   var section = document.getElementById('instagram') || document.querySelector('section.instagram');
@@ -522,6 +749,20 @@ function initializePhoneLinks() {
       if (window.instgrm && window.instgrm.Embeds && typeof window.instgrm.Embeds.process === 'function') {
         window.instgrm.Embeds.process();
       }
+      // Nudge Instagram Swiper after embeds paint (width + natural height)
+      function nudgeIgSwiper() {
+        var root = document.getElementById('instagram-swiper');
+        if (!root || !root.swiper) return;
+        var wrapper = root.querySelector('.swiper-wrapper');
+        if (wrapper) wrapper.style.height = '';
+        root.style.height = '';
+        if (typeof root.swiper.update === 'function') root.swiper.update();
+        if (typeof root.swiper.updateSize === 'function') root.swiper.updateSize();
+        if (typeof root.swiper.updateSlides === 'function') root.swiper.updateSlides();
+      }
+      setTimeout(nudgeIgSwiper, 300);
+      setTimeout(nudgeIgSwiper, 800);
+      setTimeout(nudgeIgSwiper, 1500);
     };
     document.body.appendChild(s);
   }

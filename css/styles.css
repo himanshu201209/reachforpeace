@@ -717,13 +717,33 @@ em {
 
 @media (max-width: 768px) {
     .steps-grid {
-        grid-template-columns: 1fr;
-        gap: var(--spacing-xl);
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: stretch;
+        gap: var(--spacing-md);
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        overscroll-behavior-x: contain;
+        margin-left: calc(-1 * var(--container-padding));
+        margin-right: calc(-1 * var(--container-padding));
+        padding-left: var(--container-padding);
+        padding-right: var(--container-padding);
+        padding-bottom: var(--spacing-sm);
+        scrollbar-width: thin;
     }
-    
+
+    .step {
+        flex: 0 0 min(78vw, 280px);
+        scroll-snap-align: start;
+    }
+
     .step-arrow {
-        transform: rotate(90deg);
-        margin: 0 auto;
+        flex: 0 0 auto;
+        align-self: center;
+        transform: none;
+        margin: 0;
     }
 }
 
@@ -1115,10 +1135,15 @@ em {
 }
 
 .testimonials-grid {
+    margin-top: var(--spacing-xl);
+    position: relative;
+}
+
+/* Desktop / no-Swiper: keep multi-column grid via the wrapper */
+.testimonials-grid > .swiper-wrapper {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: var(--spacing-lg);
-    margin-top: var(--spacing-xl);
 }
 
 .testimonial-card {
@@ -1328,13 +1353,18 @@ cite.testimonial-source {
 }
 
 .instagram-grid {
+    margin: var(--spacing-xl) auto;
+    max-width: 1100px;
+    position: relative;
+}
+
+/* Desktop / no-Swiper: keep centered flex wrap via the wrapper */
+.instagram-grid > .swiper-wrapper {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: flex-start;
     gap: var(--spacing-md);
-    margin: var(--spacing-xl) auto;
-    max-width: 1100px;
 }
 
 .instagram-embed-wrap {
@@ -1358,6 +1388,20 @@ cite.testimonial-source {
 
 .instagram-embed-wrap iframe {
     max-width: 100%;
+}
+
+/* Mobile Swiper only — shown when .swiper-initialized (see max-width 768 block) */
+.instagram-slide-open {
+    display: none;
+}
+
+.instagram-embed-stage {
+    position: relative;
+    width: 100%;
+}
+
+.instagram-drag-overlay {
+    display: none;
 }
 
 .instagram-cta {
@@ -1809,10 +1853,88 @@ h2::after {
 }
 
 
-/* Pricing grid responsive */
+/* Pricing grid responsive — horizontal scroll + tighter cards on mobile */
 @media (max-width: 768px) {
     .pricing-grid {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: stretch;
+        gap: var(--spacing-sm);
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        overscroll-behavior-x: contain;
+        margin-left: calc(-1 * var(--container-padding));
+        margin-right: calc(-1 * var(--container-padding));
+        padding-left: var(--container-padding);
+        padding-right: var(--container-padding);
+        padding-bottom: var(--spacing-sm);
+        padding-top: 0.5rem;
+        scrollbar-width: thin;
+    }
+
+    .pricing-card {
+        flex: 0 0 min(82vw, 300px);
+        scroll-snap-align: start;
+    }
+
+    .pricing-header {
+        padding: 1rem 1rem 0.85rem;
+    }
+
+    .pricing-header h3 {
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .price-currency {
+        font-size: 1.5rem;
+    }
+
+    .price-value {
+        font-size: 2.25rem;
+    }
+
+    .price-amount {
+        margin-bottom: 0.35rem;
+    }
+
+    .pricing-note {
+        font-size: 0.875rem;
+    }
+
+    .pricing-includes {
+        padding: 0.85rem 1rem 0.5rem;
+    }
+
+    .pricing-includes h4 {
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .pricing-includes li {
+        padding-left: 1.35rem;
+        margin-bottom: 0.4rem;
+        font-size: 0.9375rem;
+    }
+
+    .pricing-includes li:last-child {
+        margin-bottom: 0.5rem;
+    }
+
+    .pricing-includes li::before {
+        font-size: 1rem;
+    }
+
+    .pricing-card .btn,
+    .pricing-card > .btn {
+        margin-left: 1rem;
+        margin-right: 1rem;
+        margin-bottom: 1rem;
+        width: calc(100% - 2rem);
+        padding: 0.7rem 0.85rem;
+        font-size: 0.9375rem;
     }
 }
 
@@ -2370,5 +2492,290 @@ h2::after {
     .pulse-ring-outer,
     .pulse-ring-inner {
         animation: none;
+    }
+}
+
+
+/* ========================================
+   Swiper — mobile Testimonials & Instagram
+   Desktop (>768px) keeps grid/flex; arrows hidden.
+   Mobile (≤768px) Swiper is initialized in main.js.
+   ======================================== */
+
+.testimonials-grid > .swiper-button-prev,
+.testimonials-grid > .swiper-button-next,
+.instagram-grid > .swiper-button-prev,
+.instagram-grid > .swiper-button-next {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    /* Bleed to viewport edges (same pattern as .steps-grid / .pricing-grid)
+       so slidesPerView > 1 peeks the next card past the container. */
+    .testimonials-grid.swiper,
+    .instagram-grid.swiper {
+        overflow: hidden;
+        max-width: none;
+        margin-left: calc(-1 * var(--container-padding));
+        margin-right: calc(-1 * var(--container-padding));
+        padding-left: var(--container-padding);
+        /* little/no right padding so the peek reaches the screen edge */
+        padding-right: 0.35rem;
+        padding-bottom: 3.25rem;
+        width: auto;
+    }
+
+    .instagram-grid.swiper {
+        /* override desktop max-width: 1100px centering on mobile */
+        margin-top: var(--spacing-xl);
+        /* no extra margin-bottom — match testimonials (padding-bottom holds arrows,
+           then CTA margin-top like .testimonials-cta-wrap) */
+        margin-bottom: 0;
+    }
+
+    /* Match .testimonials-cta-wrap spacing under the arrow padding */
+    .instagram-cta {
+        margin-top: var(--spacing-xl);
+    }
+
+    .testimonials-grid.swiper-initialized > .swiper-wrapper,
+    .instagram-grid.swiper-initialized > .swiper-wrapper {
+        /* Swiper sets display:flex; clear grid/flex-wrap desktop rules */
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 0;
+        justify-content: flex-start;
+    }
+
+    .testimonials-grid.swiper-initialized .swiper-slide {
+        height: auto;
+        box-sizing: border-box;
+    }
+
+    /*
+      Instagram: slidesPerView auto — each slide is ~90vw so the NEXT
+      white card peeks at the right edge (not empty 326px gutters).
+    */
+    /*
+      Height: do NOT rely on Swiper autoHeight (it freezes ~88px before
+      the iframe paints). Let slides grow to embed content height.
+    */
+    .instagram-grid.swiper-initialized {
+        height: auto !important;
+    }
+
+    .instagram-grid.swiper-initialized > .swiper-wrapper {
+        justify-content: flex-start !important;
+        align-items: flex-start !important;
+        height: auto !important;
+        min-height: 0;
+    }
+
+    .instagram-grid.swiper-initialized .swiper-slide,
+    .instagram-grid.swiper-initialized .instagram-embed-wrap.swiper-slide {
+        width: calc(100vw - 2.75rem) !important;
+        max-width: calc(100vw - 2.75rem) !important;
+        height: auto !important;
+        max-height: none !important;
+        box-sizing: border-box;
+        /* Do not zero margin-right — Swiper spaceBetween (16) uses it */
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        margin-left: 0 !important;
+        flex-shrink: 0;
+        overflow: visible;
+    }
+
+    .instagram-grid.swiper-initialized .instagram-embed-wrap {
+        width: 100% !important;
+        max-width: none !important;
+        flex: 0 0 auto;
+        /* was overflow:hidden — clipped tall iframe inside short autoHeight box */
+        overflow: visible;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        height: auto !important;
+    }
+
+    .instagram-grid.swiper-initialized .instagram-embed-stage {
+        position: relative;
+        width: 100%;
+        height: auto;
+        align-self: stretch;
+        overflow: visible;
+    }
+
+    .instagram-grid.swiper-initialized .instagram-embed-wrap .instagram-media {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        display: block !important;
+    }
+
+    /* Keep Instagram's own iframe height; only stretch width */
+    .instagram-grid.swiper-initialized .instagram-embed-wrap iframe {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        display: block !important;
+    }
+
+    /*
+      Transparent overlay sits above the Instagram iframe so Swiper can drag.
+      A clear tap (no drag) opens the permalink in a new tab via JS.
+    */
+    .instagram-grid.swiper-initialized .instagram-drag-overlay {
+        display: block;
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        border-radius: var(--radius-md);
+        background: transparent;
+        cursor: pointer;
+        /* Allow horizontal swipe; don't fight Swiper with pan-y */
+        touch-action: none;
+        -webkit-tap-highlight-color: transparent;
+        appearance: none;
+    }
+
+    .instagram-grid.swiper-initialized .instagram-drag-overlay:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+    }
+
+    .instagram-grid.swiper-initialized .instagram-slide-open {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: auto;
+        position: relative;
+        z-index: 3;
+        margin: 0.75rem auto 0;
+        padding: 0.65rem 1rem;
+        min-height: 44px;
+        font-family: var(--font-body);
+        font-size: 0.9375rem;
+        font-weight: 600;
+        color: var(--accent);
+        text-decoration: underline;
+        text-underline-offset: 0.15em;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+    }
+
+    .instagram-grid.swiper-initialized .instagram-slide-open:hover,
+    .instagram-grid.swiper-initialized .instagram-slide-open:focus-visible {
+        color: var(--cta);
+        outline: none;
+    }
+
+    .instagram-grid.swiper-initialized .swiper-button-prev,
+    .instagram-grid.swiper-initialized .swiper-button-next {
+        pointer-events: auto;
+        z-index: 4;
+    }
+
+    .testimonials-grid > .swiper-button-prev,
+    .testimonials-grid > .swiper-button-next,
+    .instagram-grid > .swiper-button-prev,
+    .instagram-grid > .swiper-button-next {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.5rem;
+        height: 2.5rem;
+        margin-top: 0;
+        top: auto;
+        bottom: 0.15rem;
+        background-color: var(--surface);
+        border: 1.5px solid var(--accent-soft);
+        border-radius: var(--radius-full);
+        color: var(--accent);
+        box-shadow: var(--shadow-sm);
+        /* override Swiper default blue ::after arrows */
+        --swiper-navigation-size: 0.875rem;
+        --swiper-navigation-color: var(--accent);
+        z-index: 2;
+    }
+
+    .testimonials-grid > .swiper-button-prev,
+    .instagram-grid > .swiper-button-prev {
+        left: calc(50% - 3.25rem);
+        right: auto;
+    }
+
+    .testimonials-grid > .swiper-button-next,
+    .instagram-grid > .swiper-button-next {
+        right: calc(50% - 3.25rem);
+        left: auto;
+    }
+
+    .testimonials-grid > .swiper-button-prev::after,
+    .testimonials-grid > .swiper-button-next::after,
+    .instagram-grid > .swiper-button-prev::after,
+    .instagram-grid > .swiper-button-next::after {
+        font-size: 0.875rem;
+        font-weight: 700;
+        color: var(--accent);
+    }
+
+    .testimonials-grid > .swiper-button-prev:hover,
+    .testimonials-grid > .swiper-button-next:hover,
+    .instagram-grid > .swiper-button-prev:hover,
+    .instagram-grid > .swiper-button-next:hover,
+    .testimonials-grid > .swiper-button-prev:focus-visible,
+    .testimonials-grid > .swiper-button-next:focus-visible,
+    .instagram-grid > .swiper-button-prev:focus-visible,
+    .instagram-grid > .swiper-button-next:focus-visible {
+        background-color: var(--accent);
+        border-color: var(--accent);
+        outline: none;
+    }
+
+    .testimonials-grid > .swiper-button-prev:hover::after,
+    .testimonials-grid > .swiper-button-next:hover::after,
+    .instagram-grid > .swiper-button-prev:hover::after,
+    .instagram-grid > .swiper-button-next:hover::after,
+    .testimonials-grid > .swiper-button-prev:focus-visible::after,
+    .testimonials-grid > .swiper-button-next:focus-visible::after,
+    .instagram-grid > .swiper-button-prev:focus-visible::after,
+    .instagram-grid > .swiper-button-next:focus-visible::after {
+        color: #fff;
+    }
+
+    .testimonials-grid > .swiper-button-disabled,
+    .instagram-grid > .swiper-button-disabled {
+        opacity: 0.35;
+        pointer-events: none;
+    }
+}
+
+@media (min-width: 769px) {
+    /* Ensure Swiper never leaves transforms/widths if somehow initialized */
+    .testimonials-grid > .swiper-wrapper,
+    .instagram-grid > .swiper-wrapper {
+        transform: none !important;
+    }
+
+    .testimonials-grid .swiper-slide,
+    .instagram-grid .swiper-slide {
+        width: auto !important;
+        margin: 0 !important;
+    }
+
+    .testimonials-grid > .swiper-button-prev,
+    .testimonials-grid > .swiper-button-next,
+    .instagram-grid > .swiper-button-prev,
+    .instagram-grid > .swiper-button-next {
+        display: none !important;
     }
 }

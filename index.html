@@ -44,6 +44,8 @@
     
     <!-- Styles -->
     <link rel="stylesheet" href="css/styles.css">
+    <!-- Swiper 11 (mobile testimonials + Instagram sliders) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
@@ -725,8 +727,9 @@
                     </a>
                 </p>
 
-                <div class="testimonials-grid">
-                    <blockquote class="testimonial-card">
+                <div class="testimonials-grid swiper" id="testimonials-swiper">
+                    <div class="swiper-wrapper">
+                    <blockquote class="testimonial-card swiper-slide">
                         <svg class="quote-icon" width="32" height="32" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                             <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/>
                         </svg>
@@ -742,7 +745,7 @@
                         </div>
                     </blockquote>
                     
-                    <blockquote class="testimonial-card">
+                    <blockquote class="testimonial-card swiper-slide">
                         <svg class="quote-icon" width="32" height="32" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                             <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/>
                         </svg>
@@ -758,7 +761,7 @@
                         </div>
                     </blockquote>
                     
-                    <blockquote class="testimonial-card">
+                    <blockquote class="testimonial-card swiper-slide">
                         <svg class="quote-icon" width="32" height="32" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                             <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/>
                         </svg>
@@ -772,6 +775,9 @@
                         </div>
                         </div>
                     </blockquote>
+                    </div>
+                    <button type="button" class="swiper-button-prev" aria-label="Previous testimonial"></button>
+                    <button type="button" class="swiper-button-next" aria-label="Next testimonial"></button>
                 </div>
 
                 <div class="testimonials-cta-wrap">
@@ -805,36 +811,52 @@
                 <h2 id="instagram-heading">Follow on Instagram</h2>
                 <p class="section-intro">Tips, insights, and updates @reach.for.peace</p>
                 
-                <div class="instagram-grid">
-                    <div class="instagram-embed-wrap">
-                        <blockquote
-                            class="instagram-media"
-                            data-instgrm-permalink="https://www.instagram.com/reel/DZcoG6KyHZs/"
-                            data-instgrm-version="14"
-                        >
-                            <a href="https://www.instagram.com/reel/DZcoG6KyHZs/" target="_blank" rel="noopener noreferrer">View reel DZcoG6KyHZs on Instagram</a>
-                        </blockquote>
+                <div class="instagram-grid swiper" id="instagram-swiper">
+                    <div class="swiper-wrapper">
+                    <div class="instagram-embed-wrap swiper-slide">
+                        <div class="instagram-embed-stage">
+                            <blockquote
+                                class="instagram-media"
+                                data-instgrm-permalink="https://www.instagram.com/reel/DZcoG6KyHZs/"
+                                data-instgrm-version="14"
+                            >
+                                <a href="https://www.instagram.com/reel/DZcoG6KyHZs/" target="_blank" rel="noopener noreferrer">View reel DZcoG6KyHZs on Instagram</a>
+                            </blockquote>
+                            <button type="button" class="instagram-drag-overlay" data-instagram-url="https://www.instagram.com/reel/DZcoG6KyHZs/" aria-label="Open this Instagram post in a new tab"></button>
+                        </div>
+                        <a class="instagram-slide-open" href="https://www.instagram.com/reel/DZcoG6KyHZs/" target="_blank" rel="noopener noreferrer">Open on Instagram</a>
                     </div>
 
-                    <div class="instagram-embed-wrap">
-                        <blockquote
-                            class="instagram-media"
-                            data-instgrm-permalink="https://www.instagram.com/reel/DSepQOxktqd/"
-                            data-instgrm-version="14"
-                        >
-                            <a href="https://www.instagram.com/reel/DSepQOxktqd/" target="_blank" rel="noopener noreferrer">View reel DSepQOxktqd on Instagram</a>
-                        </blockquote>
+                    <div class="instagram-embed-wrap swiper-slide">
+                        <div class="instagram-embed-stage">
+                            <blockquote
+                                class="instagram-media"
+                                data-instgrm-permalink="https://www.instagram.com/reel/DSepQOxktqd/"
+                                data-instgrm-version="14"
+                            >
+                                <a href="https://www.instagram.com/reel/DSepQOxktqd/" target="_blank" rel="noopener noreferrer">View reel DSepQOxktqd on Instagram</a>
+                            </blockquote>
+                            <button type="button" class="instagram-drag-overlay" data-instagram-url="https://www.instagram.com/reel/DSepQOxktqd/" aria-label="Open this Instagram post in a new tab"></button>
+                        </div>
+                        <a class="instagram-slide-open" href="https://www.instagram.com/reel/DSepQOxktqd/" target="_blank" rel="noopener noreferrer">Open on Instagram</a>
                     </div>
 
-                    <div class="instagram-embed-wrap">
-                        <blockquote
-                            class="instagram-media"
-                            data-instgrm-permalink="https://www.instagram.com/reel/DP6wwACkn9Q/"
-                            data-instgrm-version="14"
-                        >
-                            <a href="https://www.instagram.com/reel/DP6wwACkn9Q/" target="_blank" rel="noopener noreferrer">View reel DP6wwACkn9Q on Instagram</a>
-                        </blockquote>
+                    <div class="instagram-embed-wrap swiper-slide">
+                        <div class="instagram-embed-stage">
+                            <blockquote
+                                class="instagram-media"
+                                data-instgrm-permalink="https://www.instagram.com/reel/DP6wwACkn9Q/"
+                                data-instgrm-version="14"
+                            >
+                                <a href="https://www.instagram.com/reel/DP6wwACkn9Q/" target="_blank" rel="noopener noreferrer">View reel DP6wwACkn9Q on Instagram</a>
+                            </blockquote>
+                            <button type="button" class="instagram-drag-overlay" data-instagram-url="https://www.instagram.com/reel/DP6wwACkn9Q/" aria-label="Open this Instagram post in a new tab"></button>
+                        </div>
+                        <a class="instagram-slide-open" href="https://www.instagram.com/reel/DP6wwACkn9Q/" target="_blank" rel="noopener noreferrer">Open on Instagram</a>
                     </div>
+                    </div>
+                    <button type="button" class="swiper-button-prev" aria-label="Previous Instagram post"></button>
+                    <button type="button" class="swiper-button-next" aria-label="Next Instagram post"></button>
                 </div>
                 
                 <a href="https://www.instagram.com/reach.for.peace/" class="btn btn-secondary instagram-cta" target="_blank" rel="noopener noreferrer">
@@ -1127,6 +1149,7 @@
     </a>
     
     <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="js/main.js"></script>
     <!-- Instagram embed.js loaded lazily from js/main.js when #instagram is near viewport -->
 </body>
