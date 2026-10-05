@@ -2095,6 +2095,20 @@ h2::after {
     height: auto;
 }
 
+/* Hero image for 16:9 illustrations */
+.hero-image--illustration {
+    max-width: 100%;
+}
+
+.hero-image--illustration img {
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm); /* Lighter shadow for illustrations */
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
 @media (max-width: 768px) {
     .hero-split {
         grid-template-columns: 1fr;
