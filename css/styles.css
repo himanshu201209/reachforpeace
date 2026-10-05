@@ -2042,3 +2042,194 @@ h2::after {
 .footer-logo-link picture {
     display: contents;
 }
+
+/* ========================================
+   Service Page Styles
+   ======================================== */
+
+/* Hero - Split Layout (Option A) */
+.hero--service {
+    padding: var(--spacing-2xl) 0;
+}
+
+.hero-split {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: var(--spacing-2xl);
+    align-items: center;
+}
+
+.hero-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-image img {
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    width: 100%;
+    max-width: 450px;
+    height: auto;
+}
+
+@media (max-width: 768px) {
+    .hero-split {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
+    }
+    
+    /* Mobile: H1 → Book → Image → Content (Option C) */
+    .hero-image {
+        order: 3;
+    }
+    
+    .hero-cta-group {
+        order: 2;
+    }
+    
+    .hero-availability {
+        order: 4;
+    }
+}
+
+/* Approach Section */
+.approach {
+    background-color: var(--surface);
+    padding: var(--spacing-3xl) 0;
+}
+
+.approach-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
+    margin: var(--spacing-xl) 0;
+}
+
+.approach-card {
+    background-color: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-lg);
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.approach-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.approach-card h3 {
+    color: var(--accent);
+    margin-bottom: var(--spacing-sm);
+}
+
+.approach-note {
+    text-align: center;
+    font-style: italic;
+    margin-top: var(--spacing-xl);
+    color: var(--text);
+    opacity: 0.85;
+}
+
+/* Steps Tip */
+.steps-tip {
+    text-align: center;
+    margin-top: var(--spacing-lg);
+    font-size: 0.9375rem;
+    color: var(--text);
+    opacity: 0.85;
+}
+
+/* Related Services */
+.related-services {
+    background-color: var(--surface);
+    padding: var(--spacing-3xl) 0;
+}
+
+.related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-xl);
+}
+
+.related-card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-lg);
+    text-decoration: none;
+    transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+    position: relative;
+}
+
+.related-card:hover,
+.related-card:focus {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--accent);
+}
+
+.related-card h3 {
+    color: var(--accent);
+    margin-bottom: var(--spacing-xs);
+}
+
+.related-card p {
+    margin-bottom: var(--spacing-md);
+    flex-grow: 1;
+    color: var(--text);
+    opacity: 0.85;
+}
+
+.related-link-arrow {
+    color: var(--accent);
+    font-size: 1.5rem;
+    line-height: 1;
+    align-self: flex-end;
+}
+
+/* About - Compact Version */
+.about--compact {
+    padding: var(--spacing-3xl) 0;
+}
+
+.about--compact .about-content {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: var(--spacing-2xl);
+    align-items: start;
+}
+
+.about--compact .about-avatar {
+    order: -1;
+}
+
+.about--compact .about-text p:last-of-type {
+    margin-top: var(--spacing-lg);
+}
+
+@media (max-width: 768px) {
+    .about--compact .about-content {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
+        text-align: center;
+    }
+    
+    .about--compact .about-avatar {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* Final CTA Crisis Line */
+.final-cta-crisis {
+    margin-top: var(--spacing-lg);
+    text-align: center;
+    font-size: 0.9375rem;
+    color: rgba(255, 255, 255, 0.85);
+}
