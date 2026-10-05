@@ -2050,6 +2050,23 @@ h2::after {
 /* Hero - Split Layout (Option A) */
 .hero--service {
     padding: var(--spacing-2xl) 0;
+    text-align: left; /* Left-align on desktop for split layout */
+}
+
+.hero--service .hero-content {
+    /* Override default center alignment */
+    text-align: left;
+}
+
+.hero--service h1,
+.hero--service .hero-subcopy,
+.hero--service .hero-availability {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.hero--service .hero-cta-group {
+    justify-content: flex-start;
 }
 
 .hero-split {
@@ -2090,6 +2107,19 @@ h2::after {
     
     .hero-availability {
         order: 4;
+    }
+    
+    /* Mobile: keep centered to match homepage hero */
+    .hero--service {
+        text-align: center;
+    }
+    
+    .hero--service .hero-content {
+        text-align: center;
+    }
+    
+    .hero--service .hero-cta-group {
+        justify-content: center;
     }
 }
 
