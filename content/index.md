@@ -162,6 +162,8 @@ Book 6 sessions
  Student discount available.
  Special pricing for students — message us on WhatsApp with a valid student ID to ask about the current rate.
 
+Outside India? Online sessions are **US$35 per session**. [Message us on WhatsApp](https://wa.me/919999920290) to book.
+
 You don't have to go through it alone. Take the next step. We're here to support you.
 
 ## What clients say
@@ -212,13 +214,17 @@ You are not alone. Help is available.
 
 ## Frequently asked questions
 
- Do you offer online therapy across India?
+ Do you offer online therapy across India and for clients abroad?
 
 Yes. All sessions are online via secure video or audio calls for clients in Delhi, Gurugram, across India, and abroad, by appointment only.
 
  How much does a therapy session cost?
 
 One session is ₹1,500. A 3-session package is ₹1,400 per session (₹4,200 total). A 6-session package is ₹1,200 per session (₹7,200 total). Student discounts are available — message us on WhatsApp with a valid student ID to ask about the current rate.
+
+ How much does online therapy cost if I live outside India?
+
+Online sessions for clients outside India are US$35 per session, on video or audio, in English or Hindi. Message us on WhatsApp to book, and we'll share payment details and help you find a time that works in your time zone.
 
  What happens in a therapy session?
 
@@ -373,6 +379,20 @@ You don't have to go through it alone. Book a session or start with a 15-minute 
                         "price": "7200",
                         "priceCurrency": "INR",
                         "availability": "https://schema.org/InStock"
+                    },
+                    {
+                        "@type": "Offer",
+                        "itemOffered": {
+                            "@type": "Service",
+                            "name": "International session",
+                            "description": "50-minute online therapy session for clients outside India",
+                            "serviceType": "Online therapy"
+                        },
+                        "name": "International session",
+                        "description": "50-minute online therapy session for clients outside India",
+                        "price": "35",
+                        "priceCurrency": "USD",
+                        "availability": "https://schema.org/InStock"
                     }
                 ]
             },
@@ -435,7 +455,7 @@ You don't have to go through it alone. Book a session or start with a 15-minute 
             "mainEntity": [
                 {
                     "@type": "Question",
-                    "name": "Do you offer online therapy worldwide?",
+                    "name": "Do you offer online therapy across India and for clients abroad?",
                     "acceptedAnswer": {
                         "@type": "Answer",
                         "text": "Yes. All sessions are online via secure video or audio calls for clients in Delhi, Gurugram, across India, and abroad, by appointment only."
@@ -447,6 +467,14 @@ You don't have to go through it alone. Book a session or start with a 15-minute 
                     "acceptedAnswer": {
                         "@type": "Answer",
                         "text": "One session is ₹1,500. A 3-session package is ₹1,400 per session (₹4,200 total). A 6-session package is ₹1,200 per session (₹7,200 total). Student discounts are available — message us on WhatsApp with a valid student ID to ask about the current rate."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "How much does online therapy cost if I live outside India?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Online sessions for clients outside India are US$35 per session, on video or audio, in English or Hindi. Message us on WhatsApp to book, and we'll share payment details and help you find a time that works in your time zone."
                     }
                 },
                 {

@@ -148,6 +148,20 @@
             "price": "7200",
             "priceCurrency": "INR",
             "availability": "https://schema.org/InStock"
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "International session",
+              "description": "50-minute online therapy session for clients outside India",
+              "serviceType": "Online therapy"
+            },
+            "name": "International session",
+            "description": "50-minute online therapy session for clients outside India",
+            "price": "35",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock"
           }
         ]
       },
@@ -210,7 +224,7 @@
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "Do you offer online therapy across India?",
+          "name": "Do you offer online therapy across India and for clients abroad?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Yes. All sessions are online via secure video or audio calls for clients in Delhi, Gurugram, across India, and abroad, by appointment only."
@@ -222,6 +236,14 @@
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "One session is ₹1,500. A 3-session package is ₹1,400 per session (₹4,200 total). A 6-session package is ₹1,200 per session (₹7,200 total). Student discounts are available — message us on WhatsApp with a valid student ID to ask about the current rate."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much does online therapy cost if I live outside India?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Online sessions for clients outside India are US$35 per session, on video or audio, in English or Hindi. Message us on WhatsApp to book, and we'll share payment details and help you find a time that works in your time zone."
           }
         },
         {
@@ -592,6 +614,8 @@
                 
                 <p class="section-intro">All sessions are 50 minutes, online, by appointment. Transparent fees — one session or packages that lower the per-session rate.</p>
 
+                <p class="pricing-student-note" style="text-align: center; margin-top: 0.5rem; margin-bottom: 2rem;">Prices in INR. Outside India? <strong>US$35 per session</strong>. Package discounts available — <a href="https://wa.me/919999920290" data-whatsapp-package="international-package-inquiry">message us on WhatsApp</a> to know more.</p>
+
                 <div class="pricing-grid">
                     <article class="pricing-card">
                         <div class="pricing-header">
@@ -854,7 +878,7 @@
                 <div class="faq-list">
                     <details class="faq-item">
                         <summary class="faq-question">
-                            <span>Do you offer online therapy across India?</span>
+                            <span>Do you offer online therapy across India and for clients abroad?</span>
                             <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                                 <polyline points="6 9 12 15 18 9"/>
                             </svg>
@@ -873,6 +897,18 @@
                         </summary>
                         <div class="faq-answer">
                             <p>One session is ₹1,500. A 3-session package is ₹1,400 per session (₹4,200 total). A 6-session package is ₹1,200 per session (₹7,200 total). Student discounts are available — message us on WhatsApp with a valid student ID to ask about the current rate.</p>
+                        </div>
+                    </details>
+                    
+                    <details class="faq-item">
+                        <summary class="faq-question">
+                            <span>How much does online therapy cost if I live outside India?</span>
+                            <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <polyline points="6 9 12 15 18 9"/>
+                            </svg>
+                        </summary>
+                        <div class="faq-answer">
+                            <p>Online sessions for clients outside India are US$35 per session, on video or audio, in English or Hindi. Message us on WhatsApp to book, and we'll share payment details and help you find a time that works in your time zone.</p>
                         </div>
                     </details>
                     
