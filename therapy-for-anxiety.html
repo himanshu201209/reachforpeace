@@ -148,10 +148,13 @@
                 
                 <div class="help-grid">
                     <div class="help-card">
-                        <div class="help-icon" aria-hidden="true">
-                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
-                                <path d="M12 6v6l4 2"/>
+                        <div class="help-icon help-icon--loop" aria-hidden="true">
+                            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Circular loop arrows -->
+                                <path d="M38 24C38 31.732 31.732 38 24 38C16.268 38 10 31.732 10 24C10 16.268 16.268 10 24 10C28.5 10 32.5 12 35 15" stroke="#1F3F73" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M32 11L35 15L31 17" fill="#8A7443" stroke="#8A7443" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M24 10C24 10 26 12 28 14" stroke="#8A7443" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+                                <circle cx="24" cy="24" r="3" fill="#8A7443" opacity="0.3"/>
                             </svg>
                         </div>
                         <h3>Overthinking and worry loops</h3>
@@ -159,10 +162,14 @@
                     </div>
                     
                     <div class="help-card">
-                        <div class="help-icon" aria-hidden="true">
-                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <circle cx="12" cy="12" r="10"/>
-                                <path d="M12 8v4m0 4h.01"/>
+                        <div class="help-icon help-icon--pulse" aria-hidden="true">
+                            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Soft lightning / energy lines -->
+                                <path d="M24 8L20 24L28 24L24 40" stroke="#8A7443" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                <path d="M16 18C16 18 18 20 20 24" stroke="#1F3F73" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+                                <path d="M32 30C32 30 30 28 28 24" stroke="#1F3F73" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+                                <circle cx="20" cy="24" r="2" fill="#8A7443" opacity="0.4"/>
+                                <circle cx="28" cy="24" r="2" fill="#8A7443" opacity="0.4"/>
                             </svg>
                         </div>
                         <h3>Feeling on edge</h3>
@@ -170,9 +177,14 @@
                     </div>
                     
                     <div class="help-card">
-                        <div class="help-icon" aria-hidden="true">
-                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                        <div class="help-icon help-icon--pulse" aria-hidden="true">
+                            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Heart with pulse ring -->
+                                <path d="M24 40L12 28C8 24 8 18 12 14C16 10 22 10 24 14C26 10 32 10 36 14C40 18 40 24 36 28L24 40Z" fill="#8A7443" opacity="0.3"/>
+                                <path d="M24 40L12 28C8 24 8 18 12 14C16 10 22 10 24 14C26 10 32 10 36 14C40 18 40 24 36 28L24 40Z" stroke="#1F3F73" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <!-- Pulse rings -->
+                                <ellipse cx="24" cy="22" rx="16" ry="14" stroke="#8A7443" stroke-width="1.5" opacity="0.4" class="pulse-ring-outer"/>
+                                <ellipse cx="24" cy="22" rx="12" ry="10" stroke="#8A7443" stroke-width="1.5" opacity="0.3" class="pulse-ring-inner"/>
                             </svg>
                         </div>
                         <h3>Panicky moments</h3>

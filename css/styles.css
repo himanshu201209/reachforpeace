@@ -2288,3 +2288,83 @@ h2::after {
     font-size: 0.9375rem;
     color: rgba(255, 255, 255, 0.85);
 }
+
+/* ========================================
+   Custom Icon Animations (Anxiety Page)
+   ======================================== */
+
+/* Keyframes */
+@keyframes gentle-loop {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes gentle-pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 0.85;
+    }
+}
+
+@keyframes pulse-ring {
+    0%, 100% {
+        opacity: 0.4;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.1;
+        transform: scale(1.15);
+    }
+}
+
+/* Always-on gentle animations (very soft) */
+.help-icon--loop svg {
+    animation: gentle-loop 4s ease-in-out infinite;
+    transform-origin: center;
+}
+
+.help-icon--pulse svg {
+    animation: gentle-pulse 3.5s ease-in-out infinite;
+    transform-origin: center;
+}
+
+.pulse-ring-outer,
+.pulse-ring-inner {
+    animation: pulse-ring 3.5s ease-in-out infinite;
+    transform-origin: center;
+}
+
+.pulse-ring-inner {
+    animation-delay: 0.3s;
+}
+
+/* Enhanced animation on hover/focus for desktop */
+@media (min-width: 769px) {
+    .help-card:hover .help-icon--loop svg,
+    .help-card:focus-within .help-icon--loop svg {
+        animation-duration: 3s;
+    }
+    
+    .help-card:hover .help-icon--pulse svg,
+    .help-card:focus-within .help-icon--pulse svg {
+        animation-duration: 2.5s;
+    }
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    .help-icon--loop svg,
+    .help-icon--pulse svg,
+    .pulse-ring-outer,
+    .pulse-ring-inner {
+        animation: none;
+    }
+}
