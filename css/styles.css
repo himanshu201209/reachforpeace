@@ -2978,3 +2978,163 @@ h2::after {
         width: auto;
     }
 }
+
+
+/* ========================================
+   Swiper — anxiety page card rows (.card-swiper[data-card-swiper])
+   main.js initCardGridSwipers(): slider on ≤768px only; desktop = original grid
+   main.js initHelpGridSwiper():
+   - ≤768px: always a slider
+   - >768px: static grid when ≤3 cards; slider when ≥4 cards
+   Arrows only render once Swiper adds .swiper-initialized.
+   ======================================== */
+
+/* Not initialized (static grid / no JS): let card hover lift + shadow show */
+.card-swiper.swiper:not(.swiper-initialized) {
+    overflow: visible;
+}
+
+.card-swiper.swiper:not(.swiper-initialized) > .swiper-wrapper {
+    transform: none !important;
+}
+
+.card-swiper.swiper:not(.swiper-initialized) .swiper-slide {
+    width: auto;
+    height: auto;
+}
+
+.card-swiper > .swiper-button-prev,
+.card-swiper > .swiper-button-next {
+    display: none;
+}
+
+
+/* Static (desktop / no JS): the wrapper takes over the original grid layout */
+.approach-grid.card-swiper > .swiper-wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
+}
+.related-grid.card-swiper > .swiper-wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-md);
+}
+
+/* Initialized (mobile any count, desktop 4+) */
+.card-swiper.swiper-initialized {
+    overflow: hidden;
+    /* room for the arrow row under the cards */
+    padding-bottom: 3.25rem;
+}
+
+.card-swiper.swiper-initialized > .swiper-wrapper {
+    /* clear the static grid rules; Swiper drives layout */
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0;
+    align-items: stretch;
+}
+
+.card-swiper.swiper-initialized .swiper-slide {
+    height: auto; /* equal-height cards via flex stretch */
+    box-sizing: border-box;
+}
+
+/* No lift inside the clipped slider track; keep a soft shadow */
+.card-swiper.swiper-initialized .swiper-slide:hover {
+    transform: none;
+    box-shadow: var(--shadow-md);
+}
+
+/* Arrows — same gold-accent pill buttons as testimonials/Instagram */
+.card-swiper.swiper-initialized > .swiper-button-prev,
+.card-swiper.swiper-initialized > .swiper-button-next {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-top: 0;
+    top: auto;
+    bottom: 0.15rem;
+    background-color: var(--surface);
+    border: 1.5px solid var(--accent-soft);
+    border-radius: var(--radius-full);
+    color: var(--accent);
+    box-shadow: var(--shadow-sm);
+    --swiper-navigation-size: 0.875rem;
+    --swiper-navigation-color: var(--accent);
+    z-index: 2;
+}
+
+/* .who-we-help background is --surface, so give the arrows a white face */
+.card-swiper.swiper-initialized > .swiper-button-prev,
+.card-swiper.swiper-initialized > .swiper-button-next {
+    background-color: var(--bg);
+}
+
+.card-swiper.swiper-initialized > .swiper-button-prev {
+    left: calc(50% - 3.25rem);
+    right: auto;
+}
+
+.card-swiper.swiper-initialized > .swiper-button-next {
+    right: calc(50% - 3.25rem);
+    left: auto;
+}
+
+.card-swiper.swiper-initialized > .swiper-button-prev::after,
+.card-swiper.swiper-initialized > .swiper-button-next::after {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+.card-swiper.swiper-initialized > .swiper-button-prev:hover,
+.card-swiper.swiper-initialized > .swiper-button-next:hover,
+.card-swiper.swiper-initialized > .swiper-button-prev:focus-visible,
+.card-swiper.swiper-initialized > .swiper-button-next:focus-visible {
+    background-color: var(--accent);
+    border-color: var(--accent);
+    outline: none;
+}
+
+.card-swiper.swiper-initialized > .swiper-button-prev:hover::after,
+.card-swiper.swiper-initialized > .swiper-button-next:hover::after,
+.card-swiper.swiper-initialized > .swiper-button-prev:focus-visible::after,
+.card-swiper.swiper-initialized > .swiper-button-next:focus-visible::after {
+    color: #fff;
+}
+
+.card-swiper.swiper-initialized > .swiper-button-disabled {
+    opacity: 0.35;
+    pointer-events: none;
+}
+
+/* Swiper hides arrows itself when everything fits (watchOverflow) */
+.card-swiper.swiper-initialized > .swiper-button-lock {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    /* Bleed to viewport edges like testimonials so the next card peeks */
+    .card-swiper.swiper-initialized {
+        max-width: none;
+        margin-left: calc(-1 * var(--container-padding));
+        margin-right: calc(-1 * var(--container-padding));
+        padding-left: var(--container-padding);
+        padding-right: 0.35rem;
+        width: auto;
+    }
+}
+
+/* Root keeps its grid class; let Swiper own layout once initialized */
+.card-swiper.swiper-initialized {
+    display: block;
+}
+
+/* Swiper's .swiper-slide sets display:block; keep the related cards' flex column */
+.related-grid.card-swiper .related-card.swiper-slide {
+    display: flex;
+}

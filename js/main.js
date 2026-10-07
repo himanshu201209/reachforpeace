@@ -53,6 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeInstagramEmbeds();
     initializeMobileSliders();
     initHelpGridSwiper();
+    initCardGridSwipers();
 });
 
 /* ========================================
@@ -841,6 +842,32 @@ function initHelpGridSwiper() {
             prevSlideMessage: 'Previous sign of anxiety',
             nextSlideMessage: 'Next sign of anxiety',
         },
+    });
+}
+
+/* Anxiety page card rows (approach + related services): mobile-only sliders.
+   Desktop keeps the original CSS grid (desktopMinSlides set high on purpose).
+   Swiper's preventClicksPropagation stops a drag from firing a link click;
+   a plain tap on a .related-card <a> still navigates. */
+function initCardGridSwipers() {
+    document.querySelectorAll('[data-card-swiper]').forEach((root, i) => {
+        if (!root.id) root.id = 'card-swiper-' + i;
+        const label = root.getAttribute('data-swiper-label') || 'card';
+        initResponsiveSwiper({
+            selector: '#' + root.id,
+            mobileQuery: '(max-width: 768px)',
+            desktopMinSlides: 999,
+            mobileOptions: {
+                slidesPerView: 1.15,
+                spaceBetween: 16,
+                preventClicks: true,
+                preventClicksPropagation: true,
+            },
+            a11y: {
+                prevSlideMessage: 'Previous ' + label,
+                nextSlideMessage: 'Next ' + label,
+            },
+        });
     });
 }
 
