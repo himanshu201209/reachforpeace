@@ -631,10 +631,18 @@ em {
     max-width: 60ch;
 }
 
-.help-grid {
+/* Static grid: plain .help-grid (no Swiper markup) OR the wrapper inside a
+   Swiper-ready .help-grid while Swiper is NOT initialized (desktop ≤3 cards,
+   or no JS). See "Swiper — help cards" block at the end of this file. */
+.help-grid:not(.swiper),
+.help-grid > .swiper-wrapper {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: var(--spacing-lg);
+}
+
+.help-grid {
+    position: relative;
 }
 
 .help-card {
@@ -2777,5 +2785,141 @@ h2::after {
     .instagram-grid > .swiper-button-prev,
     .instagram-grid > .swiper-button-next {
         display: none !important;
+    }
+}
+
+
+/* ========================================
+   Swiper — help cards (.help-grid[data-help-swiper])
+   main.js initHelpGridSwiper():
+   - ≤768px: always a slider
+   - >768px: static grid when ≤3 cards; slider when ≥4 cards
+   Arrows only render once Swiper adds .swiper-initialized.
+   ======================================== */
+
+/* Not initialized (static grid / no JS): let card hover lift + shadow show */
+.help-grid.swiper:not(.swiper-initialized) {
+    overflow: visible;
+}
+
+.help-grid.swiper:not(.swiper-initialized) > .swiper-wrapper {
+    transform: none !important;
+}
+
+.help-grid.swiper:not(.swiper-initialized) .swiper-slide {
+    width: auto;
+    height: auto;
+}
+
+.help-grid > .swiper-button-prev,
+.help-grid > .swiper-button-next {
+    display: none;
+}
+
+/* Initialized (mobile any count, desktop 4+) */
+.help-grid.swiper-initialized {
+    overflow: hidden;
+    /* room for the arrow row under the cards */
+    padding-bottom: 3.25rem;
+}
+
+.help-grid.swiper-initialized > .swiper-wrapper {
+    /* clear the static grid rules; Swiper drives layout */
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0;
+    align-items: stretch;
+}
+
+.help-grid.swiper-initialized .swiper-slide {
+    height: auto; /* equal-height cards via flex stretch */
+    box-sizing: border-box;
+}
+
+/* No lift inside the clipped slider track; keep a soft shadow */
+.help-grid.swiper-initialized .help-card:hover {
+    transform: none;
+    box-shadow: var(--shadow-md);
+}
+
+/* Arrows — same gold-accent pill buttons as testimonials/Instagram */
+.help-grid.swiper-initialized > .swiper-button-prev,
+.help-grid.swiper-initialized > .swiper-button-next {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-top: 0;
+    top: auto;
+    bottom: 0.15rem;
+    background-color: var(--surface);
+    border: 1.5px solid var(--accent-soft);
+    border-radius: var(--radius-full);
+    color: var(--accent);
+    box-shadow: var(--shadow-sm);
+    --swiper-navigation-size: 0.875rem;
+    --swiper-navigation-color: var(--accent);
+    z-index: 2;
+}
+
+/* .who-we-help background is --surface, so give the arrows a white face */
+.who-we-help .help-grid.swiper-initialized > .swiper-button-prev,
+.who-we-help .help-grid.swiper-initialized > .swiper-button-next {
+    background-color: var(--bg);
+}
+
+.help-grid.swiper-initialized > .swiper-button-prev {
+    left: calc(50% - 3.25rem);
+    right: auto;
+}
+
+.help-grid.swiper-initialized > .swiper-button-next {
+    right: calc(50% - 3.25rem);
+    left: auto;
+}
+
+.help-grid.swiper-initialized > .swiper-button-prev::after,
+.help-grid.swiper-initialized > .swiper-button-next::after {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+.help-grid.swiper-initialized > .swiper-button-prev:hover,
+.help-grid.swiper-initialized > .swiper-button-next:hover,
+.help-grid.swiper-initialized > .swiper-button-prev:focus-visible,
+.help-grid.swiper-initialized > .swiper-button-next:focus-visible {
+    background-color: var(--accent);
+    border-color: var(--accent);
+    outline: none;
+}
+
+.help-grid.swiper-initialized > .swiper-button-prev:hover::after,
+.help-grid.swiper-initialized > .swiper-button-next:hover::after,
+.help-grid.swiper-initialized > .swiper-button-prev:focus-visible::after,
+.help-grid.swiper-initialized > .swiper-button-next:focus-visible::after {
+    color: #fff;
+}
+
+.help-grid.swiper-initialized > .swiper-button-disabled {
+    opacity: 0.35;
+    pointer-events: none;
+}
+
+/* Swiper hides arrows itself when everything fits (watchOverflow) */
+.help-grid.swiper-initialized > .swiper-button-lock {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    /* Bleed to viewport edges like testimonials so the next card peeks */
+    .help-grid.swiper-initialized {
+        max-width: none;
+        margin-left: calc(-1 * var(--container-padding));
+        margin-right: calc(-1 * var(--container-padding));
+        padding-left: var(--container-padding);
+        padding-right: 0.35rem;
+        width: auto;
     }
 }

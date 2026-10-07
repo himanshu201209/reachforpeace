@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeTestimonialDialog();
     initializeInstagramEmbeds();
     initializeMobileSliders();
+    initHelpGridSwiper();
 });
 
 /* ========================================
@@ -732,6 +733,115 @@ function initializeMobileSliders() {
     } else if (typeof mq.addListener === 'function') {
         mq.addListener(sync);
     }
+}
+
+/* ========================================
+   Responsive "smart" Swiper helper
+   ----------------------------------------
+   Rules (same 768px breakpoint as initializeMobileSliders):
+   - Mobile  (≤768px): ALWAYS a slider (arrows + drag).
+   - Desktop (>768px): slide count ≤ (desktopMinSlides - 1) → NO Swiper,
+                       the static CSS grid stays as-is.
+                       slide count ≥ desktopMinSlides → Swiper with arrows.
+   Crossing 768px destroys the instance and re-inits with the other mode's
+   options (or leaves it static). Markup follows the testimonials pattern:
+   .swiper > .swiper-wrapper > .swiper-slide + .swiper-button-prev/next.
+   Arrows are hidden in CSS unless the root has .swiper-initialized.
+   ======================================== */
+
+function initResponsiveSwiper(options) {
+    const {
+        selector,
+        mobileQuery = '(max-width: 768px)',
+        desktopMinSlides = 4,
+        mobileOptions = {},
+        desktopOptions = {},
+        a11y = {},
+    } = options || {};
+
+    if (typeof Swiper === 'undefined') return;
+
+    const mq = window.matchMedia(mobileQuery);
+
+    document.querySelectorAll(selector).forEach((root) => {
+        const slideCount = root.querySelectorAll(':scope > .swiper-wrapper > .swiper-slide').length;
+        let instance = null;
+        let currentMode = null;
+
+        // The ≤3-static / ≥4-slider rule lives here.
+        function getMode() {
+            if (mq.matches) return 'mobile';                         // always slide on small screens
+            if (slideCount >= desktopMinSlides) return 'desktop';    // 4+ cards → desktop slider
+            return 'static';                                         // ≤3 cards → keep CSS grid
+        }
+
+        function destroy() {
+            if (!instance) return;
+            try {
+                instance.destroy(true, true);
+            } catch (e) {
+                /* ignore */
+            }
+            instance = null;
+        }
+
+        function build(mode) {
+            const modeOptions = mode === 'mobile' ? mobileOptions : desktopOptions;
+            instance = new Swiper(root, Object.assign({
+                spaceBetween: 16,
+                allowTouchMove: true,
+                watchOverflow: true,
+                navigation: {
+                    nextEl: root.querySelector(':scope > .swiper-button-next'),
+                    prevEl: root.querySelector(':scope > .swiper-button-prev'),
+                },
+                a11y: Object.assign({ enabled: true }, a11y),
+            }, modeOptions));
+        }
+
+        function sync() {
+            const mode = getMode();
+            if (mode === currentMode && (mode === 'static' || instance)) return;
+            destroy();
+            currentMode = mode;
+            root.setAttribute('data-slider-mode', mode);
+            if (mode !== 'static') build(mode);
+        }
+
+        sync();
+
+        if (typeof mq.addEventListener === 'function') {
+            mq.addEventListener('change', sync);
+        } else if (typeof mq.addListener === 'function') {
+            mq.addListener(sync);
+        }
+    });
+}
+
+/* "How do I know if I need therapy for anxiety?" help cards */
+function initHelpGridSwiper() {
+    initResponsiveSwiper({
+        selector: '.help-grid[data-help-swiper]',
+        mobileQuery: '(max-width: 768px)',
+        desktopMinSlides: 4, // ≤3 cards on desktop = static grid, ≥4 = slider
+        mobileOptions: {
+            // Shorter cards than testimonials → a touch more peek
+            slidesPerView: 1.15,
+            spaceBetween: 16,
+        },
+        desktopOptions: {
+            slidesPerView: 2.3,
+            spaceBetween: 32, // = --spacing-lg, same as the static grid gap
+            breakpoints: {
+                1024: { slidesPerView: 3.2 },
+            },
+        },
+        a11y: {
+            // Keep in sync with the buttons' aria-labels (a11y module overwrites them)
+            prevSlideMessage: 'Previous sign of anxiety',
+            nextSlideMessage: 'Next sign of anxiety',
+        },
+    });
 }
 
 /* Lazy-load Instagram embed.js when the Instagram section nears the viewport */

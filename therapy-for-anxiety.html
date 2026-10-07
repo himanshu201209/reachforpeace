@@ -47,6 +47,8 @@
     
     <!-- Styles -->
     <link rel="stylesheet" href="css/styles.css">
+    <!-- Swiper 11 (help-card slider: mobile always, desktop only when 4+ cards) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     
     <!-- Microsoft Clarity -->
     <script type="text/javascript">
@@ -100,10 +102,10 @@
                 <div class="hero-split">
                     <div class="hero-content">
                         <h1 id="hero-heading">Therapy for anxiety with a psychologist</h1>
-                        <p class="hero-subcopy">Worry that won't switch off, a racing mind, feeling on edge. You can work through it with psychologist Dr. Lisha Jindal in private online sessions, at your own pace.</p>
+                        <p class="hero-subcopy">Worry that won't switch off, a racing mind, always feeling on edge. Work together with psychologist Dr. Lisha Jindal in private online sessions, at your own pace.</p>
                         
                         <div class="hero-cta-group">
-                            <a href="https://wa.me/919999920290?text=Hi%2C%20I%27d%20like%20to%20know%20about%20anxiety%20therapy%20sessions%20with%20Dr.%20Lisha%20Jindal." class="btn btn-primary btn-whatsapp" id="hero-book-whatsapp" data-clarity-event="book_whatsapp_cta" data-clarity-location="anxiety_hero" aria-label="Book session now on WhatsApp">
+                            <a href="https://wa.me/919999920290?text=Hi%2C%20I%27d%20like%20to%20know%20about%20anxiety%20therapy%20sessions%20with%20Dr.%20Lisha%20Jindal." class="btn btn-primary btn-whatsapp" id="hero-book-whatsapp" data-clarity-event="book_whatsapp_cta" data-clarity-location="anxiety_hero" aria-label="Book on WhatsApp">
                                 <svg class="whatsapp-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                                     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
                                 </svg>
@@ -114,7 +116,7 @@
 
                         <p class="hero-availability">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2v20M2 12h20"/></svg>
-                            Online, by appointment · English &amp; Hindi
+                            Online · 50-min sessions · English &amp; Hindi · By appointment
                         </p>
                     </div>
                     
@@ -135,10 +137,11 @@
         <section class="who-we-help" aria-labelledby="who-heading">
             <div class="container">
                 <h2 id="who-heading">How do I know if I need therapy for anxiety?</h2>
-                <p class="section-intro">If worry, tension or panicky feelings are getting in the way of your sleep, work or relationships, it's reasonable to talk to a psychologist. You don't need a diagnosis or a perfect explanation to start.</p>
+                <p class="section-intro">If worry, tension or panic is getting in the way of your sleep, work or relationships, it's worth talking to a psychologist. You don't need a diagnosis, or the right words, to start.</p>
                 
-                <div class="help-grid">
-                    <div class="help-card">
+                <div class="help-grid swiper" id="help-grid-swiper" data-help-swiper>
+                    <div class="swiper-wrapper">
+                    <div class="help-card swiper-slide">
                         <div class="help-icon help-icon--loop" aria-hidden="true">
                             <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <!-- Circular loop arrows -->
@@ -149,10 +152,10 @@
                             </svg>
                         </div>
                         <h3>Overthinking and worry loops</h3>
-                        <p>The same thoughts on repeat, "what if" scenarios, and trouble letting go of small things.</p>
+                        <p>The same thoughts on repeat, endless "what ifs", and trouble letting go of small things.</p>
                     </div>
                     
-                    <div class="help-card">
+                    <div class="help-card swiper-slide">
                         <div class="help-icon help-icon--pulse" aria-hidden="true">
                             <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <!-- Soft lightning / energy lines -->
@@ -167,7 +170,7 @@
                         <p>Restlessness, tension and a constant sense that something is about to go wrong.</p>
                     </div>
                     
-                    <div class="help-card">
+                    <div class="help-card swiper-slide">
                         <div class="help-icon help-icon--pulse" aria-hidden="true">
                             <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <!-- Heart with pulse ring -->
@@ -181,6 +184,29 @@
                         <h3>Panicky moments</h3>
                         <p>Sudden waves of fear or a racing heart that leave you shaken and wary of the next one.</p>
                     </div>
+                    
+                    <div class="help-card swiper-slide">
+                        <div class="help-icon help-icon--pulse" aria-hidden="true">
+                            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Calendar with a cancelled plan -->
+                                <rect x="8" y="12" width="26" height="25" rx="3" fill="#8A7443" opacity="0.15"/>
+                                <rect x="8" y="12" width="26" height="25" rx="3" stroke="#1F3F73" stroke-width="2" stroke-linejoin="round"/>
+                                <path d="M8 19H34" stroke="#1F3F73" stroke-width="2"/>
+                                <path d="M15 9V15M27 9V15" stroke="#1F3F73" stroke-width="2" stroke-linecap="round"/>
+                                <rect x="13" y="23" width="4" height="4" rx="1" fill="#8A7443" opacity="0.5"/>
+                                <rect x="19" y="23" width="4" height="4" rx="1" fill="#8A7443" opacity="0.5"/>
+                                <rect x="13" y="29" width="4" height="4" rx="1" fill="#8A7443" opacity="0.5"/>
+                                <!-- Gold "not today" slash -->
+                                <circle cx="35" cy="35" r="7.5" fill="#FFFFFF" stroke="#8A7443" stroke-width="2"/>
+                                <path d="M30 40L40 30" stroke="#8A7443" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <h3>Pulling back from life</h3>
+                        <p>Avoiding plans, calls or tasks that used to feel manageable.</p>
+                    </div>
+                    </div>
+                    <button type="button" class="swiper-button-prev" aria-label="Previous sign of anxiety"></button>
+                    <button type="button" class="swiper-button-next" aria-label="Next sign of anxiety"></button>
                 </div>
             </div>
         </section>
@@ -189,31 +215,31 @@
         <section class="approach" aria-labelledby="approach-heading">
             <div class="container">
                 <h2 id="approach-heading">What does therapy for anxiety involve?</h2>
-                <p class="section-intro">In therapy for anxiety, you and Dr. Lisha look at what triggers your worry and what keeps it going, then build practical ways to cope. She uses evidence-based, client-centred methods adapted to you, not a fixed script.</p>
+                <p class="section-intro">In therapy for anxiety, you and Dr. Jindal explore what triggers your worry, what keeps the cycle going and how anxiety affects your thoughts, body &amp; everyday life. Together, you work on practical strategies as she uses evidence-based, client-centred methods adapted to you, not a one-size-fits-all method.</p>
                 
                 <div class="approach-grid">
                     <div class="approach-card">
                         <h3>Notice the pattern</h3>
-                        <p>Look at what sets off the worry, what keeps it going, and how it shows up in your body and your day.</p>
+                        <p>Spot what sets off your worry, what keeps it going, and how it shows up in your body and your day.</p>
                     </div>
                     
                     <div class="approach-card">
                         <h3>Build coping tools</h3>
-                        <p>Learn practical strategies you can use between sessions, not just during them.</p>
+                        <p>Learn practical strategies you can use in daily life, not just in sessions.</p>
                     </div>
                     
                     <div class="approach-card">
                         <h3>Ease the need to control everything</h3>
-                        <p>Gently loosen the habits that bring short-term relief but keep anxiety going.</p>
+                        <p>Gently loosen habits that bring short-term relief but keep anxiety going.</p>
                     </div>
                     
                     <div class="approach-card">
-                        <h3>Aim for long-term wellness</h3>
-                        <p>Work towards steadier days you can sustain, rather than a quick fix.</p>
+                        <h3>Build for the long term</h3>
+                        <p>Work towards steadier days you can sustain, not a quick fix.</p>
                     </div>
                 </div>
                 
-                <p class="approach-note">Sessions are a non-judgemental space. You set the pace, and nothing is forced.</p>
+                <p class="approach-note">Sessions are non-judgemental. You set the pace, and nothing is forced.</p>
             </div>
         </section>
         
@@ -221,13 +247,13 @@
         <section class="how-it-works" aria-labelledby="how-heading">
             <div class="container">
                 <h2 id="how-heading">How do online anxiety therapy sessions work?</h2>
-                <p class="section-intro">You message on WhatsApp, have a 15-minute fit call, and then book 50-minute sessions by secure video or audio. Sessions are by appointment, Monday to Sunday.</p>
+                <p class="section-intro">Message on WhatsApp, have a 15-minute fit call, then book 50-minute sessions by secure video or audio. Sessions run Monday to Sunday, by appointment.</p>
                 
                 <div class="steps-grid">
                     <div class="step">
                         <div class="step-number" aria-hidden="true">1</div>
                         <h3>Message on WhatsApp</h3>
-                        <p>Share a line or two about what's going on. Brief is fine.</p>
+                        <p>A line or two about what's going on is enough.</p>
                     </div>
                     
                     <svg class="step-arrow" width="48" height="24" viewBox="0 0 48 24" fill="none" aria-hidden="true">
@@ -237,7 +263,7 @@
                     <div class="step">
                         <div class="step-number" aria-hidden="true">2</div>
                         <h3>15-min fit call</h3>
-                        <p>Talk through your concerns, ask questions, and check whether this feels like the right fit.</p>
+                        <p>Share your concerns, ask questions, and see if it feels like the right fit.</p>
                     </div>
                     
                     <svg class="step-arrow" width="48" height="24" viewBox="0 0 48 24" fill="none" aria-hidden="true">
@@ -246,8 +272,8 @@
                     
                     <div class="step">
                         <div class="step-number" aria-hidden="true">3</div>
-                        <h3>Book and attend secure online sessions</h3>
-                        <p>50-minute sessions by secure video or audio, at a booked time that suits you both.</p>
+                        <h3>Book your sessions</h3>
+                        <p>Join by secure video or audio at a booked time that suits you both.</p>
                     </div>
                 </div>
                 
@@ -259,6 +285,7 @@
         <section class="pricing section--white-bg" id="pricing" aria-labelledby="pricing-heading">
             <div class="container">
                 <h2 id="pricing-heading">How much does online therapy for anxiety cost?</h2>
+                <p class="section-intro">A single 50-minute online session costs ₹1,500. 3- and 6-session packages lower the per-session rate.</p>
                 
                 <p class="pricing-student-note" style="text-align: center; margin-top: 0.5rem; margin-bottom: 2rem;">Prices in INR. Outside India? <strong>US$35 per session</strong>. Package discounts available — <a href="https://wa.me/919999920290" data-whatsapp-package="international-package-inquiry" data-clarity-event="book_whatsapp_cta" data-clarity-location="anxiety_pricing">message us on WhatsApp</a> to know more.</p>
 
@@ -275,9 +302,9 @@
                         <div class="pricing-includes">
                             <h4>What's included</h4>
                             <ul>
-                                <li>50-minute secure video session</li>
+                                <li>50-minute secure video or audio session</li>
                                 <li>Confidential professional support</li>
-                                <li>Flexible scheduling by appointment</li>
+                                <li>Booked by appointment, Monday to Sunday</li>
                             </ul>
                         </div>
                         <a href="https://wa.me/919999920290?text=Hi%2C%20I%20would%20like%20to%20book%201%20session%20%28%E2%82%B91%2C500%29%20with%20Reach%20for%20Peace." class="btn btn-primary btn-whatsapp" data-whatsapp-package="one-session" data-clarity-event="book_whatsapp_cta" data-clarity-location="anxiety_pricing" aria-label="Book one session on WhatsApp">
@@ -306,7 +333,7 @@
                             <ul>
                                 <li>3 × 50-minute sessions</li>
                                 <li>Save ₹100 per session vs single</li>
-                                <li>Continuity with the same therapist</li>
+                                <li>Continuity with the same psychologist</li>
                             </ul>
                         </div>
                         <a href="https://wa.me/919999920290?text=Hi%2C%20I%20would%20like%20to%20book%20the%203-session%20package%20%28%E2%82%B91%2C400/session%29%20with%20Reach%20for%20Peace." class="btn btn-primary btn-whatsapp" data-whatsapp-package="three-session" data-clarity-event="book_whatsapp_cta" data-clarity-location="anxiety_pricing" aria-label="Book 3 sessions on WhatsApp">
@@ -381,7 +408,7 @@
                     </div>
                     
                     <div class="about-text">
-                        <p>Dr. Lisha Jindal is a psychologist and the founder of Reach for Peace. She holds an M.A. &amp; Psy.D (HC) in clinical psychology, with specialised training in relationship &amp; family therapy and life coaching. Her work is warm and individualised. She helps clients with anxiety, overthinking, stress, attachment issues and life transitions.</p>
+                        <p>Dr. Lisha Jindal is a psychologist and the founder of Reach for Peace. She holds an M.A. &amp; Psy.D (HC) in clinical psychology, with specialised training in relationship &amp; family therapy and life coaching. Her approach is warm and individualised, and she works with anxiety, overthinking, stress, attachment issues and life transitions.</p>
                         
                         <p><a href="/counselling-psychologist" class="btn btn-secondary">About Dr. Lisha →</a></p>
                     </div>
@@ -393,7 +420,7 @@
         <section class="related-services" aria-labelledby="related-heading">
             <div class="container">
                 <h2 id="related-heading">What if my anxiety is linked to work or relationships?</h2>
-                <p class="section-intro">Reach for Peace also offers counselling for stress and burnout and for relationships. You can start on whichever page fits best.</p>
+                <p class="section-intro">Dr. Lisha also offers counselling for stress and burnout and for relationships, so you can start with whichever fits best.</p>
                 
                 <div class="related-grid">
                     <a href="/stress-and-burnout-counselling" class="related-card">
@@ -416,7 +443,7 @@
                     
                     <a href="/counselling-psychologist" class="related-card">
                         <h3>About Dr. Lisha Jindal</h3>
-                        <p>Learn more about the psychologist</p>
+                        <p>Her background and approach</p>
                         <span class="related-link-arrow">→</span>
                     </a>
                 </div>
@@ -437,7 +464,7 @@
                             </svg>
                         </summary>
                         <div class="faq-answer">
-                            <p>Therapy can help many people with anxiety and overthinking. It gives you a space to understand your worry patterns and build practical coping strategies. Dr. Lisha Jindal uses evidence-based, client-centred methods tailored to what you're going through. Results vary from person to person.</p>
+                            <p>Therapy can help many people with anxiety and overthinking. Dr. Lisha Jindal helps you understand your worry patterns and build practical ways to cope, using evidence-based, client-centred methods tailored to you. Results vary from person to person.</p>
                         </div>
                     </details>
                     
@@ -449,7 +476,7 @@
                             </svg>
                         </summary>
                         <div class="faq-answer">
-                            <p>No. You can start with what you're noticing, such as constant worry, restlessness or trouble switching off. You don't need a label to book.</p>
+                            <p>No. Start with what you're noticing, such as constant worry, restlessness or trouble switching off. You don't need a label to book.</p>
                         </div>
                     </details>
                     
@@ -461,7 +488,7 @@
                             </svg>
                         </summary>
                         <div class="faq-answer">
-                            <p>Yes. All sessions with Reach for Peace are online by secure video or audio, by appointment. There is no in-person clinic.</p>
+                            <p>Yes. All sessions with Reach for Peace are online by secure video or audio, by appointment.</p>
                         </div>
                     </details>
                     
@@ -485,7 +512,7 @@
                             </svg>
                         </summary>
                         <div class="faq-answer">
-                            <p>It varies from person to person, so there is no fixed number. Some people come for a few sessions to work on a specific concern, and others prefer ongoing support. You can discuss this on your fit call and review it as you go.</p>
+                            <p>There's no fixed number; it varies from person to person. Some people come for a few sessions to work on one concern, while others prefer ongoing support. You can discuss this on your fit call and review it as you go.</p>
                         </div>
                     </details>
                     
@@ -497,7 +524,7 @@
                             </svg>
                         </summary>
                         <div class="faq-answer">
-                            <p>That's okay, and it's a common worry. You can pause, slow down or switch from video to audio. Sessions go at your pace in a non-judgemental space.</p>
+                            <p>That's okay, and it's a common worry. You can pause, slow down or switch from video to audio. Everything goes at your pace, without judgement.</p>
                         </div>
                     </details>
                     
@@ -532,10 +559,10 @@
         <section class="final-cta" aria-labelledby="final-cta-heading">
             <div class="container">
                 <h2 id="final-cta-heading">Talk to someone about your anxiety</h2>
-                <p class="final-cta-text">Send a short WhatsApp message to set up a 15-minute fit call. Sessions are online, so you can join from wherever you have privacy.</p>
+                <p class="final-cta-text">Send a short WhatsApp message to set up a 15-minute fit call. Sessions are online, so you can join from any private space.</p>
                 
                 <div class="final-cta-buttons">
-                    <a href="https://wa.me/919999920290?text=Hi%2C%20I%27d%20like%20to%20know%20about%20anxiety%20therapy%20sessions%20with%20Dr.%20Lisha%20Jindal." class="btn btn-primary btn-whatsapp btn-large" id="final-book-whatsapp" data-clarity-event="book_whatsapp_cta" data-clarity-location="anxiety_final" aria-label="Book session on WhatsApp">
+                    <a href="https://wa.me/919999920290?text=Hi%2C%20I%27d%20like%20to%20know%20about%20anxiety%20therapy%20sessions%20with%20Dr.%20Lisha%20Jindal." class="btn btn-primary btn-whatsapp btn-large" id="final-book-whatsapp" data-clarity-event="book_whatsapp_cta" data-clarity-location="anxiety_final" aria-label="Book on WhatsApp">
                         <svg class="whatsapp-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
                         </svg>
@@ -604,6 +631,7 @@
     </a>
     
     <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>
