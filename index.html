@@ -45,7 +45,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="css/styles.css">
     <!-- Swiper 11 (mobile testimonials + Instagram sliders) -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" href="css/vendor/swiper-bundle.min.css">
     
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
@@ -589,28 +589,9 @@
             </div>
         </section>
         
-        <!-- Formats -->
-        <section class="formats" aria-labelledby="formats-heading">
-            <div class="container">
-                <h2 id="formats-heading">Formats</h2>
-                
-                <div class="format-card">
-                    <div class="format-icon" aria-hidden="true">
-                        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <rect x="2" y="3" width="20" height="14" rx="2"/>
-                            <path d="M8 21h8M12 17v4"/>
-                        </svg>
-                    </div>
-                    <div class="format-content">
-                        <h3>Online sessions — Across the world</h3>
-                        <p>Secure, professional online therapy. Available to clients across the world. Sessions by appointment, Monday to Sunday.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
         
         <!-- Pricing -->
-        <section class="pricing" id="pricing" aria-labelledby="pricing-heading">
+        <section class="pricing section--white-bg" id="pricing" aria-labelledby="pricing-heading">
             <div class="container">
                 <h2 id="pricing-heading">Clear, affordable session pricing</h2>
                 
@@ -702,10 +683,9 @@
                     </article>
                 </div>
 
-                <p class="pricing-student-note">
-                    <strong>Student discount available.</strong>
-                    Special pricing for students — message us on WhatsApp with a valid student ID to ask about the current rate.
-                </p>
+                <ul class="pricing-student-bullet">
+                    <li>Student discount available. Message us on WhatsApp with a valid student ID to ask about the current rate.</li>
+                </ul>
 
                 <div class="pricing-support">
                     <svg class="support-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
@@ -717,7 +697,7 @@
         </section>
         
         <!-- Testimonials -->
-        <section class="testimonials" aria-labelledby="testimonials-heading">
+        <section class="testimonials section--surface-bg" aria-labelledby="testimonials-heading">
             <div class="container">
                 <h2 id="testimonials-heading">What clients say</h2>
                 <p class="google-rating">
@@ -806,7 +786,7 @@
         </dialog>
 
         <!-- Instagram -->
-        <section id="instagram" class="instagram" aria-labelledby="instagram-heading">
+        <section id="instagram" class="instagram section--white-bg" aria-labelledby="instagram-heading">
             <div class="container">
                 <h2 id="instagram-heading">Follow on Instagram</h2>
                 <p class="section-intro">Tips, insights, and updates @reach.for.peace</p>
@@ -869,7 +849,7 @@
         </section>
         
         <!-- Free Seekers -->
-        <section class="free-seekers" aria-labelledby="free-seekers-heading">
+        <section class="free-seekers section--surface-bg" aria-labelledby="free-seekers-heading">
             <div class="container">
                 <div class="free-seekers-content">
                     <svg class="heart-icon" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -893,7 +873,7 @@
         </section>
         
         <!-- FAQ -->
-        <section class="faq" id="faq" aria-labelledby="faq-heading">
+        <section class="faq section--white-bg" id="faq" aria-labelledby="faq-heading">
             <div class="container">
                 <h2 id="faq-heading">Frequently asked questions</h2>
                 
@@ -1149,7 +1129,7 @@
     </a>
     
     <!-- JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="js/vendor/swiper-bundle.min.js"></script>
     <script src="js/main.js"></script>
     <!-- Instagram embed.js loaded lazily from js/main.js when #instagram is near viewport -->
 </body>

@@ -2045,6 +2045,17 @@ h2::after {
     color: var(--accent);
 }
 
+.pricing-student-bullet {
+    margin: var(--spacing-lg) 0 0;
+    max-width: none;
+    padding-left: 1.25rem;
+    text-align: left;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--text);
+    list-style: disc;
+}
+
 
 /* Nav call + Book now */
 
@@ -2384,6 +2395,10 @@ h2::after {
 /* Utility: Override section background to white (for service page alternation) */
 .section--white-bg {
     background-color: white !important;
+}
+
+.section--surface-bg {
+    background-color: var(--surface) !important;
 }
 
 .about--compact .about-content {
