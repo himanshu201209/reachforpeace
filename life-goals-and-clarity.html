@@ -58,6 +58,10 @@
             y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
         })(window, document, "clarity", "script", "yhasz21bfp");
     </script>
+    <!-- Career page only: white review cards on the light section -->
+    <style>
+        .testimonials.section--surface-bg .testimonial-card { background-color: #FFFFFF; }
+    </style>
 </head>
 <body>
     <!-- Skip Link for Accessibility -->
@@ -406,6 +410,78 @@
             </div>
         </section>
         
+        <!-- Client reviews (to add one, copy a <blockquote class="testimonial-card swiper-slide"> inside .swiper-wrapper) -->
+        <section class="testimonials section--surface-bg" aria-labelledby="testimonials-heading">
+            <div class="container">
+                <h2 id="testimonials-heading">What clients say</h2>
+                <p class="google-rating">
+                    <a href="https://share.google/VC4CBOkd3j5sh1Isy" class="google-rating-link" id="google-rating-link" target="_blank" rel="noopener noreferrer" aria-label="Google rating 4.8 stars — view reviews">
+                        <span class="google-rating-stars" aria-hidden="true">★★★★★</span>
+                        <span class="google-rating-text"><strong>4.8</strong> Google rating</span>
+                    </a>
+                </p>
+
+                <div class="testimonials-grid swiper" id="testimonials-swiper">
+                    <div class="swiper-wrapper">
+                    <blockquote class="testimonial-card swiper-slide">
+                        <svg class="quote-icon" width="32" height="32" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/>
+                        </svg>
+                        <div class="testimonial-body">
+                            <p class="testimonial-text">"I'm so glad I took the career analysis test with Reach for Peace! The team's supportive approach and comprehensive test helped me identify my strengths and interests. They encouraged me to think creatively and merge multiple passions into my profession.</p>
+                            <p class="testimonial-text">The experience was empowering, and I feel more confident about my career path. I highly recommend Reach for Peace to anyone seeking guidance and clarity on their professional journey."</p>
+                        </div>
+                        <div class="testimonial-meta">
+                        <button type="button" class="testimonial-more" hidden aria-haspopup="dialog">Read more</button>
+                        <div class="testimonial-footer">
+                            <cite class="testimonial-source">Prial Aggarwal</cite>
+                        </div>
+                        </div>
+                    </blockquote>
+
+                    <blockquote class="testimonial-card swiper-slide">
+                        <svg class="quote-icon" width="32" height="32" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/>
+                        </svg>
+                        <div class="testimonial-body">
+                            <p class="testimonial-text">"I had a fantastic career analysis session. The consultant administered a varied and insightful test via Zoom, patiently guiding me through each step and thoughtfully explaining anything I didn't understand. Their kind and encouraging approach made the process easy. The results have given me valuable clarity on my strengths and potential career paths, helping me focus my efforts effectively. I especially appreciated that they emphasized the importance of passion and exploring multiple interests. I now feel much more confident about my career direction and highly recommend their services!"</p>
+                        </div>
+                        <div class="testimonial-meta">
+                        <button type="button" class="testimonial-more" hidden aria-haspopup="dialog">Read more</button>
+                        <div class="testimonial-footer">
+                            <cite class="testimonial-source">Bhawna Aggarwal</cite>
+                        </div>
+                        </div>
+                    </blockquote>
+                    </div>
+                    <button type="button" class="swiper-button-prev" aria-label="Previous testimonial"></button>
+                    <button type="button" class="swiper-button-next" aria-label="Next testimonial"></button>
+                </div>
+
+                <div class="testimonials-cta-wrap">
+                    <a href="https://share.google/VC4CBOkd3j5sh1Isy" class="btn btn-secondary testimonials-cta" id="google-reviews-cta" target="_blank" rel="noopener noreferrer">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M12 2l2.39 7.26H22l-6.19 4.5 2.39 7.26L12 16.52l-6.2 4.5 2.39-7.26L2 9.26h7.61L12 2z"/>
+                        </svg>
+                        View all reviews on Google
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <dialog class="testimonial-dialog" id="testimonial-dialog" aria-labelledby="testimonial-dialog-title">
+            <div class="testimonial-dialog-inner">
+                <button type="button" class="testimonial-dialog-close" id="testimonial-dialog-close" aria-label="Close testimonial">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+                </button>
+                <svg class="quote-icon" width="32" height="32" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/>
+                </svg>
+                <div class="testimonial-dialog-body" id="testimonial-dialog-body"></div>
+                <p class="testimonial-dialog-author" id="testimonial-dialog-title"></p>
+            </div>
+        </dialog>
+
         <!-- Related Services -->
         <section class="related-services" aria-labelledby="related-heading">
             <div class="container">
