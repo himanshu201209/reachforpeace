@@ -36,7 +36,7 @@ const WHATSAPP_MESSAGES = {
     couplesOne: 'Hi, I would like to book 1 couples counselling session (₹3,500) with Reach for Peace.',
     couplesThree: 'Hi, I would like to book the 3-session couples counselling package (₹3,450/session) with Reach for Peace.',
     couplesSix: 'Hi, I would like to book the 6-session couples counselling package (₹3,300/session) with Reach for Peace.',
-    careerProgram: 'Hi, I would like to book the career counselling program (₹5,000 offer) with Reach for Peace.',
+    careerProgram: 'Hi, I would like to book the career counselling program (₹6,000 offer) with Reach for Peace.',
 };
 
 /* ========================================
