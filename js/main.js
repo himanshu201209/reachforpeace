@@ -33,6 +33,9 @@ const WHATSAPP_MESSAGES = {
     oneSession: 'Hi, I would like to book 1 session (₹1,500) with Reach for Peace.',
     threeSession: 'Hi, I would like to book the 3-session package (₹1,400/session) with Reach for Peace.',
     sixSession: 'Hi, I would like to book the 6-session package (₹1,200/session) with Reach for Peace.',
+    couplesOne: 'Hi, I would like to book 1 couples counselling session (₹3,500) with Reach for Peace.',
+    couplesThree: 'Hi, I would like to book the 3-session couples counselling package (₹3,450/session) with Reach for Peace.',
+    couplesSix: 'Hi, I would like to book the 6-session couples counselling package (₹3,300/session) with Reach for Peace.',
 };
 
 /* ========================================
@@ -472,6 +475,9 @@ function initializePricingPackageLinks() {
         'one-session': WHATSAPP_MESSAGES.oneSession,
         'three-session': WHATSAPP_MESSAGES.threeSession,
         'six-session': WHATSAPP_MESSAGES.sixSession,
+        'couples-one': WHATSAPP_MESSAGES.couplesOne,
+        'couples-three': WHATSAPP_MESSAGES.couplesThree,
+        'couples-six': WHATSAPP_MESSAGES.couplesSix,
     };
     document.querySelectorAll('[data-whatsapp-package]').forEach((el) => {
         const key = el.getAttribute('data-whatsapp-package');
