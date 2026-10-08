@@ -2360,7 +2360,8 @@ h2::after {
 }
 
 .approach-note {
-    text-align: center;
+    text-align: left;
+    max-width: none;
     font-style: italic;
     margin-top: var(--spacing-xl);
     color: var(--text);
