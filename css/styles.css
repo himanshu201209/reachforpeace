@@ -3468,3 +3468,70 @@ h2::after {
 .btn:focus-visible .btn-arrow {
     transform: translate(0.15em, 0.06em);
 }
+
+
+/* ========================================
+   Visible breadcrumb (about + service pages), inside the hero container
+   so it shares the H1's left edge. Separator is CSS content (not read
+   as a list item). No schema yet.
+   ======================================== */
+
+.breadcrumb {
+    margin: calc(-1 * var(--spacing-md)) 0 var(--spacing-md);
+    font-size: 0.875rem;
+    line-height: 1.4;
+    text-align: left;
+}
+
+.breadcrumb ol {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.breadcrumb li {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    color: var(--text);
+    opacity: 0.75;
+    white-space: nowrap;
+}
+
+.breadcrumb li:first-child {
+    flex-shrink: 0;
+}
+
+.breadcrumb li + li::before {
+    content: '›';
+    margin: 0 0.5rem;
+    color: var(--cta-brand);
+    opacity: 1;
+}
+
+.breadcrumb li[aria-current="page"] {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.breadcrumb a {
+    color: var(--text);
+    text-decoration: none;
+    text-underline-offset: 0.2em;
+    border-radius: var(--radius-sm);
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb a:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    text-decoration: underline;
+}
