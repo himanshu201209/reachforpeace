@@ -122,6 +122,10 @@ export async function onRequest(context) {
           "content-signal",
           "ai-train=yes, search=yes, ai-input=yes"
         );
+        if (host.endsWith(".pages.dev")) {
+          // Staging/preview hosts: keep markdown variants out of search too
+          headers.set("X-Robots-Tag", "noindex, nofollow");
+        }
         if (host === "reachforpeace.in") {
           const canonicalPath =
             url.pathname === "/index.html" ? "/" : url.pathname;
@@ -139,6 +143,22 @@ export async function onRequest(context) {
   }
 
   const response = await context.next();
+
+  // Raw markdown files (/content/*.md): readable by anyone, but keep them out of
+  // search results and point search engines to the real HTML page.
+  const rawMd = url.pathname.match(/^\/content\/([a-z0-9-]+)\.md$/i);
+  if (rawMd && response.ok) {
+    const headers = withSecurityHeaders(new Headers(response.headers));
+    const slug = rawMd[1].toLowerCase();
+    const pagePath = slug === "index" ? "/" : `/${slug}`;
+    headers.set("X-Robots-Tag", host.endsWith(".pages.dev") ? "noindex, nofollow" : "noindex");
+    headers.set("Link", `<https://reachforpeace.in${pagePath}>; rel="canonical"`);
+    return new Response(response.body, {
+      status: response.status,
+      statusText: response.statusText,
+      headers,
+    });
+  }
 
   if (host.endsWith(".pages.dev")) {
     const headers = withSecurityHeaders(new Headers(response.headers));
