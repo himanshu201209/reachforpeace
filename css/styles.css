@@ -631,10 +631,18 @@ em {
     max-width: 60ch;
 }
 
-.help-grid {
+/* Static grid: plain .help-grid (no Swiper markup) OR the wrapper inside a
+   Swiper-ready .help-grid while Swiper is NOT initialized (desktop ≤3 cards,
+   or no JS). See "Swiper — help cards" block at the end of this file. */
+.help-grid:not(.swiper),
+.help-grid > .swiper-wrapper {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: var(--spacing-lg);
+}
+
+.help-grid {
+    position: relative;
 }
 
 .help-card {
@@ -717,13 +725,33 @@ em {
 
 @media (max-width: 768px) {
     .steps-grid {
-        grid-template-columns: 1fr;
-        gap: var(--spacing-xl);
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: stretch;
+        gap: var(--spacing-md);
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        overscroll-behavior-x: contain;
+        margin-left: calc(-1 * var(--container-padding));
+        margin-right: calc(-1 * var(--container-padding));
+        padding-left: var(--container-padding);
+        padding-right: var(--container-padding);
+        padding-bottom: var(--spacing-sm);
+        scrollbar-width: thin;
     }
-    
+
+    .step {
+        flex: 0 0 min(78vw, 280px);
+        scroll-snap-align: start;
+    }
+
     .step-arrow {
-        transform: rotate(90deg);
-        margin: 0 auto;
+        flex: 0 0 auto;
+        align-self: center;
+        transform: none;
+        margin: 0;
     }
 }
 
@@ -1115,10 +1143,15 @@ em {
 }
 
 .testimonials-grid {
+    margin-top: var(--spacing-xl);
+    position: relative;
+}
+
+/* Desktop / no-Swiper: keep multi-column grid via the wrapper */
+.testimonials-grid > .swiper-wrapper {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: var(--spacing-lg);
-    margin-top: var(--spacing-xl);
 }
 
 .testimonial-card {
@@ -1328,13 +1361,18 @@ cite.testimonial-source {
 }
 
 .instagram-grid {
+    margin: var(--spacing-xl) auto;
+    max-width: 1100px;
+    position: relative;
+}
+
+/* Desktop / no-Swiper: keep centered flex wrap via the wrapper */
+.instagram-grid > .swiper-wrapper {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: flex-start;
     gap: var(--spacing-md);
-    margin: var(--spacing-xl) auto;
-    max-width: 1100px;
 }
 
 .instagram-embed-wrap {
@@ -1360,12 +1398,66 @@ cite.testimonial-source {
     max-width: 100%;
 }
 
+/* Mobile Swiper only — shown when .swiper-initialized (see max-width 768 block) */
+.instagram-slide-open {
+    display: none;
+}
+
+.instagram-embed-stage {
+    position: relative;
+    width: 100%;
+}
+
+.instagram-drag-overlay {
+    display: none;
+}
+
 .instagram-cta {
     margin-top: var(--spacing-lg);
 }
 
 .instagram-cta svg {
     margin-right: 0.5rem;
+}
+
+.social-follow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: var(--spacing-lg);
+}
+
+.social-follow-label {
+    font-weight: 600;
+    color: var(--text);
+}
+
+.social-follow-links {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.social-icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: #FFFFFF;
+    border: 2px solid var(--cta-brand);
+    color: var(--text);
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.social-icon-btn:hover,
+.social-icon-btn:focus-visible {
+    background-color: #F8F4E8;
+    border-color: var(--cta-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
 }
 
 
@@ -1610,9 +1702,11 @@ cite.testimonial-source {
     z-index: 1000;
 }
 
-/* Keep page end scrollable clear of the FAB */
-body {
-    padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px));
+/* Page ends at the footer (no body padding → no white strip below it).
+   The FAB is kept clear of footer text by .footer-bottom's right padding;
+   the footer itself absorbs the iOS home-indicator inset. */
+.site-footer {
+    padding-bottom: calc(var(--spacing-lg) + env(safe-area-inset-bottom, 0px));
 }
 
 .whatsapp-fab:hover,
@@ -1809,10 +1903,88 @@ h2::after {
 }
 
 
-/* Pricing grid responsive */
+/* Pricing grid responsive — horizontal scroll + tighter cards on mobile */
 @media (max-width: 768px) {
     .pricing-grid {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: stretch;
+        gap: var(--spacing-sm);
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        overscroll-behavior-x: contain;
+        margin-left: calc(-1 * var(--container-padding));
+        margin-right: calc(-1 * var(--container-padding));
+        padding-left: var(--container-padding);
+        padding-right: var(--container-padding);
+        padding-bottom: var(--spacing-sm);
+        padding-top: 0.5rem;
+        scrollbar-width: thin;
+    }
+
+    .pricing-card {
+        flex: 0 0 min(82vw, 300px);
+        scroll-snap-align: start;
+    }
+
+    .pricing-header {
+        padding: 1rem 1rem 0.85rem;
+    }
+
+    .pricing-header h3 {
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .price-currency {
+        font-size: 1.5rem;
+    }
+
+    .price-value {
+        font-size: 2.25rem;
+    }
+
+    .price-amount {
+        margin-bottom: 0.35rem;
+    }
+
+    .pricing-note {
+        font-size: 0.875rem;
+    }
+
+    .pricing-includes {
+        padding: 0.85rem 1rem 0.5rem;
+    }
+
+    .pricing-includes h4 {
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .pricing-includes li {
+        padding-left: 1.35rem;
+        margin-bottom: 0.4rem;
+        font-size: 0.9375rem;
+    }
+
+    .pricing-includes li:last-child {
+        margin-bottom: 0.5rem;
+    }
+
+    .pricing-includes li::before {
+        font-size: 1rem;
+    }
+
+    .pricing-card .btn,
+    .pricing-card > .btn {
+        margin-left: 1rem;
+        margin-right: 1rem;
+        margin-bottom: 1rem;
+        width: calc(100% - 2rem);
+        padding: 0.7rem 0.85rem;
+        font-size: 0.9375rem;
     }
 }
 
@@ -1913,6 +2085,17 @@ h2::after {
 
 .pricing-student-note strong {
     color: var(--accent);
+}
+
+.pricing-student-bullet {
+    margin: var(--spacing-lg) 0 0;
+    max-width: none;
+    padding-left: 1.25rem;
+    text-align: left;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--text);
+    list-style: disc;
 }
 
 
@@ -2041,4 +2224,1314 @@ h2::after {
 .wordmark picture,
 .footer-logo-link picture {
     display: contents;
+}
+
+/* ========================================
+   Service Page Styles
+   ======================================== */
+
+/* Hero - Split Layout (Option A) */
+.hero--service {
+    padding: var(--spacing-2xl) 0;
+    text-align: left; /* Left-align on desktop for split layout */
+}
+
+.hero--service .hero-content {
+    /* Override default center alignment */
+    text-align: left;
+}
+
+.hero--service h1,
+.hero--service .hero-subcopy,
+.hero--service .hero-availability {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.hero--service .hero-availability {
+    text-align: left;
+    max-width: none;
+}
+
+.hero--service .hero-cta-group {
+    justify-content: flex-start;
+}
+
+.hero-split {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: var(--spacing-2xl);
+    align-items: center;
+}
+
+.hero-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-image img {
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    width: 100%;
+    max-width: 450px;
+    height: auto;
+}
+
+/* Hero image for 16:9 illustrations */
+.hero-image--illustration {
+    max-width: 100%;
+}
+
+.hero-image--illustration img {
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm); /* Lighter shadow for illustrations */
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .hero-split {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
+    }
+    
+    /* Mobile: H1 → Book → Image → Content (Option C) */
+    .hero-image {
+        order: 3;
+    }
+    
+    .hero-cta-group {
+        order: 2;
+    }
+    
+    .hero-availability {
+        order: 4;
+    }
+    
+    /* Mobile: keep centered to match homepage hero */
+    .hero--service {
+        text-align: center;
+    }
+    
+    .hero--service .hero-content {
+        text-align: center;
+    }
+    
+    .hero--service .hero-availability {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .hero--service .hero-cta-group {
+        justify-content: center;
+    }
+}
+
+/* Approach Section */
+.approach {
+    padding: var(--spacing-3xl) 0;
+}
+
+.approach-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
+    margin: var(--spacing-xl) 0;
+}
+
+.approach-card {
+    background-color: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-lg);
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.approach-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.approach-card h3 {
+    color: var(--accent);
+    margin-bottom: var(--spacing-sm);
+}
+
+.approach-note {
+    text-align: left;
+    max-width: none;
+    font-style: italic;
+    margin-top: var(--spacing-xl);
+    color: var(--text);
+    opacity: 0.85;
+}
+
+/* Steps Tip */
+.steps-tip {
+    text-align: center;
+    margin-top: var(--spacing-lg);
+    font-size: 0.9375rem;
+    color: var(--text);
+    opacity: 0.85;
+}
+
+/* Related Services */
+.related-services {
+    padding: var(--spacing-3xl) 0;
+}
+
+.related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-xl);
+}
+
+.related-card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-lg);
+    text-decoration: none;
+    transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+    position: relative;
+}
+
+.related-card:hover,
+.related-card:focus {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--accent);
+}
+
+.related-card h3 {
+    color: var(--accent);
+    margin-bottom: var(--spacing-xs);
+}
+
+.related-card p {
+    margin-bottom: var(--spacing-md);
+    flex-grow: 1;
+    color: var(--text);
+    opacity: 0.85;
+}
+
+.related-link-arrow {
+    color: var(--accent);
+    font-size: 1.5rem;
+    line-height: 1;
+    align-self: flex-end;
+}
+
+/* About - Compact Version */
+.about--compact {
+    background-color: var(--surface);
+    padding: var(--spacing-3xl) 0;
+}
+
+/* Utility: Override section background to white (for service page alternation) */
+.section--white-bg {
+    background-color: white !important;
+}
+
+.section--surface-bg {
+    background-color: var(--surface) !important;
+}
+
+.about--compact .about-content {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: var(--spacing-2xl);
+    align-items: start;
+}
+
+.about--compact .about-avatar {
+    order: -1;
+}
+
+.about--compact .about-text p:last-of-type {
+    margin-top: var(--spacing-lg);
+}
+
+@media (max-width: 768px) {
+    .about--compact .about-content {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
+        text-align: center;
+    }
+    
+    .about--compact .about-avatar {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* Final CTA Crisis Line */
+.final-cta-crisis {
+    margin-top: var(--spacing-lg);
+    text-align: center;
+    font-size: 0.9375rem;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+/* ========================================
+   Custom Icon Animations (Anxiety Page)
+   ======================================== */
+
+/* Keyframes */
+@keyframes gentle-loop {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes gentle-pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 0.85;
+    }
+}
+
+@keyframes pulse-ring {
+    0%, 100% {
+        opacity: 0.4;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.1;
+        transform: scale(1.15);
+    }
+}
+
+/* Always-on gentle animations (very soft) */
+.help-icon--loop svg {
+    animation: gentle-loop 4s ease-in-out infinite;
+    transform-origin: center;
+}
+
+.help-icon--pulse svg {
+    animation: gentle-pulse 3.5s ease-in-out infinite;
+    transform-origin: center;
+}
+
+.pulse-ring-outer,
+.pulse-ring-inner {
+    animation: pulse-ring 3.5s ease-in-out infinite;
+    transform-origin: center;
+}
+
+.pulse-ring-inner {
+    animation-delay: 0.3s;
+}
+
+/* Enhanced animation on hover/focus for desktop */
+@media (min-width: 769px) {
+    .help-card:hover .help-icon--loop svg,
+    .help-card:focus-within .help-icon--loop svg {
+        animation-duration: 3s;
+    }
+    
+    .help-card:hover .help-icon--pulse svg,
+    .help-card:focus-within .help-icon--pulse svg {
+        animation-duration: 2.5s;
+    }
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    .help-icon--loop svg,
+    .help-icon--pulse svg,
+    .pulse-ring-outer,
+    .pulse-ring-inner {
+        animation: none;
+    }
+}
+
+
+/* ========================================
+   Swiper — mobile Testimonials & Instagram
+   Desktop (>768px) keeps grid/flex; arrows hidden.
+   Mobile (≤768px) Swiper is initialized in main.js.
+   ======================================== */
+
+.testimonials-grid > .swiper-button-prev,
+.testimonials-grid > .swiper-button-next,
+.instagram-grid > .swiper-button-prev,
+.instagram-grid > .swiper-button-next {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    /* Bleed to viewport edges (same pattern as .steps-grid / .pricing-grid)
+       so slidesPerView > 1 peeks the next card past the container. */
+    .testimonials-grid.swiper,
+    .instagram-grid.swiper {
+        overflow: hidden;
+        max-width: none;
+        margin-left: calc(-1 * var(--container-padding));
+        margin-right: calc(-1 * var(--container-padding));
+        padding-left: var(--container-padding);
+        /* little/no right padding so the peek reaches the screen edge */
+        padding-right: 0.35rem;
+        padding-bottom: 3.25rem;
+        width: auto;
+    }
+
+    .instagram-grid.swiper {
+        /* override desktop max-width: 1100px centering on mobile */
+        margin-top: var(--spacing-xl);
+        /* no extra margin-bottom — match testimonials (padding-bottom holds arrows,
+           then CTA margin-top like .testimonials-cta-wrap) */
+        margin-bottom: 0;
+    }
+
+    /* Match .testimonials-cta-wrap spacing under the arrow padding */
+    .instagram-cta {
+        margin-top: var(--spacing-xl);
+    }
+
+    .testimonials-grid.swiper-initialized > .swiper-wrapper,
+    .instagram-grid.swiper-initialized > .swiper-wrapper {
+        /* Swiper sets display:flex; clear grid/flex-wrap desktop rules */
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 0;
+        justify-content: flex-start;
+    }
+
+    .testimonials-grid.swiper-initialized .swiper-slide {
+        height: auto;
+        box-sizing: border-box;
+    }
+
+    /*
+      Instagram: slidesPerView auto — each slide is ~90vw so the NEXT
+      white card peeks at the right edge (not empty 326px gutters).
+    */
+    /*
+      Height: do NOT rely on Swiper autoHeight (it freezes ~88px before
+      the iframe paints). Let slides grow to embed content height.
+    */
+    .instagram-grid.swiper-initialized {
+        height: auto !important;
+    }
+
+    .instagram-grid.swiper-initialized > .swiper-wrapper {
+        justify-content: flex-start !important;
+        align-items: flex-start !important;
+        height: auto !important;
+        min-height: 0;
+    }
+
+    .instagram-grid.swiper-initialized .swiper-slide,
+    .instagram-grid.swiper-initialized .instagram-embed-wrap.swiper-slide {
+        width: calc(100vw - 2.75rem) !important;
+        max-width: calc(100vw - 2.75rem) !important;
+        height: auto !important;
+        max-height: none !important;
+        box-sizing: border-box;
+        /* Do not zero margin-right — Swiper spaceBetween (16) uses it */
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        margin-left: 0 !important;
+        flex-shrink: 0;
+        overflow: visible;
+    }
+
+    .instagram-grid.swiper-initialized .instagram-embed-wrap {
+        width: 100% !important;
+        max-width: none !important;
+        flex: 0 0 auto;
+        /* was overflow:hidden — clipped tall iframe inside short autoHeight box */
+        overflow: visible;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        height: auto !important;
+    }
+
+    .instagram-grid.swiper-initialized .instagram-embed-stage {
+        position: relative;
+        width: 100%;
+        height: auto;
+        align-self: stretch;
+        overflow: visible;
+    }
+
+    .instagram-grid.swiper-initialized .instagram-embed-wrap .instagram-media {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        display: block !important;
+    }
+
+    /* Keep Instagram's own iframe height; only stretch width */
+    .instagram-grid.swiper-initialized .instagram-embed-wrap iframe {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        display: block !important;
+    }
+
+    /*
+      Transparent overlay sits above the Instagram iframe so Swiper can drag.
+      A clear tap (no drag) opens the permalink in a new tab via JS.
+    */
+    .instagram-grid.swiper-initialized .instagram-drag-overlay {
+        display: block;
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        border-radius: var(--radius-md);
+        background: transparent;
+        cursor: pointer;
+        /* pan-y: the browser keeps vertical page scroll when a finger starts
+           on an embed; horizontal moves still reach Swiper (touch-action:none
+           here blocked page scrolling over the whole embed). */
+        touch-action: pan-y;
+        -webkit-tap-highlight-color: transparent;
+        appearance: none;
+    }
+
+    .instagram-grid.swiper-initialized .instagram-drag-overlay:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+    }
+
+    .instagram-grid.swiper-initialized .instagram-slide-open {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: auto;
+        position: relative;
+        z-index: 3;
+        margin: 0.75rem auto 0;
+        padding: 0.65rem 1rem;
+        min-height: 44px;
+        font-family: var(--font-body);
+        font-size: 0.9375rem;
+        font-weight: 600;
+        color: var(--accent);
+        text-decoration: underline;
+        text-underline-offset: 0.15em;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+    }
+
+    .instagram-grid.swiper-initialized .instagram-slide-open:hover,
+    .instagram-grid.swiper-initialized .instagram-slide-open:focus-visible {
+        color: var(--cta);
+        outline: none;
+    }
+
+    .instagram-grid.swiper-initialized .swiper-button-prev,
+    .instagram-grid.swiper-initialized .swiper-button-next {
+        pointer-events: auto;
+        z-index: 4;
+    }
+
+    .testimonials-grid > .swiper-button-prev,
+    .testimonials-grid > .swiper-button-next,
+    .instagram-grid > .swiper-button-prev,
+    .instagram-grid > .swiper-button-next {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.5rem;
+        height: 2.5rem;
+        margin-top: 0;
+        top: auto;
+        bottom: 0.15rem;
+        background-color: var(--surface);
+        border: 1.5px solid var(--accent-soft);
+        border-radius: var(--radius-full);
+        color: var(--accent);
+        box-shadow: var(--shadow-sm);
+        /* override Swiper default blue ::after arrows */
+        --swiper-navigation-size: 0.875rem;
+        --swiper-navigation-color: var(--accent);
+        z-index: 2;
+    }
+
+    .testimonials-grid > .swiper-button-prev,
+    .instagram-grid > .swiper-button-prev {
+        left: calc(50% - 3.25rem);
+        right: auto;
+    }
+
+    .testimonials-grid > .swiper-button-next,
+    .instagram-grid > .swiper-button-next {
+        right: calc(50% - 3.25rem);
+        left: auto;
+    }
+
+    .testimonials-grid > .swiper-button-prev::after,
+    .testimonials-grid > .swiper-button-next::after,
+    .instagram-grid > .swiper-button-prev::after,
+    .instagram-grid > .swiper-button-next::after {
+        font-size: 0.875rem;
+        font-weight: 700;
+        color: var(--accent);
+    }
+
+    .testimonials-grid > .swiper-button-prev:hover,
+    .testimonials-grid > .swiper-button-next:hover,
+    .instagram-grid > .swiper-button-prev:hover,
+    .instagram-grid > .swiper-button-next:hover,
+    .testimonials-grid > .swiper-button-prev:focus-visible,
+    .testimonials-grid > .swiper-button-next:focus-visible,
+    .instagram-grid > .swiper-button-prev:focus-visible,
+    .instagram-grid > .swiper-button-next:focus-visible {
+        background-color: var(--accent);
+        border-color: var(--accent);
+        outline: none;
+    }
+
+    .testimonials-grid > .swiper-button-prev:hover::after,
+    .testimonials-grid > .swiper-button-next:hover::after,
+    .instagram-grid > .swiper-button-prev:hover::after,
+    .instagram-grid > .swiper-button-next:hover::after,
+    .testimonials-grid > .swiper-button-prev:focus-visible::after,
+    .testimonials-grid > .swiper-button-next:focus-visible::after,
+    .instagram-grid > .swiper-button-prev:focus-visible::after,
+    .instagram-grid > .swiper-button-next:focus-visible::after {
+        color: #fff;
+    }
+
+    .testimonials-grid > .swiper-button-disabled,
+    .instagram-grid > .swiper-button-disabled {
+        opacity: 0.35;
+        pointer-events: none;
+    }
+}
+
+@media (min-width: 769px) {
+    /* Ensure Swiper never leaves transforms/widths if somehow initialized */
+    .testimonials-grid > .swiper-wrapper,
+    .instagram-grid > .swiper-wrapper {
+        transform: none !important;
+    }
+
+    .testimonials-grid .swiper-slide,
+    .instagram-grid .swiper-slide {
+        width: auto !important;
+        margin: 0 !important;
+    }
+
+    .testimonials-grid > .swiper-button-prev,
+    .testimonials-grid > .swiper-button-next,
+    .instagram-grid > .swiper-button-prev,
+    .instagram-grid > .swiper-button-next {
+        display: none !important;
+    }
+}
+
+
+/* ========================================
+   Swiper — help cards (.help-grid[data-help-swiper])
+   main.js initHelpGridSwiper():
+   - ≤768px: always a slider
+   - >768px: static grid when ≤3 cards; slider when ≥4 cards
+   Arrows only render once Swiper adds .swiper-initialized.
+   ======================================== */
+
+/* Not initialized (static grid / no JS): let card hover lift + shadow show */
+.help-grid.swiper:not(.swiper-initialized) {
+    overflow: visible;
+}
+
+.help-grid.swiper:not(.swiper-initialized) > .swiper-wrapper {
+    transform: none !important;
+}
+
+.help-grid.swiper:not(.swiper-initialized) .swiper-slide {
+    width: auto;
+    height: auto;
+}
+
+.help-grid > .swiper-button-prev,
+.help-grid > .swiper-button-next {
+    display: none;
+}
+
+/* Initialized (mobile any count, desktop 4+) */
+.help-grid.swiper-initialized {
+    overflow: hidden;
+    /* room for the arrow row under the cards */
+    padding-bottom: 3.25rem;
+}
+
+.help-grid.swiper-initialized > .swiper-wrapper {
+    /* clear the static grid rules; Swiper drives layout */
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0;
+    align-items: stretch;
+}
+
+.help-grid.swiper-initialized .swiper-slide {
+    height: auto; /* equal-height cards via flex stretch */
+    box-sizing: border-box;
+}
+
+/* No lift inside the clipped slider track; keep a soft shadow */
+.help-grid.swiper-initialized .help-card:hover {
+    transform: none;
+    box-shadow: var(--shadow-md);
+}
+
+/* Arrows — same gold-accent pill buttons as testimonials/Instagram */
+.help-grid.swiper-initialized > .swiper-button-prev,
+.help-grid.swiper-initialized > .swiper-button-next {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-top: 0;
+    top: auto;
+    bottom: 0.15rem;
+    background-color: var(--surface);
+    border: 1.5px solid var(--accent-soft);
+    border-radius: var(--radius-full);
+    color: var(--accent);
+    box-shadow: var(--shadow-sm);
+    --swiper-navigation-size: 0.875rem;
+    --swiper-navigation-color: var(--accent);
+    z-index: 2;
+}
+
+/* .who-we-help background is --surface, so give the arrows a white face */
+.who-we-help .help-grid.swiper-initialized > .swiper-button-prev,
+.who-we-help .help-grid.swiper-initialized > .swiper-button-next {
+    background-color: var(--bg);
+}
+
+.help-grid.swiper-initialized > .swiper-button-prev {
+    left: calc(50% - 3.25rem);
+    right: auto;
+}
+
+.help-grid.swiper-initialized > .swiper-button-next {
+    right: calc(50% - 3.25rem);
+    left: auto;
+}
+
+.help-grid.swiper-initialized > .swiper-button-prev::after,
+.help-grid.swiper-initialized > .swiper-button-next::after {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+.help-grid.swiper-initialized > .swiper-button-prev:hover,
+.help-grid.swiper-initialized > .swiper-button-next:hover,
+.help-grid.swiper-initialized > .swiper-button-prev:focus-visible,
+.help-grid.swiper-initialized > .swiper-button-next:focus-visible {
+    background-color: var(--accent);
+    border-color: var(--accent);
+    outline: none;
+}
+
+.help-grid.swiper-initialized > .swiper-button-prev:hover::after,
+.help-grid.swiper-initialized > .swiper-button-next:hover::after,
+.help-grid.swiper-initialized > .swiper-button-prev:focus-visible::after,
+.help-grid.swiper-initialized > .swiper-button-next:focus-visible::after {
+    color: #fff;
+}
+
+.help-grid.swiper-initialized > .swiper-button-disabled {
+    opacity: 0.35;
+    pointer-events: none;
+}
+
+/* Swiper hides arrows itself when everything fits (watchOverflow) */
+.help-grid.swiper-initialized > .swiper-button-lock {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    /* Bleed to viewport edges like testimonials so the next card peeks */
+    .help-grid.swiper-initialized {
+        max-width: none;
+        margin-left: calc(-1 * var(--container-padding));
+        margin-right: calc(-1 * var(--container-padding));
+        padding-left: var(--container-padding);
+        padding-right: 0.35rem;
+        width: auto;
+    }
+}
+
+
+/* ========================================
+   Swiper — anxiety page card rows (.card-swiper[data-card-swiper])
+   main.js initCardGridSwipers(): slider on ≤768px only; desktop = original grid
+   main.js initHelpGridSwiper():
+   - ≤768px: always a slider
+   - >768px: static grid when ≤3 cards; slider when ≥4 cards
+   Arrows only render once Swiper adds .swiper-initialized.
+   ======================================== */
+
+/* Not initialized (static grid / no JS): let card hover lift + shadow show */
+.card-swiper.swiper:not(.swiper-initialized) {
+    overflow: visible;
+}
+
+.card-swiper.swiper:not(.swiper-initialized) > .swiper-wrapper {
+    transform: none !important;
+}
+
+.card-swiper.swiper:not(.swiper-initialized) .swiper-slide {
+    width: auto;
+    height: auto;
+}
+
+.card-swiper > .swiper-button-prev,
+.card-swiper > .swiper-button-next {
+    display: none;
+}
+
+
+/* Static (desktop / no JS): the wrapper takes over the original grid layout */
+.approach-grid.card-swiper > .swiper-wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
+}
+.related-grid.card-swiper > .swiper-wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-md);
+}
+
+/* Initialized (mobile any count, desktop 4+) */
+.card-swiper.swiper-initialized {
+    overflow: hidden;
+    /* room for the arrow row under the cards */
+    padding-bottom: 3.25rem;
+}
+
+.card-swiper.swiper-initialized > .swiper-wrapper {
+    /* clear the static grid rules; Swiper drives layout */
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0;
+    align-items: stretch;
+}
+
+.card-swiper.swiper-initialized .swiper-slide {
+    height: auto; /* equal-height cards via flex stretch */
+    box-sizing: border-box;
+}
+
+/* No lift inside the clipped slider track; keep a soft shadow */
+.card-swiper.swiper-initialized .swiper-slide:hover {
+    transform: none;
+    box-shadow: var(--shadow-md);
+}
+
+/* Arrows — same gold-accent pill buttons as testimonials/Instagram */
+.card-swiper.swiper-initialized > .swiper-button-prev,
+.card-swiper.swiper-initialized > .swiper-button-next {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-top: 0;
+    top: auto;
+    bottom: 0.15rem;
+    background-color: var(--surface);
+    border: 1.5px solid var(--accent-soft);
+    border-radius: var(--radius-full);
+    color: var(--accent);
+    box-shadow: var(--shadow-sm);
+    --swiper-navigation-size: 0.875rem;
+    --swiper-navigation-color: var(--accent);
+    z-index: 2;
+}
+
+/* .who-we-help background is --surface, so give the arrows a white face */
+.card-swiper.swiper-initialized > .swiper-button-prev,
+.card-swiper.swiper-initialized > .swiper-button-next {
+    background-color: var(--bg);
+}
+
+.card-swiper.swiper-initialized > .swiper-button-prev {
+    left: calc(50% - 3.25rem);
+    right: auto;
+}
+
+.card-swiper.swiper-initialized > .swiper-button-next {
+    right: calc(50% - 3.25rem);
+    left: auto;
+}
+
+.card-swiper.swiper-initialized > .swiper-button-prev::after,
+.card-swiper.swiper-initialized > .swiper-button-next::after {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+.card-swiper.swiper-initialized > .swiper-button-prev:hover,
+.card-swiper.swiper-initialized > .swiper-button-next:hover,
+.card-swiper.swiper-initialized > .swiper-button-prev:focus-visible,
+.card-swiper.swiper-initialized > .swiper-button-next:focus-visible {
+    background-color: var(--accent);
+    border-color: var(--accent);
+    outline: none;
+}
+
+.card-swiper.swiper-initialized > .swiper-button-prev:hover::after,
+.card-swiper.swiper-initialized > .swiper-button-next:hover::after,
+.card-swiper.swiper-initialized > .swiper-button-prev:focus-visible::after,
+.card-swiper.swiper-initialized > .swiper-button-next:focus-visible::after {
+    color: #fff;
+}
+
+.card-swiper.swiper-initialized > .swiper-button-disabled {
+    opacity: 0.35;
+    pointer-events: none;
+}
+
+/* Swiper hides arrows itself when everything fits (watchOverflow) */
+.card-swiper.swiper-initialized > .swiper-button-lock {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    /* Bleed to viewport edges like testimonials so the next card peeks */
+    .card-swiper.swiper-initialized {
+        max-width: none;
+        margin-left: calc(-1 * var(--container-padding));
+        margin-right: calc(-1 * var(--container-padding));
+        padding-left: var(--container-padding);
+        padding-right: 0.35rem;
+        width: auto;
+    }
+}
+
+/* Root keeps its grid class; let Swiper own layout once initialized */
+.card-swiper.swiper-initialized {
+    display: block;
+}
+
+/* Swiper's .swiper-slide sets display:block; keep the related cards' flex column */
+.related-grid.card-swiper .related-card.swiper-slide {
+    display: flex;
+}
+
+
+/* ========================================
+   Header "Services" dropdown (desktop) + accordion (mobile drawer)
+   Markup: li.nav-dropdown > button.nav-dropdown-toggle + ul.nav-dropdown-menu
+   JS (main.js, end of file) toggles .is-open + aria-expanded.
+   ======================================== */
+
+.main-nav .nav-dropdown {
+    position: relative;
+}
+
+.nav-dropdown-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    min-height: 44px;
+    padding: 0.5rem;
+    background: none;
+    border: 0;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: 600;
+    line-height: inherit;
+    color: var(--text);
+    cursor: pointer;
+    transition: color var(--transition-fast);
+}
+
+.nav-dropdown-caret {
+    flex-shrink: 0;
+    transition: transform var(--transition-fast);
+}
+
+.nav-dropdown.is-open > .nav-dropdown-toggle .nav-dropdown-caret {
+    transform: rotate(180deg);
+}
+
+.nav-dropdown-toggle:hover,
+.nav-dropdown.is-open > .nav-dropdown-toggle {
+    color: var(--cta-brand);
+}
+
+/* Visible keyboard focus for the toggle and the panel links */
+.nav-dropdown-toggle:focus-visible,
+.nav-dropdown-menu a:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+}
+
+/* Current section: Services (when on a service page) and About */
+.nav-dropdown.is-current > .nav-dropdown-toggle,
+.main-nav > ul > li > a[aria-current="page"]:not(.nav-call):not(.nav-cta) {
+    text-decoration: underline;
+    text-decoration-color: var(--cta-brand);
+    text-underline-offset: 0.28em;
+    text-decoration-thickness: 2px;
+}
+
+/* Panel (overrides the generic .main-nav ul flex row) */
+.main-nav .nav-dropdown-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: -0.75rem;
+    z-index: 200;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    min-width: 17.5rem;
+    margin: 0;
+    padding: 0.5rem;
+    list-style: none;
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Invisible bridge so the hover-open panel doesn't close crossing the gap */
+.main-nav .nav-dropdown-menu::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -0.6rem;
+    height: 0.6rem;
+}
+
+.main-nav .nav-dropdown.is-open > .nav-dropdown-menu {
+    display: flex;
+}
+
+.main-nav .nav-dropdown-menu li {
+    width: 100%;
+}
+
+.main-nav .nav-dropdown-menu a {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-height: 44px;
+    padding: 0.6rem 0.9rem;
+    border-radius: var(--radius-md);
+    white-space: nowrap;
+    font-weight: 600;
+    color: var(--text);
+    text-decoration: none;
+}
+
+.main-nav ul > li.nav-dropdown .nav-dropdown-menu a:hover,
+.main-nav ul > li.nav-dropdown .nav-dropdown-menu a:focus-visible {
+    background: var(--crisis-bg);
+    color: var(--text);
+    text-decoration: none;
+}
+
+.main-nav .nav-dropdown-menu a[aria-current="page"] {
+    background: var(--surface);
+    box-shadow: inset 3px 0 0 var(--cta-brand);
+}
+
+/* Desktop: hover-open as an enhancement (click / Enter / Space still work) */
+@media (hover: hover) and (min-width: 769px) {
+    .main-nav .nav-dropdown:hover > .nav-dropdown-menu {
+        display: flex;
+    }
+    .main-nav .nav-dropdown:hover > .nav-dropdown-toggle {
+        color: var(--cta-brand);
+    }
+}
+
+/* Narrow desktops / tablets: tighten spacing so 4 links + 2 buttons fit */
+@media (min-width: 769px) and (max-width: 1100px) {
+    .main-nav > ul {
+        gap: 1rem;
+    }
+    .main-nav .nav-actions {
+        gap: 0.5rem;
+    }
+    .main-nav .nav-actions .nav-call,
+    .main-nav .nav-actions .nav-cta {
+        min-width: 0;
+        padding: 0.5rem 1rem !important;
+    }
+}
+
+/* Mobile drawer: Services becomes an accordion */
+@media (max-width: 768px) {
+    .main-nav.is-open {
+        max-height: calc(100vh - 8rem);
+        max-height: calc(100dvh - 8rem);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+    }
+
+    .nav-dropdown-toggle {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .main-nav .nav-dropdown-menu {
+        position: static;
+        min-width: 0;
+        padding: 0 0 0.75rem;
+        background: transparent;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    .main-nav .nav-dropdown-menu::before {
+        content: none;
+    }
+
+    .main-nav .nav-dropdown-menu li {
+        border-bottom: none;
+    }
+
+    .main-nav .nav-dropdown-menu a {
+        justify-content: center;
+        padding: 0.65rem 1rem;
+        border-radius: 0;
+        white-space: normal;
+        font-weight: 400;
+    }
+
+    .main-nav .nav-dropdown-menu a[aria-current="page"] {
+        box-shadow: none;
+        font-weight: 600;
+    }
+}
+
+/* ========================================
+   Footer "Services" column + Hours/Legal stack
+   ======================================== */
+
+.footer-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+.footer-services li {
+    margin-bottom: 0.25rem;
+}
+
+.footer-services a {
+    display: inline-flex;
+    align-items: center;
+    line-height: 1.35;
+}
+
+@media (min-width: 1024px) {
+    .footer-content {
+        grid-template-columns: 1fr 1.15fr 1.15fr 0.9fr;
+        gap: var(--spacing-lg);
+    }
+}
+
+@media (max-width: 768px) {
+    .footer-content {
+        gap: var(--spacing-lg);
+    }
+}
+
+
+/* ========================================
+   Homepage "Who we help" cards → service pages
+   Stretched link on the h3 makes the whole card clickable;
+   "Learn more →" is a visual cue (aria-hidden, same target).
+   Scoped to .who-we-help .help-card--link (homepage only).
+   ======================================== */
+
+.who-we-help .help-card--link {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.who-we-help .help-card--link .help-card-link {
+    color: inherit;
+    text-decoration: none;
+}
+
+.who-we-help .help-card--link .help-card-link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    z-index: 1;
+}
+
+.who-we-help .help-card--link .help-card-more {
+    margin-top: auto;
+    padding-top: var(--spacing-md);
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--cta-brand);
+    text-underline-offset: 0.2em;
+    text-decoration-thickness: 1px;
+}
+
+.who-we-help .help-card--link:hover,
+.who-we-help .help-card--link:focus-within {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--cta-brand);
+}
+
+.who-we-help .help-card--link:hover .help-card-more,
+.who-we-help .help-card--link:focus-within .help-card-more {
+    text-decoration-thickness: 2px;
+}
+
+/* Keyboard focus: outline the whole card instead of just the heading text */
+.who-we-help .help-card--link .help-card-link:focus-visible {
+    outline: none;
+}
+
+.who-we-help .help-card--link:has(.help-card-link:focus-visible) {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .who-we-help .help-card--link:hover,
+    .who-we-help .help-card--link:focus-within {
+        transform: none;
+    }
+}
+
+
+/* Instagram mobile slider: make sure no ancestor narrows touch-action to
+   "none" — vertical page scroll must work when a swipe starts on an embed. */
+@media (max-width: 768px) {
+    .instagram-grid.swiper-initialized,
+    .instagram-grid.swiper-initialized > .swiper-wrapper,
+    .instagram-grid.swiper-initialized .swiper-slide,
+    .instagram-grid.swiper-initialized .instagram-embed-stage {
+        touch-action: pan-y;
+    }
+}
+
+
+/* Arrow inside a button ("Read my story →"): own flex item, optically
+   centred on the text (the → glyph sits on the x-height, below the
+   visual middle of mixed-case text). Reusable via .btn-arrow. */
+.btn .btn-arrow {
+    display: inline-block;
+    line-height: 1;
+    margin-left: -0.15rem; /* .btn gap (0.5rem) + glyph bearing reads too wide */
+    transform: translateY(0.06em);
+    transition: transform var(--transition-fast);
+}
+
+.btn:hover .btn-arrow,
+.btn:focus-visible .btn-arrow {
+    transform: translate(0.15em, 0.06em);
+}
+
+
+/* ========================================
+   Visible breadcrumb (about + service pages), inside the hero container
+   so it shares the H1's left edge. Separator is CSS content (not read
+   as a list item). No schema yet.
+   ======================================== */
+
+.breadcrumb {
+    margin: calc(-1 * var(--spacing-md)) 0 var(--spacing-md);
+    font-size: 0.875rem;
+    line-height: 1.4;
+    text-align: left;
+}
+
+.breadcrumb ol {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.breadcrumb li {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    color: var(--text);
+    opacity: 0.75;
+    white-space: nowrap;
+}
+
+.breadcrumb li:first-child {
+    flex-shrink: 0;
+}
+
+.breadcrumb li + li::before {
+    content: '›';
+    margin: 0 0.5rem;
+    color: var(--cta-brand);
+    opacity: 1;
+}
+
+.breadcrumb li[aria-current="page"] {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.breadcrumb a {
+    color: var(--text);
+    text-decoration: none;
+    text-underline-offset: 0.2em;
+    border-radius: var(--radius-sm);
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb a:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    text-decoration: underline;
 }

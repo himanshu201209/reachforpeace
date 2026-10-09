@@ -33,6 +33,10 @@ const WHATSAPP_MESSAGES = {
     oneSession: 'Hi, I would like to book 1 session (₹1,500) with Reach for Peace.',
     threeSession: 'Hi, I would like to book the 3-session package (₹1,400/session) with Reach for Peace.',
     sixSession: 'Hi, I would like to book the 6-session package (₹1,200/session) with Reach for Peace.',
+    couplesOne: 'Hi, I would like to book 1 couples counselling session (₹3,500) with Reach for Peace.',
+    couplesThree: 'Hi, I would like to book the 3-session couples counselling package (₹3,450/session) with Reach for Peace.',
+    couplesSix: 'Hi, I would like to book the 6-session couples counselling package (₹3,300/session) with Reach for Peace.',
+    careerProgram: 'Hi, I would like to book the career counselling program (₹6,000 offer) with Reach for Peace.',
 };
 
 /* ========================================
@@ -51,6 +55,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeGoogleReviewsLink();
     initializeTestimonialDialog();
     initializeInstagramEmbeds();
+    initializeMobileSliders();
+    initHelpGridSwiper();
+    initCardGridSwipers();
 });
 
 /* ========================================
@@ -469,6 +476,10 @@ function initializePricingPackageLinks() {
         'one-session': WHATSAPP_MESSAGES.oneSession,
         'three-session': WHATSAPP_MESSAGES.threeSession,
         'six-session': WHATSAPP_MESSAGES.sixSession,
+        'couples-one': WHATSAPP_MESSAGES.couplesOne,
+        'couples-three': WHATSAPP_MESSAGES.couplesThree,
+        'couples-six': WHATSAPP_MESSAGES.couplesSix,
+        'career-program': WHATSAPP_MESSAGES.careerProgram,
     };
     document.querySelectorAll('[data-whatsapp-package]').forEach((el) => {
         const key = el.getAttribute('data-whatsapp-package');
@@ -507,6 +518,367 @@ function initializePhoneLinks() {
 }
 
 
+
+
+/* ========================================
+   Mobile Swiper sliders (Testimonials + Instagram)
+   Active only at max-width 768px; destroyed on desktop.
+   ======================================== */
+
+function processInstagramEmbeds() {
+    if (window.instgrm && window.instgrm.Embeds && typeof window.instgrm.Embeds.process === 'function') {
+        window.instgrm.Embeds.process();
+    }
+}
+
+function initializeMobileSliders() {
+    if (typeof Swiper === 'undefined') return;
+
+    const mq = window.matchMedia('(max-width: 768px)');
+    let testimonialsSwiper = null;
+    let instagramSwiper = null;
+
+    function destroySwiper(instance) {
+        if (!instance) return null;
+        try {
+            instance.destroy(true, true);
+        } catch (e) {
+            /* ignore */
+        }
+        return null;
+    }
+
+    function initTestimonials() {
+        const el = document.getElementById('testimonials-swiper');
+        if (!el || testimonialsSwiper) return;
+
+        testimonialsSwiper = new Swiper(el, {
+            slidesPerView: 1.08,
+            spaceBetween: 16,
+            centeredSlides: false,
+            allowTouchMove: true,
+            watchOverflow: true,
+            autoHeight: true,
+            navigation: {
+                nextEl: el.querySelector('.swiper-button-next'),
+                prevEl: el.querySelector('.swiper-button-prev'),
+            },
+            a11y: {
+                prevSlideMessage: 'Previous testimonial',
+                nextSlideMessage: 'Next testimonial',
+            },
+            on: {
+                // Re-check "Read more" clamp after height settles
+                slideChangeTransitionEnd() {
+                    window.dispatchEvent(new Event('resize'));
+                },
+            },
+        });
+    }
+
+    function setupInstagramTapOverlays(root) {
+        if (!root || root.dataset.igTapBound === '1') return;
+        root.dataset.igTapBound = '1';
+
+        const TAP_MOVE_PX = 10;
+        let startX = 0;
+        let startY = 0;
+        let wasDrag = false;
+        let activeOverlay = null;
+
+        root.addEventListener('pointerdown', (e) => {
+            const overlay = e.target.closest('.instagram-drag-overlay');
+            if (!overlay || !root.contains(overlay)) return;
+            activeOverlay = overlay;
+            startX = e.clientX;
+            startY = e.clientY;
+            wasDrag = false;
+        }, { passive: true });
+
+        root.addEventListener('pointermove', (e) => {
+            if (!activeOverlay) return;
+            const dx = Math.abs(e.clientX - startX);
+            const dy = Math.abs(e.clientY - startY);
+            if (dx > TAP_MOVE_PX || dy > TAP_MOVE_PX) {
+                wasDrag = true;
+            }
+        }, { passive: true });
+
+        const clearPointer = () => {
+            activeOverlay = null;
+        };
+
+        root.addEventListener('pointerup', clearPointer, { passive: true });
+        root.addEventListener('pointercancel', () => {
+            wasDrag = true;
+            clearPointer();
+        }, { passive: true });
+
+        root.addEventListener('click', (e) => {
+            const overlay = e.target.closest('.instagram-drag-overlay');
+            if (!overlay || !root.contains(overlay)) return;
+
+            // After a swipe, ignore the synthetic click some browsers fire
+            if (wasDrag) {
+                e.preventDefault();
+                wasDrag = false;
+                return;
+            }
+
+            const url = overlay.getAttribute('data-instagram-url');
+            if (!url) return;
+            e.preventDefault();
+            window.open(url, '_blank', 'noopener,noreferrer');
+        });
+    }
+
+    function initInstagram() {
+        const el = document.getElementById('instagram-swiper');
+        if (!el || instagramSwiper) return;
+
+        setupInstagramTapOverlays(el);
+
+        function refreshInstagramSwiper() {
+            if (!instagramSwiper) return;
+            try {
+                // Clear any stale fixed heights left from earlier autoHeight experiments
+                const wrapper = el.querySelector('.swiper-wrapper');
+                if (wrapper) {
+                    wrapper.style.height = '';
+                    wrapper.style.minHeight = '';
+                }
+                el.style.height = '';
+                instagramSwiper.update();
+                instagramSwiper.updateSize();
+                instagramSwiper.updateSlides();
+            } catch (e) {
+                /* ignore */
+            }
+        }
+
+        function watchInstagramIframeHeights() {
+            const iframes = el.querySelectorAll('iframe');
+            iframes.forEach((iframe) => {
+                if (iframe.dataset.heightWatch === '1') return;
+                iframe.dataset.heightWatch = '1';
+                iframe.addEventListener('load', () => {
+                    refreshInstagramSwiper();
+                    setTimeout(refreshInstagramSwiper, 300);
+                });
+            });
+            // ResizeObserver: Instagram often mutates iframe height after load
+            if (typeof ResizeObserver === 'function') {
+                if (!el._igResizeObserver) {
+                    el._igResizeObserver = new ResizeObserver(() => {
+                        refreshInstagramSwiper();
+                    });
+                }
+                el.querySelectorAll('.instagram-embed-stage, iframe').forEach((node) => {
+                    try { el._igResizeObserver.observe(node); } catch (e) { /* ignore */ }
+                });
+            }
+        }
+
+        instagramSwiper = new Swiper(el, {
+            slidesPerView: 'auto',
+            spaceBetween: 16,
+            centeredSlides: false,
+            allowTouchMove: true,
+            simulateTouch: true,
+            touchStartPreventDefault: false,
+            watchOverflow: true,
+            // autoHeight measures pre-embed (~88px) and clips tall iframes — off
+            autoHeight: false,
+            observer: true,
+            observeParents: true,
+            observeSlideChildren: true,
+            navigation: {
+                nextEl: el.querySelector('.swiper-button-next'),
+                prevEl: el.querySelector('.swiper-button-prev'),
+            },
+            a11y: {
+                prevSlideMessage: 'Previous Instagram post',
+                nextSlideMessage: 'Next Instagram post',
+            },
+            on: {
+                init() {
+                    processInstagramEmbeds();
+                    watchInstagramIframeHeights();
+                    [300, 800, 1500, 3000].forEach((ms) => {
+                        setTimeout(() => {
+                            processInstagramEmbeds();
+                            watchInstagramIframeHeights();
+                            refreshInstagramSwiper();
+                        }, ms);
+                    });
+                },
+                slideChange() {
+                    processInstagramEmbeds();
+                    watchInstagramIframeHeights();
+                },
+                slideChangeTransitionEnd() {
+                    processInstagramEmbeds();
+                    refreshInstagramSwiper();
+                },
+            },
+        });
+    }
+
+    function sync() {
+        if (mq.matches) {
+            initTestimonials();
+            initInstagram();
+            processInstagramEmbeds();
+        } else {
+            testimonialsSwiper = destroySwiper(testimonialsSwiper);
+            instagramSwiper = destroySwiper(instagramSwiper);
+        }
+    }
+
+    sync();
+
+    if (typeof mq.addEventListener === 'function') {
+        mq.addEventListener('change', sync);
+    } else if (typeof mq.addListener === 'function') {
+        mq.addListener(sync);
+    }
+}
+
+/* ========================================
+   Responsive "smart" Swiper helper
+   ----------------------------------------
+   Rules (same 768px breakpoint as initializeMobileSliders):
+   - Mobile  (≤768px): ALWAYS a slider (arrows + drag).
+   - Desktop (>768px): slide count ≤ (desktopMinSlides - 1) → NO Swiper,
+                       the static CSS grid stays as-is.
+                       slide count ≥ desktopMinSlides → Swiper with arrows.
+   Crossing 768px destroys the instance and re-inits with the other mode's
+   options (or leaves it static). Markup follows the testimonials pattern:
+   .swiper > .swiper-wrapper > .swiper-slide + .swiper-button-prev/next.
+   Arrows are hidden in CSS unless the root has .swiper-initialized.
+   ======================================== */
+
+function initResponsiveSwiper(options) {
+    const {
+        selector,
+        mobileQuery = '(max-width: 768px)',
+        desktopMinSlides = 4,
+        mobileOptions = {},
+        desktopOptions = {},
+        a11y = {},
+    } = options || {};
+
+    if (typeof Swiper === 'undefined') return;
+
+    const mq = window.matchMedia(mobileQuery);
+
+    document.querySelectorAll(selector).forEach((root) => {
+        const slideCount = root.querySelectorAll(':scope > .swiper-wrapper > .swiper-slide').length;
+        let instance = null;
+        let currentMode = null;
+
+        // The ≤3-static / ≥4-slider rule lives here.
+        function getMode() {
+            if (mq.matches) return 'mobile';                         // always slide on small screens
+            if (slideCount >= desktopMinSlides) return 'desktop';    // 4+ cards → desktop slider
+            return 'static';                                         // ≤3 cards → keep CSS grid
+        }
+
+        function destroy() {
+            if (!instance) return;
+            try {
+                instance.destroy(true, true);
+            } catch (e) {
+                /* ignore */
+            }
+            instance = null;
+        }
+
+        function build(mode) {
+            const modeOptions = mode === 'mobile' ? mobileOptions : desktopOptions;
+            instance = new Swiper(root, Object.assign({
+                spaceBetween: 16,
+                allowTouchMove: true,
+                watchOverflow: true,
+                navigation: {
+                    nextEl: root.querySelector(':scope > .swiper-button-next'),
+                    prevEl: root.querySelector(':scope > .swiper-button-prev'),
+                },
+                a11y: Object.assign({ enabled: true }, a11y),
+            }, modeOptions));
+        }
+
+        function sync() {
+            const mode = getMode();
+            if (mode === currentMode && (mode === 'static' || instance)) return;
+            destroy();
+            currentMode = mode;
+            root.setAttribute('data-slider-mode', mode);
+            if (mode !== 'static') build(mode);
+        }
+
+        sync();
+
+        if (typeof mq.addEventListener === 'function') {
+            mq.addEventListener('change', sync);
+        } else if (typeof mq.addListener === 'function') {
+            mq.addListener(sync);
+        }
+    });
+}
+
+/* "How do I know if I need therapy for anxiety?" help cards */
+function initHelpGridSwiper() {
+    initResponsiveSwiper({
+        selector: '.help-grid[data-help-swiper]',
+        mobileQuery: '(max-width: 768px)',
+        desktopMinSlides: 4, // ≤3 cards on desktop = static grid, ≥4 = slider
+        mobileOptions: {
+            // Shorter cards than testimonials → a touch more peek
+            slidesPerView: 1.15,
+            spaceBetween: 16,
+        },
+        desktopOptions: {
+            slidesPerView: 2.3,
+            spaceBetween: 32, // = --spacing-lg, same as the static grid gap
+            breakpoints: {
+                1024: { slidesPerView: 3.2 },
+            },
+        },
+        a11y: {
+            // Keep in sync with the buttons' aria-labels (a11y module overwrites them)
+            prevSlideMessage: 'Previous sign of anxiety',
+            nextSlideMessage: 'Next sign of anxiety',
+        },
+    });
+}
+
+/* Anxiety page card rows (approach + related services): mobile-only sliders.
+   Desktop keeps the original CSS grid (desktopMinSlides set high on purpose).
+   Swiper's preventClicksPropagation stops a drag from firing a link click;
+   a plain tap on a .related-card <a> still navigates. */
+function initCardGridSwipers() {
+    document.querySelectorAll('[data-card-swiper]').forEach((root, i) => {
+        if (!root.id) root.id = 'card-swiper-' + i;
+        const label = root.getAttribute('data-swiper-label') || 'card';
+        initResponsiveSwiper({
+            selector: '#' + root.id,
+            mobileQuery: '(max-width: 768px)',
+            desktopMinSlides: 999,
+            mobileOptions: {
+                slidesPerView: 1.15,
+                spaceBetween: 16,
+                preventClicks: true,
+                preventClicksPropagation: true,
+            },
+            a11y: {
+                prevSlideMessage: 'Previous ' + label,
+                nextSlideMessage: 'Next ' + label,
+            },
+        });
+    });
+}
+
 /* Lazy-load Instagram embed.js when the Instagram section nears the viewport */
 (function () {
   var section = document.getElementById('instagram') || document.querySelector('section.instagram');
@@ -522,6 +894,20 @@ function initializePhoneLinks() {
       if (window.instgrm && window.instgrm.Embeds && typeof window.instgrm.Embeds.process === 'function') {
         window.instgrm.Embeds.process();
       }
+      // Nudge Instagram Swiper after embeds paint (width + natural height)
+      function nudgeIgSwiper() {
+        var root = document.getElementById('instagram-swiper');
+        if (!root || !root.swiper) return;
+        var wrapper = root.querySelector('.swiper-wrapper');
+        if (wrapper) wrapper.style.height = '';
+        root.style.height = '';
+        if (typeof root.swiper.update === 'function') root.swiper.update();
+        if (typeof root.swiper.updateSize === 'function') root.swiper.updateSize();
+        if (typeof root.swiper.updateSlides === 'function') root.swiper.updateSlides();
+      }
+      setTimeout(nudgeIgSwiper, 300);
+      setTimeout(nudgeIgSwiper, 800);
+      setTimeout(nudgeIgSwiper, 1500);
     };
     document.body.appendChild(s);
   }
@@ -539,5 +925,87 @@ function initializePhoneLinks() {
     io.observe(section);
   } else {
     loadEmbed();
+  }
+})();
+
+/* Header "Services" dropdown (desktop) / accordion (mobile drawer).
+   Self-contained: does not touch initializeMobileNav or other handlers.
+   Opens on click / Enter / Space (native <button>), ArrowDown opens and focuses
+   the first item, Escape closes and returns focus, outside click closes. */
+(function () {
+  function initServicesDropdown() {
+    var dropdowns = document.querySelectorAll('.nav-dropdown');
+    dropdowns.forEach(function (dd) {
+      var btn = dd.querySelector('.nav-dropdown-toggle');
+      var menu = dd.querySelector('.nav-dropdown-menu');
+      if (!btn || !menu) return;
+
+      function setOpen(open) {
+        dd.classList.toggle('is-open', open);
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      }
+      function isOpen() {
+        return btn.getAttribute('aria-expanded') === 'true';
+      }
+
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        setOpen(!isOpen());
+      });
+
+      btn.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          setOpen(true);
+          var first = menu.querySelector('a');
+          if (first) first.focus();
+        }
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if ((e.key === 'Escape' || e.key === 'Esc') && isOpen()) {
+          var hadFocus = dd.contains(document.activeElement);
+          setOpen(false);
+          if (hadFocus) btn.focus();
+        }
+      });
+
+      document.addEventListener('click', function (e) {
+        if (isOpen() && !dd.contains(e.target)) setOpen(false);
+      });
+
+      // Desktop: close when keyboard focus leaves the dropdown
+      dd.addEventListener('focusout', function (e) {
+        if (e.relatedTarget && !dd.contains(e.relatedTarget) &&
+            window.matchMedia('(min-width: 769px)').matches) {
+          setOpen(false);
+        }
+      });
+
+      // Collapse the accordion when the mobile drawer closes
+      var drawerToggle = document.querySelector('.mobile-menu-toggle');
+      if (drawerToggle) {
+        drawerToggle.addEventListener('click', function () {
+          if (drawerToggle.getAttribute('aria-expanded') !== 'true') {
+            setOpen(false);
+            return;
+          }
+          // Keep the drawer (and its Book now button) within the visible screen,
+          // even when the header sits below the homepage crisis strip.
+          var drawer = dd.closest('.main-nav');
+          var header = dd.closest('.site-header');
+          if (drawer && header && window.matchMedia('(max-width: 768px)').matches) {
+            var room = window.innerHeight - Math.max(0, header.getBoundingClientRect().bottom);
+            drawer.style.maxHeight = Math.max(240, Math.floor(room)) + 'px';
+          }
+        });
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initServicesDropdown);
+  } else {
+    initServicesDropdown();
   }
 })();
