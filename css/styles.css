@@ -1702,9 +1702,11 @@ cite.testimonial-source {
     z-index: 1000;
 }
 
-/* Keep page end scrollable clear of the FAB */
-body {
-    padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px));
+/* Page ends at the footer (no body padding → no white strip below it).
+   The FAB is kept clear of footer text by .footer-bottom's right padding;
+   the footer itself absorbs the iOS home-indicator inset. */
+.site-footer {
+    padding-bottom: calc(var(--spacing-lg) + env(safe-area-inset-bottom, 0px));
 }
 
 .whatsapp-fab:hover,
