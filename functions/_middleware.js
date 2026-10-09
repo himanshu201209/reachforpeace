@@ -36,6 +36,20 @@ function markdownAssetPath(pathname) {
     "/privacy.html": "/content/privacy.md",
     "/terms": "/content/terms.md",
     "/terms.html": "/content/terms.md",
+    "/about": "/content/about.md",
+    "/about.html": "/content/about.md",
+    "/therapy-for-anxiety": "/content/therapy-for-anxiety.md",
+    "/therapy-for-anxiety.html": "/content/therapy-for-anxiety.md",
+    "/stress-and-burnout-counselling": "/content/stress-and-burnout-counselling.md",
+    "/stress-and-burnout-counselling.html": "/content/stress-and-burnout-counselling.md",
+    "/relationship-counselling": "/content/relationship-counselling.md",
+    "/relationship-counselling.html": "/content/relationship-counselling.md",
+    "/career-counselling": "/content/career-counselling.md",
+    "/career-counselling.html": "/content/career-counselling.md",
+    "/psychologist-delhi-gurugram": "/content/psychologist-delhi-gurugram.md",
+    "/psychologist-delhi-gurugram.html": "/content/psychologist-delhi-gurugram.md",
+    // Note: /life-goals-and-clarity is intentionally NOT mapped; it 301s to
+    // /career-counselling via _redirects.
   };
   return map[path] || null;
 }
@@ -108,6 +122,10 @@ export async function onRequest(context) {
           "content-signal",
           "ai-train=yes, search=yes, ai-input=yes"
         );
+        if (host.endsWith(".pages.dev")) {
+          // Staging/preview hosts: keep markdown variants out of search too
+          headers.set("X-Robots-Tag", "noindex, nofollow");
+        }
         if (host === "reachforpeace.in") {
           const canonicalPath =
             url.pathname === "/index.html" ? "/" : url.pathname;
@@ -125,6 +143,22 @@ export async function onRequest(context) {
   }
 
   const response = await context.next();
+
+  // Raw markdown files (/content/*.md): readable by anyone, but keep them out of
+  // search results and point search engines to the real HTML page.
+  const rawMd = url.pathname.match(/^\/content\/([a-z0-9-]+)\.md$/i);
+  if (rawMd && response.ok) {
+    const headers = withSecurityHeaders(new Headers(response.headers));
+    const slug = rawMd[1].toLowerCase();
+    const pagePath = slug === "index" ? "/" : `/${slug}`;
+    headers.set("X-Robots-Tag", host.endsWith(".pages.dev") ? "noindex, nofollow" : "noindex");
+    headers.set("Link", `<https://reachforpeace.in${pagePath}>; rel="canonical"`);
+    return new Response(response.body, {
+      status: response.status,
+      statusText: response.statusText,
+      headers,
+    });
+  }
 
   if (host.endsWith(".pages.dev")) {
     const headers = withSecurityHeaders(new Headers(response.headers));

@@ -303,6 +303,20 @@ function initializeWhatsAppLinks() {
 }
 
 /* ========================================
+   Footer email click (Clarity custom event)
+   Delegated so it works on every page that loads main.js.
+   Does not preventDefault, so the mailto: link still opens.
+   ======================================== */
+
+document.addEventListener('click', function (e) {
+    const target = e.target;
+    if (!target || typeof target.closest !== 'function') return;
+    if (target.closest('#footer-email')) {
+        trackClarityEvent('footer_email_click');
+    }
+});
+
+/* ========================================
    Smooth Scroll
    ======================================== */
 

@@ -1,13 +1,13 @@
 ---
 title: "Privacy Policy | Reach for Peace"
 description: "Privacy Policy for Reach for Peace online therapy with Dr. Lisha Jindal."
+image: https://reachforpeace.in/assets/og-reach-for-peace.png
+canonical: https://reachforpeace.in/privacy
 ---
-
-[Skip to main content](#main-content)
 
 # Privacy Policy
 
-Last updated: September 2026
+*Last updated: September 2026*
 
 ## Who we are
 
@@ -18,13 +18,9 @@ Reach for Peace (“we”, “our”, “us”) is an online therapy practice fo
 Depending on how you contact us, we may collect:
 
 - Identity and contact details (name, phone number, email, preferred language/time zone)
-
 - Booking and session details (package chosen, appointment times, attendance)
-
 - Clinical information you share in sessions or intake forms (session notes kept confidentially)
-
 - Payment or invoice references needed to confirm fees (card data is handled by the payment provider if used)
-
 - Limited technical data when you browse the site (e.g. device/browser type, pages visited), if analytics are enabled
 
 ## How we use your information
@@ -32,13 +28,9 @@ Depending on how you contact us, we may collect:
 We use personal information to:
 
 - Respond to enquiries and schedule sessions or fit calls
-
 - Provide therapy and related professional care
-
 - Send appointment reminders and service communications
-
 - Process fees and maintain clinical/administrative records as required by professional standards
-
 - Improve our website and services (in aggregated or de-identified form where possible)
 
 ## Confidentiality
@@ -46,9 +38,7 @@ We use personal information to:
 Therapy content is confidential in line with professional ethical guidelines for psychologists. We do not share your clinical information except:
 
 - With your clear consent
-
 - When required by law
-
 - Where there is a serious risk of harm to you or others, in line with duty-of-care obligations
 
 ## Sharing with third parties
@@ -73,6 +63,14 @@ We may update this policy from time to time. The “Last updated” date at the 
 
 ## Contact
 
-For privacy questions or requests, email admin@reachforpeace.in .
+For privacy questions or requests, email [admin@reachforpeace.in](mailto:admin@reachforpeace.in).
 
-Return to Home
+[Return to Home](https://reachforpeace.in/)
+
+## Contact details
+
+- Call: [+91 99999 20290](tel:+919999920290)
+- WhatsApp: [+91 99999 20290](https://wa.me/919999920290)
+- Email: [admin@reachforpeace.in](mailto:admin@reachforpeace.in)
+- Instagram: [@reach.for.peace](https://www.instagram.com/reach.for.peace/)
+- Hours: Monday – Sunday, by appointment only
