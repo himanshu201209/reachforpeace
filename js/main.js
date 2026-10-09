@@ -927,3 +927,85 @@ function initCardGridSwipers() {
     loadEmbed();
   }
 })();
+
+/* Header "Services" dropdown (desktop) / accordion (mobile drawer).
+   Self-contained: does not touch initializeMobileNav or other handlers.
+   Opens on click / Enter / Space (native <button>), ArrowDown opens and focuses
+   the first item, Escape closes and returns focus, outside click closes. */
+(function () {
+  function initServicesDropdown() {
+    var dropdowns = document.querySelectorAll('.nav-dropdown');
+    dropdowns.forEach(function (dd) {
+      var btn = dd.querySelector('.nav-dropdown-toggle');
+      var menu = dd.querySelector('.nav-dropdown-menu');
+      if (!btn || !menu) return;
+
+      function setOpen(open) {
+        dd.classList.toggle('is-open', open);
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      }
+      function isOpen() {
+        return btn.getAttribute('aria-expanded') === 'true';
+      }
+
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        setOpen(!isOpen());
+      });
+
+      btn.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          setOpen(true);
+          var first = menu.querySelector('a');
+          if (first) first.focus();
+        }
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if ((e.key === 'Escape' || e.key === 'Esc') && isOpen()) {
+          var hadFocus = dd.contains(document.activeElement);
+          setOpen(false);
+          if (hadFocus) btn.focus();
+        }
+      });
+
+      document.addEventListener('click', function (e) {
+        if (isOpen() && !dd.contains(e.target)) setOpen(false);
+      });
+
+      // Desktop: close when keyboard focus leaves the dropdown
+      dd.addEventListener('focusout', function (e) {
+        if (e.relatedTarget && !dd.contains(e.relatedTarget) &&
+            window.matchMedia('(min-width: 769px)').matches) {
+          setOpen(false);
+        }
+      });
+
+      // Collapse the accordion when the mobile drawer closes
+      var drawerToggle = document.querySelector('.mobile-menu-toggle');
+      if (drawerToggle) {
+        drawerToggle.addEventListener('click', function () {
+          if (drawerToggle.getAttribute('aria-expanded') !== 'true') {
+            setOpen(false);
+            return;
+          }
+          // Keep the drawer (and its Book now button) within the visible screen,
+          // even when the header sits below the homepage crisis strip.
+          var drawer = dd.closest('.main-nav');
+          var header = dd.closest('.site-header');
+          if (drawer && header && window.matchMedia('(max-width: 768px)').matches) {
+            var room = window.innerHeight - Math.max(0, header.getBoundingClientRect().bottom);
+            drawer.style.maxHeight = Math.max(240, Math.floor(room)) + 'px';
+          }
+        });
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initServicesDropdown);
+  } else {
+    initServicesDropdown();
+  }
+})();
