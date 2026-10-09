@@ -3449,3 +3449,20 @@ h2::after {
         touch-action: pan-y;
     }
 }
+
+
+/* Arrow inside a button ("Read my story →"): own flex item, optically
+   centred on the text (the → glyph sits on the x-height, below the
+   visual middle of mixed-case text). Reusable via .btn-arrow. */
+.btn .btn-arrow {
+    display: inline-block;
+    line-height: 1;
+    margin-left: -0.15rem; /* .btn gap (0.5rem) + glyph bearing reads too wide */
+    transform: translateY(-0.1em);
+    transition: transform var(--transition-fast);
+}
+
+.btn:hover .btn-arrow,
+.btn:focus-visible .btn-arrow {
+    transform: translate(0.15em, -0.1em);
+}
