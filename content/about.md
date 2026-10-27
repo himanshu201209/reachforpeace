@@ -1,7 +1,7 @@
 ---
 title: "About Dr. Lisha Jindal, Psychologist | Reach for Peace"
 description: "Meet Dr. Lisha Jindal, psychologist and founder of Reach for Peace: her background, training and approach. Online therapy for teens and adults."
-image: https://reachforpeace.in/assets/og/og-about.jpg
+image: https://reachforpeace.in/assets/og/og-about-lisha.jpg
 canonical: https://reachforpeace.in/about
 ---
 
