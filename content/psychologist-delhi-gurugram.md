@@ -1,5 +1,5 @@
 ---
-title: "Psychologist in Delhi & Gurugram | Dr. Lisha Jindal"
+title: "Psychologist in Delhi & Gurugram | Reach for Peace"
 description: "Psychologist Dr. Lisha Jindal is based in Gurugram and works online with people across Delhi NCR. 50-min sessions in English & Hindi. Book on WhatsApp."
 image: https://reachforpeace.in/assets/og/og-psychologist-delhi-gurugram.jpg
 canonical: https://reachforpeace.in/psychologist-delhi-gurugram

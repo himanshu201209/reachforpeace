@@ -1,5 +1,5 @@
 ---
-title: "Online Therapy & Counselling | Psychologist Dr. Lisha Jindal"
+title: "Online Therapy & Counselling | Reach for Peace"
 description: "Online therapy and counselling with psychologist Dr. Lisha Jindal for anxiety, stress, relationships and career pressure. English & Hindi. Book on WhatsApp."
 image: https://reachforpeace.in/assets/og-reach-for-peace.png
 canonical: https://reachforpeace.in/

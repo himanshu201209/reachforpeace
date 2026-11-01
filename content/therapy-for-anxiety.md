@@ -1,5 +1,5 @@
 ---
-title: "Anxiety Therapy & Counselling | Dr. Lisha Jindal"
+title: "Anxiety Therapy & Counselling | Reach for Peace"
 description: "Online anxiety therapy and counselling with psychologist Dr. Lisha Jindal. Help with worry, overthinking and panic, in English & Hindi. Book on WhatsApp."
 image: https://reachforpeace.in/assets/og/og-therapy-for-anxiety.jpg
 canonical: https://reachforpeace.in/therapy-for-anxiety

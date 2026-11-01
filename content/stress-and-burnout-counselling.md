@@ -1,5 +1,5 @@
 ---
-title: "Stress & Burnout Counselling | Psychologist Dr. Lisha Jindal"
+title: "Stress & Burnout Counselling | Reach for Peace"
 description: "Counselling for work stress, burnout and exam pressure with psychologist Dr. Lisha Jindal. 50-min online sessions in English & Hindi. Book on WhatsApp."
 image: https://reachforpeace.in/assets/og/og-stress-and-burnout-counselling.jpg
 canonical: https://reachforpeace.in/stress-and-burnout-counselling
