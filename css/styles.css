@@ -3,6 +3,39 @@
    Navy #164886 · Gold #c4af62 · White #FFFFFF
    ======================================== */
 
+/* Self-hosted Fonts */
+@font-face {
+    font-family: 'Lora';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../assets/fonts/lora-v37-latin-regular.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Lora';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('../assets/fonts/lora-v37-latin-700.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Source Sans 3';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../assets/fonts/source-sans-3-v20-latin-regular.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Source Sans 3';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('../assets/fonts/source-sans-3-v20-latin-600.woff2') format('woff2');
+}
+
 /* CSS Custom Properties (Design Tokens) */
 :root {
     /* Colors - Logo Palette */
