@@ -1,5 +1,5 @@
 ---
-title: "Online Therapy & Counselling | Psychologist Dr. Lisha Jindal"
+title: "Online Therapy & Counselling | Reach for Peace"
 description: "Online therapy and counselling with psychologist Dr. Lisha Jindal for anxiety, stress, relationships and career pressure. English & Hindi. Book on WhatsApp."
 image: https://reachforpeace.in/assets/og-reach-for-peace.png
 canonical: https://reachforpeace.in/
@@ -7,7 +7,7 @@ canonical: https://reachforpeace.in/
 
 > In crisis? Tele-MANAS 14416 (govt helpline) — This clinic is not a 24×7 emergency service [Call 14416](tel:14416)
 
-# Online therapy, wherever you are. Feel heard, supported, and clear.
+# Overthinking, stress or relationship trouble? Talk it through with Dr. Lisha Jindal
 
 Online therapy and counselling for clients worldwide. Reach for Peace provides professional therapy for anxiety, stress, burnout, relationship counselling, family concerns, and low mood with psychologist Dr. Lisha Jindal.
 
